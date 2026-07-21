@@ -6,6 +6,11 @@
 const EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/";
 const COMMON = "tool=tensorust-counterfactual&email=mattbusel@gmail.com";
 const RETMAX = 60;
+const PAUSE_MS = 400;
+
+function pause(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function clean(value, limit) {
   return (value || "").replace(/[\[\]{}<>]/g, " ").replace(/\s+/g, " ").trim().slice(0, limit);
@@ -57,10 +62,23 @@ function extractRecords(xml) {
   }).filter(item => item.pmid && item.title);
 }
 
+async function politeFetch(url) {
+  // NCBI permits a small request rate without an API key. Vercel functions can
+  // share outbound IPs, so retry transient throttling rather than making a
+  // visitor see a failed report for a temporary 429.
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const response = await fetch(url);
+    if (response.ok) return response;
+    if (response.status !== 429 && response.status < 500) {
+      throw new Error(`PubMed returned HTTP ${response.status}`);
+    }
+    if (attempt < 2) await pause(900 * (attempt + 1));
+  }
+  throw new Error("PubMed is temporarily rate-limiting requests");
+}
+
 async function fetchJson(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`PubMed returned HTTP ${response.status}`);
-  return response.json();
+  return (await politeFetch(url)).json();
 }
 
 async function recordsFor(term) {
@@ -69,8 +87,8 @@ async function recordsFor(term) {
   const result = search.esearchresult || {};
   const ids = result.idlist || [];
   if (!ids.length) return { total: Number(result.count || 0), records: [] };
-  const response = await fetch(`${EUTILS}efetch.fcgi?db=pubmed&id=${ids.join(",")}&retmode=xml&${COMMON}`);
-  if (!response.ok) throw new Error(`PubMed fetch returned HTTP ${response.status}`);
+  await pause(PAUSE_MS);
+  const response = await politeFetch(`${EUTILS}efetch.fcgi?db=pubmed&id=${ids.join(",")}&retmode=xml&${COMMON}`);
   return { total: Number(result.count || 0), records: extractRecords(await response.text()) };
 }
 
@@ -94,6 +112,7 @@ module.exports = async function handler(req, res) {
     const evidenceQuery = claimTerm(topic, claim);
     const misconceptionQuery = `(${topic}) AND (myth OR myths OR misconception OR misconceptions OR controversy OR controversies OR belief OR beliefs)`;
     const evidence = await recordsFor(evidenceQuery);
+    await pause(PAUSE_MS);
     const misconception = await recordsFor(misconceptionQuery);
     const ranked = evidence.records.sort((a, b) => b.score - a.score).slice(0, 8);
     const misconceptionSources = misconception.records.sort((a, b) => b.score - a.score).slice(0, 5);
