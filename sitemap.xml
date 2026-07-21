@@ -2,6 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://tensorust-site.vercel.app/</loc><lastmod>2026-07-21</lastmod></url>
   <url><loc>https://tensorust-site.vercel.app/library</loc><lastmod>2026-07-21</lastmod></url>
+  <url><loc>https://tensorust-site.vercel.app/insights</loc><lastmod>2026-07-21</lastmod></url>
+  <url><loc>https://tensorust-site.vercel.app/insights/glp-1-obesity-landscape</loc><lastmod>2026-07-21</lastmod></url>
+  <url><loc>https://tensorust-site.vercel.app/insights/alzheimers-landscape</loc><lastmod>2026-07-21</lastmod></url>
+  <url><loc>https://tensorust-site.vercel.app/insights/car-t-cell-therapy-landscape</loc><lastmod>2026-07-21</lastmod></url>
   <url><loc>https://tensorust-site.vercel.app/kol/glp-1-obesity</loc><lastmod>2026-07-21</lastmod></url>
   <url><loc>https://tensorust-site.vercel.app/kol/alzheimers-disease</loc><lastmod>2026-07-21</lastmod></url>
   <url><loc>https://tensorust-site.vercel.app/kol/type-2-diabetes</loc><lastmod>2026-07-21</lastmod></url>

@@ -86,13 +86,39 @@
   .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
   .card h3{margin:0 0 8px;font-size:17px}
   .card p{margin:0;color:var(--muted);font-size:14.5px}
+  .value-grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:16px;margin-top:22px}
+  .value-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .value-card h3{margin:0 0 7px;font-size:16px}
+  .value-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.52}
+  .value-card .proof{display:block;margin-top:12px;color:var(--accent2);font-size:12px;font-weight:700;line-height:1.4}
+  .value-card.lead{border-color:#31546b;background:linear-gradient(145deg,#10202a,#101828)}
+  .value-card.lead h3{color:#f8fafc}.value-card.lead p{color:#cbd5e1}.value-card.lead .proof{color:#5eead4}
+  .usecase-card{display:flex;flex-direction:column;min-height:210px}
+  .usecase-card .question{color:var(--text);font-size:14px;line-height:1.45;margin-top:2px}
+  .usecase-card .next{margin-top:auto;padding-top:16px;color:var(--accent2);font-size:13px;font-weight:700}
+  @media(max-width:820px){.value-grid{grid-template-columns:1fr}}
   .card .tag{display:inline-block;font-size:11px;color:var(--accent2);
     border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:12px;
     text-transform:uppercase;letter-spacing:.08em}
-  .example{display:flex;flex-direction:column;justify-content:space-between}
-  .example .foot{margin-top:16px}
+  .examples-grid{margin-top:24px}
+  .example{display:flex;flex-direction:column;justify-content:space-between;min-height:260px;position:relative;overflow:hidden}
+  .example.featured{grid-column:span 2;background:linear-gradient(135deg,#111827 0%,#172554 56%,#0f766e 150%);border-color:#28405d}
+  .example.featured h3,.example.featured p,.example.featured .example-meta{color:#f8fafc}
+  .example.featured p{color:#dbeafe}
+  .example.featured:after{content:"";position:absolute;width:220px;height:220px;right:-75px;bottom:-105px;border:1px solid rgba(45,212,191,.38);border-radius:50%;box-shadow:0 0 0 28px rgba(45,212,191,.07),0 0 0 58px rgba(249,115,22,.06)}
+  .example .tag{margin-bottom:13px}
+  .example h3{font-size:19px;line-height:1.2;margin-bottom:10px}
+  .example-copy{font-size:14.5px;line-height:1.5}
+  .example-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px;position:relative;z-index:1}
+  .example-meta span{font-size:11px;font-weight:700;letter-spacing:.02em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 8px;background:rgba(15,23,42,.02)}
+  .featured .example-meta span{color:#ccfbf1;border-color:rgba(153,246,228,.32);background:rgba(15,118,110,.25)}
+  .example .foot{margin-top:18px;position:relative;z-index:1}
   .example a.dl{color:var(--accent);font-weight:700;font-size:14px}
   .example a.dl:hover{color:var(--accent2)}
+  .featured a.dl{color:#5eead4}
+  .featured a.dl:hover{color:#fdba74}
+  @media(max-width:960px){.example.featured{grid-column:span 2}}
+  @media(max-width:560px){.example.featured{grid-column:span 1}.example{min-height:0}}
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;text-align:center}
   @media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
   .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
@@ -126,6 +152,23 @@
   @media(max-width:820px){.trygrid{grid-template-columns:1fr}}
   .trynote{color:var(--muted);font-size:13px;margin-top:14px}
   .tryloading{color:var(--accent2)}
+  .sharebar{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    margin-top:18px;padding:12px 14px;background:var(--panel2);border:1px solid var(--line);
+    border-radius:10px;color:var(--muted);font-size:13px}
+  .sharebar button{background:transparent;color:var(--accent2);border:1px solid var(--line);
+    border-radius:8px;padding:7px 10px;cursor:pointer;font-weight:700;white-space:nowrap}
+  .sharebar button:hover{border-color:var(--accent)}
+  @media(max-width:560px){.sharebar{align-items:flex-start;flex-direction:column}}
+  .leadform{max-width:760px;margin:22px auto 0;display:grid;grid-template-columns:1fr 1fr;
+    gap:12px;text-align:left}
+  .leadform .wide{grid-column:1/-1}
+  .leadform label{display:block;color:var(--muted);font-size:13px;margin:0 0 5px}
+  .leadform input,.leadform select{width:100%;background:var(--panel);border:1px solid var(--line);
+    color:var(--text);border-radius:10px;padding:12px 14px;font:inherit}
+  .leadform input:focus,.leadform select:focus{outline:none;border-color:var(--accent)}
+  .leadform .formnote{grid-column:1/-1;color:var(--muted);font-size:12.5px;margin:0}
+  .leadstatus{max-width:760px;margin:12px auto 0;color:var(--accent2);font-size:13px;min-height:1.6em}
+  @media(max-width:680px){.leadform{grid-template-columns:1fr}.leadform .wide{grid-column:auto}}
   .cfgrid{display:grid;grid-template-columns:1fr 1.3fr;gap:10px}
   @media(max-width:820px){.cfgrid{grid-template-columns:1fr}}
   .cfgrid textarea.tryin{min-height:74px;resize:vertical}
@@ -150,8 +193,10 @@
   <div class="navlinks">
     <a href="#try">Try it</a>
     <a href="#counterfactual">Counterfactual</a>
+    <a href="#use-cases">Use cases</a>
     <a href="#data">Data</a>
     <a href="#examples">Examples</a>
+    <a href="/insights">Decision pages</a>
     <a href="#industries">Industries</a>
     <a href="#offer">Capabilities</a>
     <a href="/library">Library</a>
@@ -162,17 +207,40 @@
 </div></nav>
 
 <header><div class="wrap">
-  <div class="kicker">Tensorust Intelligence</div>
-  <h1>Decision-grade intelligence,<br>built from public data.</h1>
-  <p class="lede">We built an engine that turns open public data into cited, verifiable
-  intelligence on demand: research landscapes, KOL maps, competitive and market signals,
-  for any topic, indication, or technology. Fast, any domain, and every figure links
-  back to its source, so you can check the work.</p>
+  <div class="kicker">Cited public-data intelligence</div>
+  <h1>Stop paying people to<br>build the first spreadsheet.</h1>
+  <p class="lede">Tensorust turns open public records into a cited starting packet for a
+  real decision. It replaces the first-pass work of finding sources, organizing them,
+  ranking visible research activity, and assembling an auditable brief - so your team can
+  spend its time reviewing evidence instead of building the starting file.</p>
   <div class="cta">
-    <a class="btn" href="#examples">See example briefs</a>
-    <a class="btn ghost" href="#contact">Talk to us</a>
+    <a class="btn" href="#value">How it saves time and spend</a>
+    <a class="btn ghost" href="#mini-brief">Get a free 1-page brief</a>
   </div>
 </div></header>
+
+<section id="value"><div class="wrap">
+  <h2>How the work saves time and spend</h2>
+  <div class="h2sub">No vague ROI promise. These are the parts of the workflow that become inspectable, reusable, and easier to review.</div>
+  <div class="value-grid">
+    <div class="value-card lead">
+      <h3>Replace the manual first pass</h3>
+      <p>Instead of opening dozens of tabs, exporting records, making a first shortlist, and formatting citations, start with a structured public-record packet built around your question.</p>
+      <span class="proof">Proof you can check: every sample contains direct PMID, DOI, patent, or public-record links.</span>
+    </div>
+    <div class="value-card">
+      <h3>Give experts a better starting point</h3>
+      <p>Your internal scientists, strategy leads, and BD team can review the evidence and challenge the assumptions instead of spending their first hours collecting public source material.</p>
+      <span class="proof">Why this is real: the brief separates source facts from limits and does not turn a literature count into a recommendation.</span>
+    </div>
+    <div class="value-card">
+      <h3>Pay for a defined output, not data-seat setup</h3>
+      <p>Tensorust builds on open, permitted source layers. That means a team can buy a defined cited brief for a question rather than start by licensing a general database just to assemble a first view.</p>
+      <span class="proof">Scope check: every packet names its sources, retrieval scope, and what it does not establish.</span>
+    </div>
+  </div>
+  <p class="h2note" style="margin-top:18px">Tensorust does not replace subject-matter judgment, systematic review, legal review, or clinical diligence. It makes the public-record starting work visible and easier to verify.</p>
+</div></section>
 
 <section id="what"><div class="wrap">
   <h2>What we do</h2>
@@ -187,6 +255,56 @@
     <div class="card"><h3>Honest by design</h3><p>We never fabricate demand, contacts,
       or outcomes. Limits are stated plainly in every brief.</p></div>
   </div>
+</div></section>
+
+<section id="use-cases"><div class="wrap">
+  <h2>Start with the decision you already have</h2>
+  <div class="h2sub">Choose a question. Tensorust assembles a cited public-record starting point around it.</div>
+  <div class="grid g3" style="margin-top:22px">
+    <div class="card usecase-card">
+      <span class="tag">Medical affairs</span><h3>Who is shaping this disease area?</h3>
+      <p class="question">Map visible researchers, institutions, and active subtopics before an external-science plan or a focused expert review.</p>
+      <a class="next" href="#try">Try a research-leader preview &rsaquo;</a>
+    </div>
+    <div class="card usecase-card">
+      <span class="tag">R&amp;D and strategy</span><h3>What is changing in this technology?</h3>
+      <p class="question">Use a landscape to locate current research activity, leading organizations, visible themes, and source records to inspect next.</p>
+      <a class="next" href="#examples">See a landscape example &rsaquo;</a>
+    </div>
+    <div class="card usecase-card">
+      <span class="tag">Business development</span><h3>Where should we look before outreach?</h3>
+      <p class="question">Build a cited picture of the science and public activity around a molecule, platform, competitor set, or therapeutic area.</p>
+      <a class="next" href="#mini-brief">Request a free starting brief &rsaquo;</a>
+    </div>
+    <div class="card usecase-card">
+      <span class="tag">Portfolio and diligence</span><h3>Does this topic justify deeper work?</h3>
+      <p class="question">Use a transparent public-source packet to decide whether a field, asset, or technical question is worth spending expert time on next.</p>
+      <a class="next" href="samples/tensorust-portfolio-diligence-geographic-atrophy.pdf" target="_blank">Open a diligence packet &rsaquo;</a>
+    </div>
+    <div class="card usecase-card">
+      <span class="tag">Engineering and sustainability</span><h3>Is a common claim actually supported?</h3>
+      <p class="question">Test a set of claims against linked sources, separating what is supported, overstated, unresolved, or plainly not established.</p>
+      <a class="next" href="#counterfactual">Try the Counterfactual finder &rsaquo;</a>
+    </div>
+    <div class="card usecase-card">
+      <span class="tag">Competitive monitoring</span><h3>What should we keep watching?</h3>
+      <p class="question">Turn a topic into a repeatable source scope for ongoing landscapes, research-leader maps, or a monitored public-record pulse.</p>
+      <a class="next" href="#contact">Describe the monitoring question &rsaquo;</a>
+    </div>
+  </div>
+</div></section>
+
+<section id="decision-pages"><div class="wrap">
+  <h2>Decision pages</h2>
+  <div class="h2sub">Useful public research signals for decisions your team is already making.</div>
+  <p class="h2note">Each page is a source-linked starting point, not a claim of clinical,
+  commercial, or investment truth. Inspect the cited record before acting.</p>
+  <div class="grid g3">
+    <a class="card" href="/insights/glp-1-obesity-landscape"><span class="tag">Research landscape</span><h3>GLP-1 and obesity</h3><p>599 recent public records, active subtopics, linked papers, and a clear starting point for external-science review.</p></a>
+    <a class="card" href="/insights/alzheimers-landscape"><span class="tag">Research landscape</span><h3>Alzheimer's disease</h3><p>600 recent public records across amyloid, tau, biomarkers, and related research signals.</p></a>
+    <a class="card" href="/insights/car-t-cell-therapy-landscape"><span class="tag">Research landscape</span><h3>CAR-T cell therapy</h3><p>600 recent public records covering adoptive immunotherapy, CAR engineering, and tumor microenvironment work.</p></a>
+  </div>
+  <p class="h2note" style="margin-top:20px"><a href="/insights" style="color:var(--accent2);font-weight:700">Browse all decision pages &rsaquo;</a></p>
 </div></section>
 
 <section id="try"><div class="wrap">
@@ -260,65 +378,84 @@
 </div></section>
 
 <section id="examples"><div class="wrap">
-  <h2>Cited work you can inspect</h2>
-  <div class="h2sub">Real source-linked briefs from current Tensorust workflows. Download and check the sources.</div>
-  <div class="grid g4" style="margin-top:20px">
+  <h2>See the work, not just the promise</h2>
+  <div class="h2sub">Real source-linked packets built from public records. Open any PDF, inspect the citations, and see exactly what a team receives.</div>
+  <div class="grid g4 examples-grid">
+    <div class="card example featured">
+      <div>
+        <span class="tag">Featured - Portfolio Diligence</span>
+        <h3>Geographic Atrophy Diligence Brief</h3>
+        <p class="example-copy">A four-page decision packet that turns a broad research question into an auditable starting point: activity, research leaders, institutions, topics, and direct PubMed links.</p>
+        <div class="example-meta"><span>4 pages</span><span>Current PubMed</span><span>Direct PMID links</span></div>
+      </div>
+      <div class="foot"><a class="dl" href="samples/tensorust-portfolio-diligence-geographic-atrophy.pdf" target="_blank">Open the full cited brief &rsaquo;</a></div>
+    </div>
+    <div class="card example">
+      <div>
+        <span class="tag">Pharma / KOL</span>
+        <h3>GLP-1 / Obesity Research-Leader Map</h3>
+        <p class="example-copy">A ready-to-review view of the public researchers, institutions, and recurring topics behind a major therapeutic area.</p>
+        <div class="example-meta"><span>Recent records</span><span>Leader shortlist</span><span>Limits stated</span></div>
+      </div>
+      <div class="foot"><a class="dl" href="samples/sample-kol-glp-1-obesity.pdf" target="_blank">Open the cited map &rsaquo;</a></div>
+    </div>
+    <div class="card example">
+      <div>
+        <span class="tag">Pharma / KOL</span>
+        <h3>Alzheimer's Disease Research-Leader Map</h3>
+        <p class="example-copy">A source-linked discovery layer for medical affairs, strategy, and BD teams scoping a large and fast-moving disease area.</p>
+        <div class="example-meta"><span>Recent records</span><span>Institution view</span><span>PMID audit trail</span></div>
+      </div>
+      <div class="foot"><a class="dl" href="samples/sample-kol-alzheimers-disease.pdf" target="_blank">Open the cited map &rsaquo;</a></div>
+    </div>
     <div class="card example">
       <div>
         <span class="tag">Battery &amp; Energy</span>
-        <h3>Battery Materials Landscape</h3>
-        <p>Momentum, leading R&amp;D organizations, active subtopics, and the most-cited
-        work in battery materials and energy storage.</p>
+        <h3>Solid-State Battery Materials</h3>
+        <p class="example-copy">A cited public-record landscape for quickly locating research momentum, visible institutions, technical themes, and papers worth opening first.</p>
+        <div class="example-meta"><span>Research momentum</span><span>Institution scan</span><span>Cited papers</span></div>
       </div>
-      <div class="foot"><a class="dl" href="samples/sample-brief-battery-materials.pdf" target="_blank">Download PDF &rsaquo;</a></div>
-    </div>
-    <div class="card example">
-      <div>
-        <span class="tag">Pharma / KOL</span>
-        <h3>GLP-1 / Obesity KOL Map</h3>
-        <p>Top research leaders and institutions in GLP-1 / obesity, from recent PubMed
-        records. Every researcher verifiable by PMID.</p>
-      </div>
-      <div class="foot"><a class="dl" href="samples/sample-kol-glp-1-obesity.pdf" target="_blank">Download PDF &rsaquo;</a></div>
-    </div>
-    <div class="card example">
-      <div>
-        <span class="tag">Pharma / KOL</span>
-        <h3>Alzheimer's Disease KOL Map</h3>
-        <p>Leading researchers and centers in Alzheimer's disease, ranked from recent
-        publication activity and fully citable.</p>
-      </div>
-      <div class="foot"><a class="dl" href="samples/sample-kol-alzheimers-disease.pdf" target="_blank">Download PDF &rsaquo;</a></div>
+      <div class="foot"><a class="dl" href="samples/tensorust-battery-materials-research-landscape.pdf" target="_blank">Open the landscape &rsaquo;</a></div>
     </div>
     <div class="card example">
       <div>
         <span class="tag">Advanced Materials</span>
         <h3>Graphene / 2D Materials</h3>
-        <p>A cited snapshot of momentum, leading institutions, and must-read work in
-        graphene and 2D-materials research.</p>
+        <p class="example-copy">A cited snapshot of the research landscape for teams judging where the field is active and which work merits deeper review.</p>
+        <div class="example-meta"><span>Topic trends</span><span>Leading institutions</span><span>Source linked</span></div>
       </div>
-      <div class="foot"><a class="dl" href="samples/sample-brief-graphene-research-and-applications.pdf" target="_blank">Download PDF &rsaquo;</a></div>
+      <div class="foot"><a class="dl" href="samples/tensorust-graphene-2d-materials-research-landscape.pdf" target="_blank">Open the landscape &rsaquo;</a></div>
     </div>
     <div class="card example">
       <div>
         <span class="tag">Portfolio Diligence</span>
-        <h3>Geographic Atrophy Diligence Brief</h3>
-        <p>Four pages of cited research momentum, public leaders, institutions, indexed topics, and direct PubMed audit links.</p>
+        <h3>CRISPR-Enabled CAR-T Cell Therapy</h3>
+        <p class="example-copy">A polished research-leadership and momentum packet for scoping an emerging platform area without treating publication volume as a commercial conclusion.</p>
+        <div class="example-meta"><span>600 records</span><span>4 pages</span><span>Source-limited</span></div>
       </div>
-      <div class="foot"><a class="dl" href="samples/tensorust-portfolio-diligence-geographic-atrophy.pdf" target="_blank">Inspect the full brief &rsaquo;</a></div>
+      <div class="foot"><a class="dl" href="samples/tensorust-caribou-crispr-cart.pdf" target="_blank">Open the diligence packet &rsaquo;</a></div>
+    </div>
+    <div class="card example">
+      <div>
+        <span class="tag">Cell Therapy</span>
+        <h3>Allogeneic iPSC Cell Therapy</h3>
+        <p class="example-copy">A cited, visually checked sample that shows the research and institution signals a team can use to frame deeper diligence.</p>
+        <div class="example-meta"><span>270 records</span><span>4 pages</span><span>PMID citations</span></div>
+      </div>
+      <div class="foot"><a class="dl" href="samples/tensorust-century-allogeneic-ipsc.pdf" target="_blank">Open the diligence packet &rsaquo;</a></div>
     </div>
     <div class="card example">
       <div>
         <span class="tag">Counterfactual Evidence</span>
         <h3>Wind-Blade Recycling Evidence Audit</h3>
-        <p>Twenty common absolute claims tested against cited Crossref and U.S. DOE records, with limits stated for every conclusion.</p>
+        <p class="example-copy">Twenty common absolute claims tested against cited Crossref and U.S. DOE records, with a transparent decision and limits for each claim.</p>
+        <div class="example-meta"><span>20 claims</span><span>DOE + Crossref</span><span>Claim-by-claim</span></div>
       </div>
-      <div class="foot"><a class="dl" href="samples/tensorust-engineering-counterfactual-wind.pdf" target="_blank">Inspect the full audit &rsaquo;</a></div>
+      <div class="foot"><a class="dl" href="samples/tensorust-engineering-counterfactual-wind.pdf" target="_blank">Open the evidence audit &rsaquo;</a></div>
     </div>
   </div>
-  <p class="h2note" style="margin-top:22px">These are a few samples. We build briefs and
-  maps for any indication, molecule, technology, competitor set, or region on request.
-  Browse cited research-leader maps across 59 therapeutic areas in the
+  <p class="h2note" style="margin-top:22px">Each packet is a starting point for a defined decision question, not a claim of exhaustive coverage or a substitute for domain review. We build briefs and
+  maps for any indication, molecule, technology, competitor set, or region. Browse cited research-leader maps across 59 therapeutic areas in the
   <a href="/library" style="color:var(--accent);font-weight:700">research-leader library</a>.</p>
 </div></section>
 
@@ -450,6 +587,23 @@
   <div class="cta"><a class="btn" href="#contact">Get a free sample and a quote</a></div>
 </div></section>
 
+<section id="mini-brief" class="contact"><div class="wrap">
+  <h2>Free cited mini-brief</h2>
+  <div class="h2sub">Give us one decision and we will give you a useful starting point.</div>
+  <p class="lede">Request a one-page public-data snapshot for the topic your team is
+  evaluating. No automatic billing, no promise of a commercial conclusion, and every
+  included source is inspectable.</p>
+  <form id="mini-form" class="leadform">
+    <div><label for="mini-email">Work email</label><input id="mini-email" name="email" type="email" autocomplete="email" required placeholder="you@company.com"></div>
+    <div><label for="mini-topic">Topic or decision</label><input id="mini-topic" name="topic" maxlength="220" required placeholder="e.g. antibody-drug conjugates in NSCLC"></div>
+    <div class="wide"><label for="mini-role">What are you trying to decide?</label><select id="mini-role" name="role"><option value="Research or R&D">Research or R&D</option><option value="Business development or partnering">Business development or partnering</option><option value="Strategy or competitive intelligence">Strategy or competitive intelligence</option><option value="Medical affairs">Medical affairs</option><option value="Other">Other</option></select></div>
+    <input id="mini-company" name="company" type="text" autocomplete="organization" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px" placeholder="Leave blank">
+    <button class="btn wide" type="submit">Request the free 1-page brief</button>
+    <p class="formnote">By requesting, you are asking Tensorust to reply about this topic. If the form relay is unavailable, your email app will open with the request filled in.</p>
+  </form>
+  <p id="mini-status" class="leadstatus" aria-live="polite"></p>
+</div></section>
+
 <section id="method"><div class="wrap">
   <h2>Method &amp; trust</h2>
   <div class="h2sub">Why you can act on it.</div>
@@ -505,8 +659,17 @@
       if(d.institutions&&d.institutions.length)h+='<div><h3 style="margin:0 0 8px">Leading institutions</h3><p class="trynote" style="margin:0">'+d.institutions.map(function(x){return esc(x.name)+" ("+x.n+")";}).join(", ")+'</p></div>';
       if(d.subtopics&&d.subtopics.length)h+='<div><h3 style="margin:0 0 8px">Active subtopics</h3><p class="trynote" style="margin:0">'+d.subtopics.map(function(x){return esc(x.name)+" ("+x.n+")";}).join(", ")+'</p></div>';
       h+='</div>';
-      h+='<p class="trynote" style="margin-top:16px">Live preview only (top authors by recent volume; names not yet disambiguated). The full brief adds citation weighting, disambiguation, cross-source signals, and a cited PDF. <a href="#contact" style="color:var(--accent);font-weight:700">Get the full brief for your topic &rsaquo;</a></p>';
+      h+='<div class="sharebar"><span>Keep this exact public-data preview handy or share it with a teammate.</span><button type="button" data-share-preview>Copy preview link</button></div>';
+      h+='<p class="trynote" style="margin-top:16px">Live preview only (top authors by recent volume; names not yet disambiguated). The full brief adds citation weighting, disambiguation, cross-source signals, and a cited PDF. <a href="#mini-brief" style="color:var(--accent);font-weight:700">Request a free 1-page brief for this topic &rsaquo;</a></p>';
       out.innerHTML=h;
+      var share=out.querySelector('[data-share-preview]');
+      if(share)share.addEventListener('click',function(){
+        var url=window.location.origin+'/?topic='+encodeURIComponent(d.q)+'#try';
+        var done=function(){share.textContent='Preview link copied';window.setTimeout(function(){share.textContent='Copy preview link';},2200);};
+        if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(done).catch(function(){window.prompt('Copy this preview link:',url);});}
+        else{window.prompt('Copy this preview link:',url);}
+        if(window.va)window.va('event',{name:'preview_share',data:{topic:d.q}});
+      });
     }).catch(function(){out.innerHTML='<p class="trynote">Something went wrong. Please try again.</p>';});
   }
   go.addEventListener("click",function(){run(qi.value);});
@@ -514,6 +677,32 @@
   document.querySelectorAll(".tryex a").forEach(function(a){a.addEventListener("click",function(){qi.value=a.getAttribute("data-q");run(qi.value);});});
   var preset=new URLSearchParams(window.location.search).get("topic");
   if(preset){qi.value=preset;window.setTimeout(function(){run(preset);},0);}
+})();
+</script>
+
+<!-- Free mini-brief request: posts to a configured relay, with a direct-email fallback. -->
+<script>
+(function(){
+  var form=document.getElementById('mini-form'),status=document.getElementById('mini-status');
+  if(!form||!status)return;
+  function mailto(values){
+    var subject='Tensorust free 1-page brief request';
+    var body='Hi Tensorust,\n\nPlease send a free cited one-page brief.\n\nWork email: '+values.email+'\nTopic or decision: '+values.topic+'\nTeam role: '+values.role+'\n\n';
+    window.location.href='mailto:mattbusel@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  }
+  form.addEventListener('submit',function(event){
+    event.preventDefault();
+    var values={email:form.email.value.trim(),topic:form.topic.value.trim(),role:form.role.value,company:form.company.value.trim()};
+    if(!values.email||!values.topic)return;
+    status.textContent='Sending your request...';
+    if(window.va)window.va('event',{name:'mini_brief_request',data:{role:values.role}});
+    fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(values)})
+      .then(function(response){return response.json().then(function(data){return {ok:response.ok,data:data};});})
+      .then(function(result){
+        if(result.ok&&result.data.accepted){status.textContent='Request received. Tensorust will reply with the next step.';form.reset();return;}
+        mailto(values);status.textContent='Your email app has opened with the request filled in.';
+      }).catch(function(){mailto(values);status.textContent='Your email app has opened with the request filled in.';});
+  });
 })();
 </script>
 
