@@ -69,6 +69,20 @@
   .price.featured{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
   .price .foot{margin-top:auto;padding-top:14px}
   .price .foot a{color:var(--accent);font-weight:700;font-size:14px}
+  .tryrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+  .tryin{flex:1;min-width:260px;background:var(--panel);border:1px solid var(--line);
+    color:var(--text);border-radius:10px;padding:13px 16px;font-size:16px}
+  .tryin:focus{outline:none;border-color:var(--accent)}
+  .tryex{margin-top:12px;color:var(--muted);font-size:14px}
+  .tryex a{color:var(--accent2);cursor:pointer;border-bottom:1px dotted var(--line)}
+  .tryout{margin-top:22px}
+  .tryout table{width:100%;border-collapse:collapse;font-size:14px}
+  .tryout th,.tryout td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line)}
+  .tryout th{color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+  .trygrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:820px){.trygrid{grid-template-columns:1fr}}
+  .trynote{color:var(--muted);font-size:13px;margin-top:14px}
+  .tryloading{color:var(--accent2)}
   .contact{background:linear-gradient(180deg,var(--panel2),var(--panel));text-align:center}
   .contact .lede{margin:0 auto}
   .emaildirect{margin-top:16px;color:var(--muted);font-size:15px}
@@ -83,6 +97,7 @@
 <nav><div class="wrap">
   <div class="brand">Tensor<b>ust</b></div>
   <div class="navlinks">
+    <a href="#try">Try it</a>
     <a href="#data">Data</a>
     <a href="#examples">Examples</a>
     <a href="#industries">Industries</a>
@@ -119,6 +134,25 @@
     <div class="card"><h3>Honest by design</h3><p>We never fabricate demand, contacts,
       or outcomes. Limits are stated plainly in every brief.</p></div>
   </div>
+</div></section>
+
+<section id="try"><div class="wrap">
+  <h2>Try it live</h2>
+  <div class="h2sub">Enter a topic or indication. See the engine work.</div>
+  <p class="h2note">A live preview from recent PubMed: top research leaders,
+  institutions, and subtopics. The full brief adds citation weighting, name
+  disambiguation, cross-source signals, and a cited PDF.</p>
+  <div class="tryrow">
+    <input id="q" class="tryin" autocomplete="off"
+      placeholder="e.g. semaglutide obesity, CAR-T lymphoma, Parkinson disease" />
+    <button id="go" class="btn">Generate preview</button>
+  </div>
+  <div class="tryex">Try:
+    <a data-q="semaglutide OR tirzepatide obesity">GLP-1 / obesity</a> &middot;
+    <a data-q="lecanemab OR donanemab amyloid Alzheimer">Alzheimer's</a> &middot;
+    <a data-q="CAR-T cell therapy lymphoma">CAR-T</a> &middot;
+    <a data-q="solid state battery electrolyte">solid-state batteries</a></div>
+  <div id="out" class="tryout"></div>
 </div></section>
 
 <section id="data"><div class="wrap">
@@ -323,6 +357,39 @@
   <div>&copy; 2026 Tensorust. Intelligence from public data.</div>
   <div class="muted">Cited &middot; Verifiable &middot; Honest. All figures traceable to public sources.</div>
 </div></footer>
+
+<!-- Try-it-live widget -->
+<script>
+(function(){
+  var out=document.getElementById("out"),qi=document.getElementById("q"),go=document.getElementById("go");
+  if(!out)return;
+  function esc(s){return (s||"").replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+  function run(term){
+    term=(term||"").trim(); if(!term){qi.focus();return;}
+    if(window.va)window.va("event",{name:"try_preview"});
+    out.innerHTML='<p class="tryloading">Querying recent PubMed and analyzing...</p>';
+    fetch("/api/sample?q="+encodeURIComponent(term)).then(function(r){return r.json();}).then(function(d){
+      if(d.error){out.innerHTML='<p class="trynote">'+esc(d.error)+'</p>';return;}
+      if(!d.total){out.innerHTML='<p class="trynote">'+esc(d.message||"No matches.")+'</p>';return;}
+      var h='<p class="trynote">Analyzed '+d.analyzed+' of '+Number(d.total).toLocaleString()+' recent PubMed papers matching "'+esc(d.q)+'".</p>';
+      if(d.kols&&d.kols.length){
+        h+='<h3 style="margin:16px 0 8px">Top research leaders</h3><table><tr><th>#</th><th>Researcher</th><th>Affiliation</th><th>Papers</th></tr>';
+        d.kols.forEach(function(k,i){h+='<tr><td>'+(i+1)+'</td><td>'+esc(k.name)+'</td><td>'+esc(k.affiliation)+'</td><td>'+k.papers+'</td></tr>';});
+        h+='</table>';
+      }
+      h+='<div class="trygrid" style="margin-top:18px">';
+      if(d.institutions&&d.institutions.length)h+='<div><h3 style="margin:0 0 8px">Leading institutions</h3><p class="trynote" style="margin:0">'+d.institutions.map(function(x){return esc(x.name)+" ("+x.n+")";}).join(", ")+'</p></div>';
+      if(d.subtopics&&d.subtopics.length)h+='<div><h3 style="margin:0 0 8px">Active subtopics</h3><p class="trynote" style="margin:0">'+d.subtopics.map(function(x){return esc(x.name)+" ("+x.n+")";}).join(", ")+'</p></div>';
+      h+='</div>';
+      h+='<p class="trynote" style="margin-top:16px">Live preview only (top authors by recent volume; names not yet disambiguated). The full brief adds citation weighting, disambiguation, cross-source signals, and a cited PDF. <a href="#contact" style="color:var(--accent);font-weight:700">Get the full brief for your topic &rsaquo;</a></p>';
+      out.innerHTML=h;
+    }).catch(function(){out.innerHTML='<p class="trynote">Something went wrong. Please try again.</p>';});
+  }
+  go.addEventListener("click",function(){run(qi.value);});
+  qi.addEventListener("keydown",function(e){if(e.key==="Enter")run(qi.value);});
+  document.querySelectorAll(".tryex a").forEach(function(a){a.addEventListener("click",function(){qi.value=a.getAttribute("data-q");run(qi.value);});});
+})();
+</script>
 
 <!-- Vercel Web Analytics (pageviews are free on Hobby; custom events need Pro) -->
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
