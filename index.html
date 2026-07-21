@@ -308,5 +308,21 @@
   <div class="muted">Cited &middot; Verifiable &middot; Honest. All figures traceable to public sources.</div>
 </div></footer>
 
+<!-- Vercel Web Analytics (pageviews are free on Hobby; custom events need Pro) -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded",function(){
+    document.querySelectorAll('a[href^="mailto:"]').forEach(function(a){
+      a.addEventListener("click",function(){window.va("event",{name:"email_click"});});
+    });
+    document.querySelectorAll('a[href$=".pdf"]').forEach(function(a){
+      a.addEventListener("click",function(){
+        window.va("event",{name:"sample_download",data:{file:a.getAttribute("href")}});
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
