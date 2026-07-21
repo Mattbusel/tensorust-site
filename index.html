@@ -220,7 +220,7 @@
   </div>
   <div class="cta" style="margin-top:10px">
     <button id="cf-go" class="btn">Find cited evidence</button>
-    <a class="btn ghost" href="#contact">Request the full evidence PDF</a>
+    <a id="cf-pdf" class="btn ghost" href="#contact">Request the full evidence PDF</a>
   </div>
   <div id="cf-out" class="cfout"></div>
   <div class="grid g3" style="margin-top:20px">
@@ -501,7 +501,7 @@
 <!-- Counterfactual claim-evidence finder -->
 <script>
 (function(){
-  var topic=document.getElementById("cf-topic"), claim=document.getElementById("cf-claim"), go=document.getElementById("cf-go"), out=document.getElementById("cf-out");
+  var topic=document.getElementById("cf-topic"), claim=document.getElementById("cf-claim"), go=document.getElementById("cf-go"), out=document.getElementById("cf-out"), request=document.getElementById("cf-pdf");
   if(!topic||!claim||!go||!out)return;
   function esc(s){return String(s||"").replace(/[&<>\"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
   function recordRow(record){
@@ -521,12 +521,20 @@
       if(d.records&&d.records.length){h+='<h3 style="margin:20px 0 8px">Claim-related source candidates</h3><table><tr><th>Evidence type</th><th>Public record</th></tr>'+d.records.map(recordRow).join('')+'</table>';}
       if(d.misconceptionSources&&d.misconceptionSources.length){h+='<h3 style="margin:20px 0 8px">Sources discussing myths, misconceptions, or controversy</h3><table><tr><th>Evidence type</th><th>Public record</th></tr>'+d.misconceptionSources.map(recordRow).join('')+'</table>';}
       if((!d.records||!d.records.length)&&(!d.misconceptionSources||!d.misconceptionSources.length))h+='<p class="trynote">No source candidates matched. Try a narrower topic or use a short, checkable claim.</p>';
-      h+='<p class="trynote">Need a decision-ready classification with cited support, cited counter-evidence, conflicts, and limits? <a href="#contact">Request a full Counterfactual Evidence Brief.</a></p>';
+      var briefMail='mailto:mattbusel@gmail.com?subject='+encodeURIComponent('Tensorust Counterfactual Evidence Brief')+
+        '&body='+encodeURIComponent('Hi Tensorust,\n\nTopic: '+t+'\nClaim or claims to test: '+(c||'[add claim]')+'\n\n');
+      h+='<p class="trynote">Need a decision-ready classification with cited support, cited counter-evidence, conflicts, and limits? <a href="'+briefMail+'">Request the full Counterfactual Evidence PDF.</a></p>';
       out.innerHTML=h;
     }).catch(function(){out.innerHTML='<p class="trynote">Something went wrong. Please try again.</p>';});
   }
   go.addEventListener('click',run);
   claim.addEventListener('keydown',function(e){if(e.key==='Enter')run();});
+  if(request)request.addEventListener('click',function(){
+    var t=topic.value.trim(), c=claim.value.trim();
+    if(!t)return;
+    this.href='mailto:mattbusel@gmail.com?subject='+encodeURIComponent('Tensorust Counterfactual Evidence Brief')+
+      '&body='+encodeURIComponent('Hi Tensorust,\n\nTopic: '+t+'\nClaim or claims to test: '+(c||'[add claim]')+'\n\n');
+  });
 })();
 </script>
 
