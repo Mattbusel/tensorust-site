@@ -6,7 +6,7 @@
 
 const EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/";
 const COMMON = "tool=tensorust&email=mattbusel@gmail.com";
-const MINYEAR = 2021, MAXYEAR = 2026, RETMAX = 200;
+const MINYEAR = 2021, MAXYEAR = 2026, RETMAX = 400;
 
 function shortAffil(aff) {
   if (!aff) return "";
