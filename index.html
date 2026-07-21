@@ -128,6 +128,7 @@
   .tryloading{color:var(--accent2)}
   .cfgrid{display:grid;grid-template-columns:1fr 1.3fr;gap:10px}
   @media(max-width:820px){.cfgrid{grid-template-columns:1fr}}
+  .cfgrid textarea.tryin{min-height:74px;resize:vertical}
   .cfout{margin-top:22px}
   .cfout table{width:100%;border-collapse:collapse;font-size:14px}
   .cfout th,.cfout td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
@@ -216,7 +217,7 @@
   The live finder does not pretend a search result proves or disproves a claim.</p>
   <div class="cfgrid">
     <input id="cf-topic" class="tryin" autocomplete="off" placeholder="Topic, e.g. alopecia areata" />
-    <input id="cf-claim" class="tryin" autocomplete="off" placeholder="Specific claim to test, e.g. a treatment works for every patient" />
+    <textarea id="cf-claim" class="tryin" autocomplete="off" rows="3" maxlength="10000" placeholder="Claim to test. Paste up to 30 claims, one per line or separated by |. The live preview checks the first claim."></textarea>
   </div>
   <div class="cta" style="margin-top:10px">
     <button id="cf-go" class="btn">Find cited evidence</button>
@@ -231,7 +232,7 @@
     source candidates and evidence types, including material that may challenge the
     claim. Every record links back to PubMed.</p></div>
     <div class="card"><h3>Decision-ready PDF</h3><p>The full Counterfactual Evidence
-    Brief includes up to four claims, a claim register, cited evidence and qualification
+    Brief includes up to 30 claims, a claim register, cited evidence and qualification
     tables, direct PubMed links, and a reviewer decision field.</p></div>
   </div>
   <p class="h2note" style="margin-top:20px">Live v1 uses public PubMed records.
@@ -506,12 +507,13 @@
   function esc(s){return String(s||"").replace(/[&<>\"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
   function recordRow(record){
     var link='https://pubmed.ncbi.nlm.nih.gov/'+encodeURIComponent(record.pmid)+'/';
-    var meta=[record.year,record.journal].filter(Boolean).join(' · ');
+    var meta=[record.year,record.journal].filter(Boolean).join(' - ');
     var types=(record.publicationTypes||[]).join(', ');
-    return '<tr><td><b>'+esc(record.tier)+'</b><br><span class="trynote">'+esc(types)+'</span></td><td><a target="_blank" rel="noopener" href="'+link+'">'+esc(record.title)+'</a><br><span class="trynote">PMID '+esc(record.pmid)+(meta?' · '+esc(meta):'')+'</span>'+(record.excerpt?'<br><span class="trynote">'+esc(record.excerpt)+'</span>':'')+'</td></tr>';
+    return '<tr><td><b>'+esc(record.tier)+'</b><br><span class="trynote">'+esc(types)+'</span></td><td><a target="_blank" rel="noopener" href="'+link+'">'+esc(record.title)+'</a><br><span class="trynote">PMID '+esc(record.pmid)+(meta?' - '+esc(meta):'')+'</span>'+(record.excerpt?'<br><span class="trynote">'+esc(record.excerpt)+'</span>':'')+'</td></tr>';
   }
+  function requestedClaims(){return claim.value.split(/[\r\n|]+/).map(function(x){return x.trim();}).filter(Boolean).slice(0,30);}
   function run(){
-    var t=topic.value.trim(), c=claim.value.trim();
+    var t=topic.value.trim(), claims=requestedClaims(), c=claims[0]||'', claimText=claims.join('\n');
     if(!t){topic.focus();return;}
     if(window.va)window.va("event",{name:"counterfactual_preview"});
     out.innerHTML='<p class="tryloading">Retrieving public evidence sources and misconception discussions...</p>';
@@ -522,18 +524,19 @@
       if(d.misconceptionSources&&d.misconceptionSources.length){h+='<h3 style="margin:20px 0 8px">Sources discussing myths, misconceptions, or controversy</h3><table><tr><th>Evidence type</th><th>Public record</th></tr>'+d.misconceptionSources.map(recordRow).join('')+'</table>';}
       if((!d.records||!d.records.length)&&(!d.misconceptionSources||!d.misconceptionSources.length))h+='<p class="trynote">No source candidates matched. Try a narrower topic or use a short, checkable claim.</p>';
       var briefMail='mailto:mattbusel@gmail.com?subject='+encodeURIComponent('Tensorust Counterfactual Evidence Brief')+
-        '&body='+encodeURIComponent('Hi Tensorust,\n\nTopic: '+t+'\nClaim or claims to test: '+(c||'[add claim]')+'\n\n');
+        '&body='+encodeURIComponent('Hi Tensorust,\n\nTopic: '+t+'\nClaim or claims to test: '+(claimText||'[add claim]')+'\n\n');
       h+='<p class="trynote">Need a decision-ready classification with cited support, cited counter-evidence, conflicts, and limits? <a href="'+briefMail+'">Request the full Counterfactual Evidence PDF.</a></p>';
       out.innerHTML=h;
     }).catch(function(){out.innerHTML='<p class="trynote">Something went wrong. Please try again.</p>';});
   }
   go.addEventListener('click',run);
-  claim.addEventListener('keydown',function(e){if(e.key==='Enter')run();});
+  topic.addEventListener('keydown',function(e){if(e.key==='Enter')run();});
+  claim.addEventListener('keydown',function(e){if(e.key==='Enter'&&(e.ctrlKey||e.metaKey))run();});
   if(request)request.addEventListener('click',function(){
-    var t=topic.value.trim(), c=claim.value.trim();
+    var t=topic.value.trim(), claims=requestedClaims(), claimText=claims.join('\n');
     if(!t)return;
     this.href='mailto:mattbusel@gmail.com?subject='+encodeURIComponent('Tensorust Counterfactual Evidence Brief')+
-      '&body='+encodeURIComponent('Hi Tensorust,\n\nTopic: '+t+'\nClaim or claims to test: '+(c||'[add claim]')+'\n\n');
+      '&body='+encodeURIComponent('Hi Tensorust,\n\nTopic: '+t+'\nClaim or claims to test: '+(claimText||'[add claim]')+'\n\n');
   });
 })();
 </script>
