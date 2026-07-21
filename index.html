@@ -4,12 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tensorust - Decision-grade intelligence from public data</title>
-<meta name="description" content="Tensorust turns open public data into cited, verifiable research landscapes, KOL maps, and competitive intelligence for R&D, strategy, and business-development teams.">
+<meta name="description" content="Tensorust turns open public data into cited, verifiable research landscapes, KOL maps, competitive intelligence, and monitoring for R&D, strategy, and business-development teams.">
 <style>
   :root{
     --bg:#0b0d12; --panel:#12151d; --panel2:#161a24; --line:#232838;
     --text:#e8ebf2; --muted:#9aa3b7; --accent:#f0803c; --accent2:#ffb27a;
-    --good:#8affc0;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -19,48 +18,56 @@
   a{color:inherit;text-decoration:none}
   .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
   .btn{display:inline-block;background:var(--accent);color:#1a1206;font-weight:700;
-    padding:12px 22px;border-radius:10px;border:none;cursor:pointer}
+    padding:13px 24px;border-radius:10px;border:none;cursor:pointer;font-size:16px}
   .btn:hover{background:var(--accent2)}
   .btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
   .btn.ghost:hover{border-color:var(--accent)}
-  /* nav */
   nav{position:sticky;top:0;z-index:10;background:rgba(11,13,18,.86);
     backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
   nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
   .brand{font-weight:800;letter-spacing:.02em;font-size:20px}
   .brand b{color:var(--accent)}
-  .navlinks a{color:var(--muted);margin-left:22px;font-size:14px}
+  .navlinks a{color:var(--muted);margin-left:20px;font-size:14px}
   .navlinks a:hover{color:var(--text)}
-  /* hero */
+  @media(max-width:700px){.navlinks{display:none}}
   header{padding:78px 0 54px;border-bottom:1px solid var(--line);
     background:radial-gradient(1200px 400px at 70% -10%,rgba(240,128,60,.13),transparent)}
   .kicker{color:var(--accent);font-weight:700;letter-spacing:.14em;
     text-transform:uppercase;font-size:12px}
   h1{font-size:clamp(30px,5vw,52px);line-height:1.08;margin:.35em 0 .3em;letter-spacing:-.02em}
-  .lede{font-size:19px;color:var(--muted);max-width:680px}
+  .lede{font-size:19px;color:var(--muted);max-width:700px}
   .cta{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
   section{padding:56px 0;border-bottom:1px solid var(--line)}
   h2{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin:0 0 6px}
-  .h2sub{font-size:26px;font-weight:700;margin:0 0 26px;letter-spacing:-.01em}
+  .h2sub{font-size:26px;font-weight:700;margin:0 0 8px;letter-spacing:-.01em}
+  .h2note{color:var(--muted);margin:0 0 26px;max-width:640px}
   .grid{display:grid;gap:18px}
+  .g4{grid-template-columns:repeat(4,1fr)}
   .g3{grid-template-columns:repeat(3,1fr)}
   .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:960px){.g4{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:820px){.g3,.g2{grid-template-columns:1fr}}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
-  .card h3{margin:0 0 8px;font-size:18px}
-  .card p{margin:0;color:var(--muted);font-size:15px}
+  @media(max-width:560px){.g4{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{margin:0 0 8px;font-size:17px}
+  .card p{margin:0;color:var(--muted);font-size:14.5px}
   .card .tag{display:inline-block;font-size:11px;color:var(--accent2);
     border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:12px;
     text-transform:uppercase;letter-spacing:.08em}
   .example{display:flex;flex-direction:column;justify-content:space-between}
-  .example .foot{margin-top:16px;display:flex;align-items:center;gap:10px}
+  .example .foot{margin-top:16px}
   .example a.dl{color:var(--accent);font-weight:700;font-size:14px}
   .example a.dl:hover{color:var(--accent2)}
-  .li{display:flex;gap:12px;margin:14px 0}
-  .li .dot{color:var(--accent);font-weight:800}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;text-align:center}
+  @media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .stat .n{font-size:30px;font-weight:800;color:var(--accent2);letter-spacing:-.02em}
+  .stat .l{color:var(--muted);font-size:13px;margin-top:4px}
   .method li{color:var(--muted);margin:10px 0}
   .contact{background:linear-gradient(180deg,var(--panel2),var(--panel));text-align:center}
   .contact .lede{margin:0 auto}
+  .emaildirect{margin-top:16px;color:var(--muted);font-size:15px}
+  .emaildirect a{color:var(--accent2);font-weight:700}
   footer{padding:34px 0;color:var(--muted);font-size:13px}
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   .muted{color:var(--muted)}
@@ -71,9 +78,10 @@
 <nav><div class="wrap">
   <div class="brand">Tensor<b>ust</b></div>
   <div class="navlinks">
+    <a href="#data">Data</a>
     <a href="#examples">Examples</a>
     <a href="#industries">Industries</a>
-    <a href="#offer">What you get</a>
+    <a href="#offer">Services</a>
     <a href="#method">Method</a>
     <a href="#contact">Contact</a>
   </div>
@@ -83,8 +91,9 @@
   <div class="kicker">Tensorust Intelligence</div>
   <h1>Decision-grade intelligence,<br>built from public data.</h1>
   <p class="lede">We turn open, public data into cited, verifiable research landscapes,
-  KOL maps, and competitive intelligence for R&amp;D, strategy, and business-development
-  teams. Every figure links back to its source, so you can check the work.</p>
+  KOL maps, competitive intelligence, and monitoring for R&amp;D, strategy, and
+  business-development teams. Every figure links back to its source, so you can check
+  the work.</p>
   <div class="cta">
     <a class="btn" href="#examples">See example briefs</a>
     <a class="btn ghost" href="#contact">Talk to us</a>
@@ -94,37 +103,67 @@
 <section id="what"><div class="wrap">
   <h2>What we do</h2>
   <div class="h2sub">The analysis your team would do by hand, done and cited.</div>
-  <div class="grid g3">
+  <div class="grid g3" style="margin-top:20px">
     <div class="card"><h3>Grounded in real records</h3><p>Built from public sources like
-      OpenAlex, PubMed, and USAspending. No opinions dressed up as data.</p></div>
-    <div class="card"><h3>Cited and verifiable</h3><p>Every number, name, and paper is
-      linked to its source (DOI, PMID, award ID). You can confirm any claim yourself.</p></div>
+      OpenAlex, PubMed, USAspending, patent and vulnerability data. No opinions dressed
+      up as data.</p></div>
+    <div class="card"><h3>Cited and verifiable</h3><p>Every number, name, and record is
+      linked to its source (DOI, PMID, patent or award ID). You can confirm any claim
+      yourself.</p></div>
     <div class="card"><h3>Honest by design</h3><p>We never fabricate demand, contacts,
       or outcomes. Limits are stated plainly in every brief.</p></div>
   </div>
 </div></section>
 
+<section id="data"><div class="wrap">
+  <h2>Data we draw on</h2>
+  <div class="h2sub">A growing, governed lake of public data.</div>
+  <p class="h2note">We continuously collect and normalize open, permitted data across
+  many domains, keeping source, rights, and provenance on every record. A sample of the
+  scale we work with:</p>
+  <div class="stats">
+    <div class="stat"><div class="n">150M+</div><div class="l">scholarly works (OpenAlex, Crossref)</div></div>
+    <div class="stat"><div class="n">37M+</div><div class="l">biomedical records (PubMed)</div></div>
+    <div class="stat"><div class="n">8M+</div><div class="l">patents (USPTO)</div></div>
+    <div class="stat"><div class="n">Millions</div><div class="l">federal awards, vulnerabilities, recalls</div></div>
+  </div>
+  <p class="h2note" style="margin-top:20px">Sources include OpenAlex and Crossref
+  (scholarly), PubMed (biomedical), USPTO (patents), USAspending and SEC EDGAR
+  (federal &amp; company), CISA and NVD (vulnerabilities), openFDA and others (safety
+  and recalls), and public economic statistics. If a public-data trail exists, we can
+  build on it.</p>
+</div></section>
+
 <section id="examples"><div class="wrap">
   <h2>Example briefs</h2>
   <div class="h2sub">Real, cited samples. Download and check the sources.</div>
-  <div class="grid g3">
+  <div class="grid g4" style="margin-top:20px">
     <div class="card example">
       <div>
         <span class="tag">Battery &amp; Energy</span>
         <h3>Battery Materials Landscape</h3>
-        <p>Research momentum, leading R&amp;D organizations, active subtopics, and the
-        most-cited work in battery materials and energy storage.</p>
+        <p>Momentum, leading R&amp;D organizations, active subtopics, and the most-cited
+        work in battery materials and energy storage.</p>
       </div>
       <div class="foot"><a class="dl" href="samples/sample-brief-battery-materials.pdf" target="_blank">Download PDF &rsaquo;</a></div>
     </div>
     <div class="card example">
       <div>
-        <span class="tag">Pharma &amp; Biotech</span>
-        <h3>KOL / Research-Leader Map</h3>
-        <p>Top research leaders, institutions, and subtopics in GLP-1 / obesity, from
-        recent PubMed records. Every researcher verifiable by PMID.</p>
+        <span class="tag">Pharma / KOL</span>
+        <h3>GLP-1 / Obesity KOL Map</h3>
+        <p>Top research leaders and institutions in GLP-1 / obesity, from recent PubMed
+        records. Every researcher verifiable by PMID.</p>
       </div>
       <div class="foot"><a class="dl" href="samples/sample-kol-glp-1-obesity.pdf" target="_blank">Download PDF &rsaquo;</a></div>
+    </div>
+    <div class="card example">
+      <div>
+        <span class="tag">Pharma / KOL</span>
+        <h3>Alzheimer's Disease KOL Map</h3>
+        <p>Leading researchers and centers in Alzheimer's disease, ranked from recent
+        publication activity and fully citable.</p>
+      </div>
+      <div class="foot"><a class="dl" href="samples/sample-kol-alzheimers-disease.pdf" target="_blank">Download PDF &rsaquo;</a></div>
     </div>
     <div class="card example">
       <div>
@@ -136,35 +175,47 @@
       <div class="foot"><a class="dl" href="samples/sample-brief-graphene-research-and-applications.pdf" target="_blank">Download PDF &rsaquo;</a></div>
     </div>
   </div>
+  <p class="h2note" style="margin-top:22px">These are a few samples. We build briefs and
+  maps for any indication, molecule, technology, competitor set, or region on request.</p>
 </div></section>
 
 <section id="industries"><div class="wrap">
   <h2>Industries we serve</h2>
   <div class="h2sub">Same engine, tuned to your buyer's decision.</div>
-  <div class="grid g3">
-    <div class="card"><h3>Advanced Materials &amp; Energy</h3><p>Battery, solid-state,
-      hydrogen, photovoltaics, semiconductors. Benchmark your R&amp;D against the global
-      research base and track competitor activity.</p></div>
+  <div class="grid g3" style="margin-top:20px">
     <div class="card"><h3>Pharma &amp; Biotech</h3><p>KOL and research-leader maps by
-      indication or molecule, for medical affairs, commercial, and business development.</p></div>
+      indication or molecule, plus therapeutic-area landscapes, for medical affairs,
+      commercial, and BD.</p></div>
+    <div class="card"><h3>Advanced Materials &amp; Energy</h3><p>Battery, solid-state,
+      hydrogen, photovoltaics. Benchmark your R&amp;D against the global research base
+      and track competitors.</p></div>
     <div class="card"><h3>Deep Tech &amp; Semiconductors</h3><p>Quantum, power
       electronics, additive manufacturing. Who is publishing, what is rising, and where
       the momentum is heading.</p></div>
+    <div class="card"><h3>Open-Source &amp; Software</h3><p>Package, dependency, and
+      release intelligence for developer-tool and platform companies tracking ecosystem
+      adoption.</p></div>
     <div class="card"><h3>Security &amp; Supply Risk</h3><p>Known-exploited-vulnerability
       and supplier-risk signals mapped to the vendors and products you depend on.</p></div>
+    <div class="card"><h3>Intellectual Property</h3><p>Patent and trademark activity by
+      company, class, or technology, for IP strategy, R&amp;D, and diligence.</p></div>
     <div class="card"><h3>Government &amp; Federal</h3><p>Federal contract and recompete
-      intelligence from public spending data, for capture and business-development teams.</p></div>
+      intelligence from public spending data, for capture and business-development
+      teams.</p></div>
+    <div class="card"><h3>Investors &amp; Strategy</h3><p>Research, patent, and market
+      signals combined into competitive and portfolio-trend views for diligence and
+      scouting.</p></div>
     <div class="card"><h3>Your domain</h3><p>If there is a real public-data trail and a
       decision that depends on it, we can build the brief. Ask us.</p></div>
   </div>
 </div></section>
 
 <section id="offer"><div class="wrap">
-  <h2>What you get</h2>
-  <div class="h2sub">From a one-off sample to an always-on monitor.</div>
-  <div class="grid g2">
+  <h2>Services</h2>
+  <div class="h2sub">From a one-off sample to an always-on feed.</div>
+  <div class="grid g2" style="margin-top:20px">
     <div class="card"><h3>Research Landscape Brief</h3><p>A cited snapshot of a topic:
-      momentum, leading organizations, rising subtopics, and must-read work. Scoped to
+      momentum, leading organizations, rising subtopics, and must-read work, scoped to
       your exact area, competitor set, or supply chain.</p></div>
     <div class="card"><h3>KOL / Research-Leader Map</h3><p>The most active researchers
       and institutions in an indication or field, ranked and verifiable, for advisory
@@ -172,8 +223,15 @@
     <div class="card"><h3>Competitive Intelligence</h3><p>Who is doing what, where the
       momentum is moving, and how your position compares to peers, all traceable to
       public records.</p></div>
-    <div class="card"><h3>Monitoring</h3><p>An ongoing watch on new work, new entrants,
-      and rising subtopics in your area, delivered on a cadence you choose.</p></div>
+    <div class="card"><h3>Expert &amp; Talent Finder</h3><p>Surface the specific people
+      and groups driving a technology or indication, for hiring, partnering, and
+      advisory work.</p></div>
+    <div class="card"><h3>Monitoring &amp; Alerts</h3><p>An ongoing watch on new work,
+      new entrants, and rising subtopics in your area, delivered on a cadence you
+      choose.</p></div>
+    <div class="card"><h3>Custom Data &amp; Feeds</h3><p>Need a specific public dataset
+      collected, joined, and delivered as a clean feed or one-time export? We build the
+      pipeline and hand you governed data.</p></div>
   </div>
 </div></section>
 
@@ -181,13 +239,14 @@
   <h2>Method &amp; trust</h2>
   <div class="h2sub">Why you can act on it.</div>
   <ul class="method">
-    <li><b>Public, permitted data.</b> OpenAlex (CC0), PubMed, USAspending, and other
-      open sources, with rights and provenance retained on every record.</li>
+    <li><b>Public, permitted data.</b> OpenAlex (CC0), PubMed, USPTO, USAspending, and
+      other open sources, with rights and provenance retained on every record.</li>
     <li><b>Traceable claims.</b> Every figure links to its source, so your team verifies
       instead of trusting.</li>
     <li><b>Stated limits.</b> Sampling, disambiguation, and coverage caveats are written
       into each brief. No overclaiming.</li>
-    <li><b>No fabrication.</b> We never invent demand, contacts, competitors, or results.</li>
+    <li><b>No fabrication.</b> We never invent demand, contacts, competitors, or
+      results.</li>
   </ul>
 </div></section>
 
@@ -197,8 +256,10 @@
   <p class="lede">Send the topic, indication, or competitor set you care about and we
   will send back a short cited sample so you can check the data before anything else.</p>
   <div class="cta" style="justify-content:center">
-    <a class="btn" href="mailto:mattbusel@gmail.com?subject=Tensorust%20intelligence%20inquiry&body=Hi%20Tensorust%2C%0A%0AThe%20area%20I%20care%20about%3A%20%0AThe%20decision%20I%27m%20trying%20to%20make%3A%20%0A%0A">Contact us</a>
+    <a class="btn" href="mailto:mattbusel@gmail.com?subject=Tensorust%20intelligence%20inquiry&body=Hi%20Tensorust%2C%0A%0AThe%20area%20I%20care%20about%3A%20%0AThe%20decision%20I%20am%20trying%20to%20make%3A%20%0A%0A">Email us</a>
   </div>
+  <p class="emaildirect">Or write directly:
+    <a href="mailto:mattbusel@gmail.com">mattbusel@gmail.com</a></p>
 </div></section>
 
 <footer><div class="wrap">
