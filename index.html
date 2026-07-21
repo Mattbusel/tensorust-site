@@ -302,7 +302,7 @@
   </div>
   <p class="h2note" style="margin-top:22px">These are a few samples. We build briefs and
   maps for any indication, molecule, technology, competitor set, or region on request.
-  Browse cited research-leader maps across 39 therapeutic areas in the
+  Browse cited research-leader maps across 59 therapeutic areas in the
   <a href="/library" style="color:var(--accent);font-weight:700">research-leader library</a>.</p>
 </div></section>
 
@@ -496,6 +496,8 @@
   go.addEventListener("click",function(){run(qi.value);});
   qi.addEventListener("keydown",function(e){if(e.key==="Enter")run(qi.value);});
   document.querySelectorAll(".tryex a").forEach(function(a){a.addEventListener("click",function(){qi.value=a.getAttribute("data-q");run(qi.value);});});
+  var preset=new URLSearchParams(window.location.search).get("topic");
+  if(preset){qi.value=preset;window.setTimeout(function(){run(preset);},0);}
 })();
 </script>
 
