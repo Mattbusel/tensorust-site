@@ -126,6 +126,13 @@
   @media(max-width:820px){.trygrid{grid-template-columns:1fr}}
   .trynote{color:var(--muted);font-size:13px;margin-top:14px}
   .tryloading{color:var(--accent2)}
+  .cfgrid{display:grid;grid-template-columns:1fr 1.3fr;gap:10px}
+  @media(max-width:820px){.cfgrid{grid-template-columns:1fr}}
+  .cfout{margin-top:22px}
+  .cfout table{width:100%;border-collapse:collapse;font-size:14px}
+  .cfout th,.cfout td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  .cfout th{color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+  .cfout a{color:var(--accent2);text-decoration:underline;text-underline-offset:2px}
   .contact{background:linear-gradient(180deg,var(--panel2),var(--panel));text-align:center}
   .contact .lede{margin:0 auto}
   .emaildirect{margin-top:16px;color:var(--muted);font-size:15px}
@@ -141,6 +148,7 @@
   <div class="brand">Tensor<b>ust</b></div>
   <div class="navlinks">
     <a href="#try">Try it</a>
+    <a href="#counterfactual">Counterfactual</a>
     <a href="#data">Data</a>
     <a href="#examples">Examples</a>
     <a href="#industries">Industries</a>
@@ -197,6 +205,38 @@
     <a data-q="CAR-T cell therapy lymphoma">CAR-T</a> &middot;
     <a data-q="solid state battery electrolyte">solid-state batteries</a></div>
   <div id="out" class="tryout"></div>
+</div></section>
+
+<section id="counterfactual"><div class="wrap">
+  <h2>Counterfactual</h2>
+  <div class="h2sub">Test a belief against the public record.</div>
+  <p class="h2note">Give the engine a topic and a specific claim. It retrieves
+  source candidates, prioritizes systematic reviews, guidelines, and trials where
+  available, and separately finds public discussions of myths or misconceptions.
+  The live finder does not pretend a search result proves or disproves a claim.</p>
+  <div class="cfgrid">
+    <input id="cf-topic" class="tryin" autocomplete="off" placeholder="Topic, e.g. alopecia areata" />
+    <input id="cf-claim" class="tryin" autocomplete="off" placeholder="Specific claim to test, e.g. a treatment works for every patient" />
+  </div>
+  <div class="cta" style="margin-top:10px">
+    <button id="cf-go" class="btn">Find cited evidence</button>
+    <a class="btn ghost" href="#contact">Request a full evidence audit</a>
+  </div>
+  <div id="cf-out" class="cfout"></div>
+  <div class="grid g3" style="margin-top:20px">
+    <div class="card"><h3>Candidate misconceptions</h3><p>Finds publications that
+    explicitly discuss myths, misconceptions, controversies, or beliefs in the area.
+    Candidate wording is never presented as fact.</p></div>
+    <div class="card"><h3>Claim-level evidence</h3><p>Maps a proposed claim to cited
+    source candidates and evidence types, including material that may challenge the
+    claim. Every record links back to PubMed.</p></div>
+    <div class="card"><h3>Four honest outcomes</h3><p>A full Counterfactual Evidence
+    Brief classifies a claim as supported, contradicted, mixed, or insufficient only
+    after source-level review. Limits and conflicts stay visible.</p></div>
+  </div>
+  <p class="h2note" style="margin-top:20px">Live v1 uses public PubMed records.
+  Publication type and search relevance do not establish truth, causality, consensus,
+  or medical guidance. For decision support only, not medical or legal advice.</p>
 </div></section>
 
 <section id="data"><div class="wrap">
@@ -455,6 +495,38 @@
   go.addEventListener("click",function(){run(qi.value);});
   qi.addEventListener("keydown",function(e){if(e.key==="Enter")run(qi.value);});
   document.querySelectorAll(".tryex a").forEach(function(a){a.addEventListener("click",function(){qi.value=a.getAttribute("data-q");run(qi.value);});});
+})();
+</script>
+
+<!-- Counterfactual claim-evidence finder -->
+<script>
+(function(){
+  var topic=document.getElementById("cf-topic"), claim=document.getElementById("cf-claim"), go=document.getElementById("cf-go"), out=document.getElementById("cf-out");
+  if(!topic||!claim||!go||!out)return;
+  function esc(s){return String(s||"").replace(/[&<>\"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+  function recordRow(record){
+    var link='https://pubmed.ncbi.nlm.nih.gov/'+encodeURIComponent(record.pmid)+'/';
+    var meta=[record.year,record.journal].filter(Boolean).join(' · ');
+    var types=(record.publicationTypes||[]).join(', ');
+    return '<tr><td><b>'+esc(record.tier)+'</b><br><span class="trynote">'+esc(types)+'</span></td><td><a target="_blank" rel="noopener" href="'+link+'">'+esc(record.title)+'</a><br><span class="trynote">PMID '+esc(record.pmid)+(meta?' · '+esc(meta):'')+'</span>'+(record.excerpt?'<br><span class="trynote">'+esc(record.excerpt)+'</span>':'')+'</td></tr>';
+  }
+  function run(){
+    var t=topic.value.trim(), c=claim.value.trim();
+    if(!t){topic.focus();return;}
+    if(window.va)window.va("event",{name:"counterfactual_preview"});
+    out.innerHTML='<p class="tryloading">Retrieving public evidence sources and misconception discussions...</p>';
+    fetch('/api/counterfactual?topic='+encodeURIComponent(t)+'&claim='+encodeURIComponent(c)).then(function(r){return r.json();}).then(function(d){
+      if(d.error){out.innerHTML='<p class="trynote">'+esc(d.error)+'</p>';return;}
+      var h='<div class="card"><span class="tag">Evidence finder</span><h3>'+esc(d.topic)+(d.claim?' · '+esc(d.claim):'')+'</h3><p>'+esc(d.verdict)+'</p><p class="trynote">'+esc(d.limits)+'</p></div>';
+      if(d.records&&d.records.length){h+='<h3 style="margin:20px 0 8px">Claim-related source candidates</h3><table><tr><th>Evidence type</th><th>Public record</th></tr>'+d.records.map(recordRow).join('')+'</table>';}
+      if(d.misconceptionSources&&d.misconceptionSources.length){h+='<h3 style="margin:20px 0 8px">Sources discussing myths, misconceptions, or controversy</h3><table><tr><th>Evidence type</th><th>Public record</th></tr>'+d.misconceptionSources.map(recordRow).join('')+'</table>';}
+      if((!d.records||!d.records.length)&&(!d.misconceptionSources||!d.misconceptionSources.length))h+='<p class="trynote">No source candidates matched. Try a narrower topic or use a short, checkable claim.</p>';
+      h+='<p class="trynote">Need a decision-ready classification with cited support, cited counter-evidence, conflicts, and limits? <a href="#contact">Request a full Counterfactual Evidence Brief.</a></p>';
+      out.innerHTML=h;
+    }).catch(function(){out.innerHTML='<p class="trynote">Something went wrong. Please try again.</p>';});
+  }
+  go.addEventListener('click',run);
+  claim.addEventListener('keydown',function(e){if(e.key==='Enter')run();});
 })();
 </script>
 
