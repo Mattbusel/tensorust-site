@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tensorust Under Oath &middot; Put any corporate claim on the public record</title>
+<meta name="description" content="Paste any company claim, headline, contract, or question. Tensorust searches federal contracts, SEC filings, lobbying, grants and more, then publishes an evidence receipt with a verdict and sources.">
+<link rel="canonical" href="https://tensorust-site.vercel.app/under-oath">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tensorust">
+<meta property="og:title" content="Put any corporate claim under oath">
+<meta property="og:description" content="Paste a claim, a headline, or a company. We search the public record and publish the receipt. Companies have PR. The public now has discovery.">
+<meta property="og:url" content="https://tensorust-site.vercel.app/under-oath">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Put any corporate claim under oath">
+<meta name="twitter:description" content="We search the public record and publish the receipt.">
+<style>
+:root{
+  --bg:#0b0d12;--panel:#12151d;--panel2:#171b26;--line:#232838;--line2:#333c52;
+  --text:#e8ebf2;--muted:#9aa3b7;--dim:#646d84;
+  --accent:#f0803c;--accent2:#ffb27a;--accent-dim:#7a4a24;
+  --green:#3fb6a2;--teal:#38b2c4;--amber:#f0a94b;--red:#e5677a;--blue:#6ea8fe;--gray:#8992a6;
+  --sans:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(1000px 420px at 76% -8%,rgba(240,128,60,.11),transparent)}
+a{color:var(--accent2);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+nav{position:sticky;top:0;z-index:20;background:rgba(11,13,18,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-weight:800;letter-spacing:.02em;font-size:19px}.brand b{color:var(--accent)}
+.navlinks a{color:var(--muted);margin-left:20px;font-size:14px}.navlinks a:hover{color:var(--text)}
+@media(max-width:640px){.navlinks a{margin-left:13px;font-size:13px}}
+
+header{padding:54px 0 8px;text-align:center}
+.kick{display:inline-flex;align-items:center;gap:9px;font:600 12px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(240,128,60,.5)}70%{box-shadow:0 0 0 8px rgba(240,128,60,0)}100%{box-shadow:0 0 0 0 rgba(240,128,60,0)}}
+h1{font-size:clamp(32px,6.5vw,54px);line-height:1.03;margin:.3em 0 .18em;font-weight:800;letter-spacing:-.02em;text-wrap:balance}
+.lead{font-size:clamp(15px,2.3vw,18px);color:var(--muted);max-width:60ch;margin:0 auto}
+
+.box{margin:26px 0 8px;background:var(--panel);border:1px solid var(--line2);border-radius:14px;padding:8px 8px 8px 16px;
+  display:flex;gap:8px;align-items:center;box-shadow:0 8px 40px rgba(0,0,0,.35)}
+.box input{flex:1;background:none;border:none;color:var(--text);font:16px var(--sans);padding:14px 0;outline:none}
+.box input::placeholder{color:var(--dim)}
+.box button{background:var(--accent);color:#1a1206;font-weight:800;border:none;border-radius:10px;padding:14px 22px;font-size:15px;cursor:pointer;white-space:nowrap}
+.box button:hover{background:var(--accent2)}
+.box button:disabled{opacity:.6;cursor:default}
+.exline{text-align:center;color:var(--dim);font-size:13px;margin:4px 0 0}
+.exline a{color:var(--muted);border-bottom:1px dotted var(--line2)}
+.subline{text-align:center;color:var(--muted);font-size:13.5px;margin:16px auto 0;max-width:60ch}
+.subline b{color:var(--accent2)}
+
+/* receipt */
+#result{margin:26px 0}
+.receipt{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.rtop{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.badge{font:700 12px/1 var(--mono);letter-spacing:.06em;padding:8px 12px;border-radius:8px;white-space:nowrap}
+.q{flex:1;min-width:200px}
+.q .lbl{font-size:11px;color:var(--dim);font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em}
+.q .txt{font-size:17px;font-weight:600;margin-top:3px}
+.verdict{padding:16px 20px;font-size:15px;line-height:1.55;border-bottom:1px solid var(--line);color:var(--text)}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line)}
+.fig{background:var(--panel);padding:14px 18px}
+.fig .v{font:700 20px/1 var(--mono);color:var(--accent2);font-variant-numeric:tabular-nums}
+.fig .l{font-size:12px;color:var(--muted);margin-top:5px}
+.fig .n{font-size:11px;color:var(--dim);margin-top:3px}
+.sec{padding:14px 20px;border-top:1px solid var(--line)}
+.sec h4{margin:0 0 8px;font:600 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.09em;color:var(--accent)}
+.rec{border-top:1px solid var(--line);padding:8px 0;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:baseline}
+.rec:first-of-type{border-top:none}
+.rec .t{font:12.5px var(--mono);color:var(--muted);word-break:break-word}
+.rec .t .s{color:var(--dim);font-size:11px;display:block;margin-top:2px}
+.rec .a{font:600 12.5px var(--mono);white-space:nowrap}
+.meta{display:flex;gap:22px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+.meta b{color:var(--text)}
+.lim li{margin:3px 0;font-size:12.5px;color:var(--muted)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;padding:16px 20px;border-top:1px solid var(--line)}
+.actions button,.actions a.btn{background:var(--panel2);border:1px solid var(--line2);color:var(--text);border-radius:9px;padding:10px 15px;font-size:13.5px;cursor:pointer;font-weight:600}
+.actions .primary{background:var(--accent);color:#1a1206;border-color:var(--accent)}
+.disc{padding:13px 20px;background:var(--panel2);font-size:12.5px;color:var(--muted);border-top:1px solid var(--line)}
+.disc b{color:var(--accent2)}
+.loading,.err{padding:30px;text-align:center;color:var(--muted);font-family:var(--mono)}
+.spin{display:inline-block;width:16px;height:16px;border:2px solid var(--line2);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;vertical-align:-3px;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* trending */
+.trend{margin:34px 0}
+.trend h2{font-size:14px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.tcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px;cursor:pointer;text-align:left;color:inherit;font:inherit;transition:border-color .15s}
+.tcard:hover{border-color:var(--accent-dim)}
+.tcard .q{font-weight:600;font-size:14.5px;margin-bottom:8px}
+.tcard .v{font:600 12px/1.3 var(--mono)}
+
+details.method{margin:30px 0;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+details.method>summary{cursor:pointer;padding:15px 16px;font-weight:600;list-style:none;display:flex;justify-content:space-between}
+details.method>summary::-webkit-details-marker{display:none}
+details.method>summary::after{content:"+";color:var(--accent);font-family:var(--mono);font-size:18px}
+details.method[open]>summary::after{content:"\2013"}
+.mbody{padding:0 16px 16px;font-size:13.5px;color:var(--muted);line-height:1.62}
+.mbody h4{color:var(--text);font:12px var(--mono);text-transform:uppercase;letter-spacing:.06em;margin:14px 0 5px}
+.mbody ul{padding-left:18px}.mbody li{margin:4px 0}
+footer{border-top:1px solid var(--line);margin-top:24px;padding:24px 0 46px;color:var(--dim);font-size:12.5px;text-align:center}
+footer a{color:var(--muted)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="/">Tensor<b>ust</b></a>
+  <div class="navlinks"><a href="/public-money">Public Money</a><a href="/library">Library</a><a href="/#pricing">Pricing</a><a href="/#contact">Contact</a></div>
+</div></nav>
+
+<div class="wrap">
+<header>
+  <div class="kick"><span class="pulse"></span>Tensorust Under Oath</div>
+  <h1>Put any claim under oath.</h1>
+  <p class="lead">Paste a corporate claim, a headline, a government contract, or a question. Tensorust searches the public record and publishes the receipt.</p>
+
+  <div class="box">
+    <input id="q" type="text" autocomplete="off"
+      placeholder="Did Rocket Lab really receive $266 million?"
+      aria-label="Claim or question to investigate">
+    <button id="go" type="button">Investigate</button>
+  </div>
+  <p class="exline">Try:
+    <a href="#" data-q="Did Rocket Lab actually receive $266 million?">Rocket Lab $266M</a> &nbsp;
+    <a href="#" data-q="Palantir federal contracts">Palantir contracts</a> &nbsp;
+    <a href="#" data-q="How much did Lockheed Martin spend lobbying?">Lockheed lobbying</a> &nbsp;
+    <a href="#" data-q="Anduril federal contracts">Anduril</a>
+  </p>
+  <p class="subline">No chatbot opinions. <b>SEC filings, federal contracts, lobbying, and grants</b>, resolved to the entity and linked to the source. Companies have PR departments. The public now has discovery.</p>
+</header>
+
+<div id="result" hidden></div>
+
+<div class="trend" id="trend">
+  <h2>Trending investigations</h2>
+  <div class="tcards" id="tcards"></div>
+</div>
+
+<details class="method">
+  <summary>How it works, and how it could be wrong</summary>
+  <div class="mbody">
+    <h4>What it does</h4>
+    <p>Your query is resolved to a company or organization, then matched against public government datasets: federal contract awards (USAspending / FPDS), federal lobbying disclosures (Senate LDA), and research grants (NIH RePORTER). The receipt reports what those records show, links every figure, and states a conservative verdict.</p>
+    <h4>The verdicts</h4>
+    <ul>
+      <li><b>Verified</b> - a specific record supports the claim.</li>
+      <li><b>Partially supported</b> - the claim fits the totals but not as stated (for example, a total across many awards rather than one contract).</li>
+      <li><b>Needs context</b> - the record differs in a way that matters, most often an announced ceiling versus dollars actually obligated or paid.</li>
+      <li><b>Insufficient evidence</b> - the datasets queried do not contain enough to judge. We say so rather than guess.</li>
+    </ul>
+    <h4>How it could be wrong</h4>
+    <ul>
+      <li>A verdict is only as good as entity resolution; a namesake or subsidiary can throw off a match.</li>
+      <li>Prime-contract data excludes subcontracts, classified spending, and money routed through resellers or IDV vehicles, so some totals are a lower bound.</li>
+      <li>Announced contract "values" are often ceilings; obligated and outlaid dollars are what is committed and paid, and they can differ by a lot.</li>
+      <li>This is what the public record shows, not a legal finding.</li>
+    </ul>
+    <h4>Disagree?</h4>
+    <p>Think a conclusion is wrong or missing context? Submit opposing evidence to <a href="mailto:mattbusel@gmail.com">mattbusel@gmail.com</a> and it will be reviewed. Built with the Tensorust data farm, where every record is stored next to its source and a content hash.</p>
+  </div>
+</details>
+</div>
+
+<footer><div class="wrap">
+  Sources: USAspending.gov, U.S. Senate Lobbying Disclosure Act, NIH RePORTER, SEC EDGAR - all public domain. This is what the public record shows, not a legal finding. Built with the Tensorust data farm. <a href="/">tensorust-site.vercel.app</a>
+</div></footer>
+
+<script>
+const STATUS_COLOR={VERIFIED:['#0f2d26','var(--green)'],PARTIALLY_SUPPORTED:['#0e2b31','var(--teal)'],
+  NEEDS_CONTEXT:['#2f2410','var(--amber)'],CONTRADICTED:['#301820','var(--red)'],
+  INSUFFICIENT_EVIDENCE:['#1a1e27','var(--gray)'],ON_RECORD:['#122436','var(--blue)']};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $=id=>document.getElementById(id);
+
+const TREND=[
+  {q:"Did Rocket Lab actually receive $266 million?",v:"Needs context: ~$94M on record; only ~$22M paid"},
+  {q:"Palantir federal contracts",v:"On the record: ~$5.0B in federal prime contracts"},
+  {q:"How much did Lockheed Martin spend lobbying?",v:"On the record: $16.0M disclosed in 2023"},
+  {q:"Booz Allen Hamilton federal contracts",v:"On the record: billions in prime contracts"}
+];
+$('tcards').innerHTML=TREND.map(t=>`<button class="tcard" data-q="${esc(t.q)}"><div class="q">${esc(t.q)}</div><div class="v" style="color:var(--muted)">${esc(t.v)}</div></button>`).join('');
+
+function badge(status,label){const c=STATUS_COLOR[status]||STATUS_COLOR.ON_RECORD;
+  return `<span class="badge" style="background:${c[0]};color:${c[1]};border:1px solid ${c[1]}">${esc(label)}</span>`;}
+
+function render(r){
+  if(r.error){$('result').innerHTML=`<div class="receipt"><div class="err">${esc(r.error)}</div></div>`;return;}
+  const figs=(r.figures||[]).map(f=>`<div class="fig"><div class="v">${esc(f.value)}</div><div class="l">${esc(f.label)}</div>${f.note?`<div class="n">${esc(f.note)}</div>`:''}</div>`).join('');
+  const recs=(r.records||[]).map(x=>`<div class="rec"><div class="t">${x.url?`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a>`:esc(x.title)}<span class="s">${esc(x.sub||'')}</span></div><div class="a">${esc(x.amount||'')}</div></div>`).join('');
+  const src=(r.sources||[]).map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join(' &middot; ');
+  const lim=(r.limitations||[]).map(l=>`<li>${esc(l)}</li>`).join('');
+  $('result').innerHTML=`<div class="receipt">
+    <div class="rtop">${badge(r.status,r.status_label)}<div class="q"><div class="lbl">Claim under oath</div><div class="txt">${esc(r.query)}</div></div></div>
+    <div class="verdict">${esc(r.verdict)}</div>
+    ${figs?`<div class="figs">${figs}</div>`:''}
+    ${recs?`<div class="sec"><h4>Source records</h4>${recs}</div>`:''}
+    <div class="sec"><div class="meta"><span>Confidence: <b>${esc(r.confidence||'')}</b></span><span>Coverage: <b>${esc((r.coverage||[]).join('; '))}</b></span></div></div>
+    ${lim?`<div class="sec"><h4>Honest limitations</h4><ul class="lim">${lim}</ul></div>`:''}
+    <div class="sec"><h4>Sources</h4><div style="font-size:12.5px">${src}</div></div>
+    <div class="actions">
+      <button class="primary" id="shareBtn">Copy shareable summary</button>
+      <a class="btn" id="xBtn" target="_blank" rel="noopener">Post on X</a>
+      <a class="btn" href="mailto:mattbusel@gmail.com?subject=${encodeURIComponent('Challenge: '+r.query)}">Submit opposing evidence</a>
+    </div>
+    <div class="disc"><b>Read this:</b> ${esc(r.disclaimer||'')}</div>
+  </div>`;
+  const share=(r.share_x||'')+"\n\nRun your own: tensorust-site.vercel.app/under-oath";
+  const sb=$('shareBtn'); if(sb) sb.onclick=()=>{navigator.clipboard.writeText(share).then(()=>{sb.textContent='Copied';setTimeout(()=>sb.textContent='Copy shareable summary',1600)})};
+  const xb=$('xBtn'); if(xb) xb.href="https://twitter.com/intent/tweet?text="+encodeURIComponent(share);
+}
+
+let busy=false;
+async function investigate(q){
+  q=(q||'').trim(); if(!q||busy)return; busy=true;
+  $('go').disabled=true; $('result').hidden=false;
+  $('result').innerHTML=`<div class="receipt"><div class="loading"><span class="spin"></span>Searching the public record&hellip;</div></div>`;
+  if(history.replaceState)history.replaceState(null,'','?q='+encodeURIComponent(q));
+  try{
+    const res=await fetch('/api/oath?q='+encodeURIComponent(q));
+    render(await res.json());
+  }catch(e){$('result').innerHTML=`<div class="receipt"><div class="err">Investigation failed. Please try again.</div></div>`;}
+  busy=false; $('go').disabled=false;
+  $('result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+$('go').addEventListener('click',()=>investigate($('q').value));
+$('q').addEventListener('keydown',e=>{if(e.key==='Enter')investigate($('q').value)});
+document.addEventListener('click',e=>{const a=e.target.closest('[data-q]');if(a){e.preventDefault();$('q').value=a.dataset.q;investigate(a.dataset.q);}});
+const initial=new URLSearchParams(location.search).get('q');
+if(initial){$('q').value=initial;investigate(initial);}
+</script>
+</body>
+</html>
