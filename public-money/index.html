@@ -189,7 +189,7 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;',
 function hl(s,q){s=esc(s);if(!q)return s;try{return s.replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>')}catch(e){return s}}
 let DATA=null,mode='roi',query='';
 
-fetch('./data.json').then(r=>r.json()).then(d=>{DATA=d;initStats();render()})
+fetch('/public-money/data.json').then(r=>r.json()).then(d=>{DATA=d;initStats();render()})
   .catch(()=>{document.getElementById('list').innerHTML='<div class="loading">Could not load data. Please refresh.</div>'});
 
 function initStats(){
