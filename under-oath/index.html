@@ -129,11 +129,11 @@ footer a{color:var(--muted)}
   </div>
   <p class="exline">Try:
     <a href="#" data-q="Did Rocket Lab actually receive $266 million?">Rocket Lab $266M</a> &nbsp;
-    <a href="#" data-q="Palantir federal contracts">Palantir contracts</a> &nbsp;
+    <a href="#" data-q="How much revenue does Tesla report?">Tesla revenue</a> &nbsp;
     <a href="#" data-q="How much did Lockheed Martin spend lobbying?">Lockheed lobbying</a> &nbsp;
-    <a href="#" data-q="Anduril federal contracts">Anduril</a>
+    <a href="#" data-q="Is Microsoft software secure?">Microsoft security</a>
   </p>
-  <p class="subline">No chatbot opinions. <b>SEC filings, federal contracts, lobbying, and grants</b>, resolved to the entity and linked to the source. Companies have PR departments. The public now has discovery.</p>
+  <p class="subline">No chatbot opinions. <b>SEC financials, federal contracts, lobbying, grants, FDA approvals, and cyber records</b>, resolved to the entity and linked to the source. Companies have PR departments. The public now has discovery.</p>
 </header>
 
 <div id="result" hidden></div>
@@ -147,7 +147,7 @@ footer a{color:var(--muted)}
   <summary>How it works, and how it could be wrong</summary>
   <div class="mbody">
     <h4>What it does</h4>
-    <p>Your query is resolved to a company or organization, then matched against public government datasets: federal contract awards (USAspending / FPDS), federal lobbying disclosures (Senate LDA), and research grants (NIH RePORTER). The receipt reports what those records show, links every figure, and states a conservative verdict.</p>
+    <p>Your query is resolved to a company or organization, then matched against public government datasets: federal contract awards (USAspending / FPDS), SEC-reported financials from 10-K filings (EDGAR), federal lobbying disclosures (Senate LDA), research grants (NIH RePORTER), FDA drug approvals (openFDA), and known-exploited vulnerabilities (CISA KEV). The receipt reports what those records show, links every figure, and states a conservative verdict.</p>
     <h4>The verdicts</h4>
     <ul>
       <li><b>Verified</b> - a specific record supports the claim.</li>
@@ -181,9 +181,11 @@ const $=id=>document.getElementById(id);
 
 const TREND=[
   {q:"Did Rocket Lab actually receive $266 million?",v:"Needs context: ~$94M on record; only ~$22M paid"},
+  {q:"How many vulnerabilities does Microsoft have?",v:"381 on CISA's actively-exploited list"},
+  {q:"How much revenue does Tesla report?",v:"Verified against the latest 10-K"},
   {q:"Palantir federal contracts",v:"On the record: ~$5.0B in federal prime contracts"},
   {q:"How much did Lockheed Martin spend lobbying?",v:"On the record: $16.0M disclosed in 2023"},
-  {q:"Booz Allen Hamilton federal contracts",v:"On the record: billions in prime contracts"}
+  {q:"How many drugs has Pfizer gotten approved?",v:"191 approved applications in Drugs@FDA"}
 ];
 $('tcards').innerHTML=TREND.map(t=>`<button class="tcard" data-q="${esc(t.q)}"><div class="q">${esc(t.q)}</div><div class="v" style="color:var(--muted)">${esc(t.v)}</div></button>`).join('');
 

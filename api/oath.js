@@ -30,14 +30,21 @@ function parseQuery(q) {
   let amount = null;
   const am = s.match(/\$?\s*([\d][\d,]*(?:\.\d+)?)\s*(billion|bn|b|million|mm|m|thousand|k)?\b/i);
   if (am && (am[2] || s.includes("$"))) amount = toNumber(am[1], am[2]);
-  let metric = "contracts";
+  let metric = "contracts", sub = null;
   if (/lobby|lobbie/i.test(s)) metric = "lobbying";
-  else if (/\bgrant|research fund|\bnih\b|\bnsf\b/i.test(s)) metric = "grants";
+  else if (/\bgrant|\bnih\b|\bnsf\b/i.test(s)) metric = "grants";
+  else if (/vulnerab|\bcve\b|hacked|exploit|breach|cyber|\b(?:in)?secure\b/i.test(s)) metric = "cyber";
+  else if (/\bdrugs?\b|\bfda\b|approv|medicine/i.test(s)) metric = "fda";
+  else if (/revenue|sales|profit|earnings|net income|financials|\br ?& ?d\b|research and development|invest/i.test(s)) {
+    metric = "financials";
+    sub = (/\br ?& ?d\b|research and development|invest|research/i.test(s)) ? "rnd"
+      : (/profit|earnings|net income/i.test(s)) ? "netincome" : "revenue";
+  }
   let e = s
     .replace(/\$?\s*[\d][\d,]*(?:\.\d+)?\s*(billion|bn|b|million|mm|m|thousand|k)?/ig, " ")
-    .replace(/\b(did|does|do|is|are|was|were|has|have|had|actually|really|truly|the|a|an|receive|received|receives|get|got|gets|win|won|wins|award|awarded|contract|contracts|claim|claims|claimed|how|much|money|federal|government|govt|in|of|to|from|for|and|or|lobby|lobbying|lobbied|grant|grants|granted|research|funding|funded|verify|check|nih|nsf|fda)\b/ig, " ")
+    .replace(/\b(did|does|do|is|are|was|were|has|have|had|actually|really|truly|the|a|an|receive|received|receives|get|got|gets|win|won|wins|award|awarded|contract|contracts|claim|claims|claimed|how|many|much|money|federal|government|govt|in|of|to|from|for|and|or|lobby|lobbying|lobbied|grant|grants|granted|research|funding|funded|verify|check|nih|nsf|fda|revenue|sales|profit|profits|earnings|drugs?|approved|approvals?|vulnerab\w*|cve|invest\w*|spent|spend|make|made|gotten|software|secure|being|exploited|breached|hacked|vulnerable|financials|company|corporation|corp|inc)\b/ig, " ")
     .replace(/[?.,!"'`]/g, " ").replace(/\s+/g, " ").trim();
-  return { entity: e || s, metric, amount, raw: s };
+  return { entity: e || s, metric, sub, amount, raw: s };
 }
 
 async function postJSON(url, body) {
@@ -175,6 +182,121 @@ async function grants(entity, amount) {
   };
 }
 
+// --- SEC financials -------------------------------------------------------
+let SEC_TICKERS = null;
+async function secLookup(entity) {
+  if (!SEC_TICKERS) {
+    const j = await getJSON("https://www.sec.gov/files/company_tickers.json");
+    SEC_TICKERS = j ? Object.values(j).map(v => ({ cik: String(v.cik_str).padStart(10, "0"),
+      ticker: (v.ticker || "").toUpperCase(), title: (v.title || "").toUpperCase() })) : [];
+  }
+  const e = entity.toUpperCase().trim(); if (!e) return null;
+  let hit = SEC_TICKERS.find(x => x.ticker === e); if (hit) return hit;
+  const tok = e.split(/\s+/)[0];
+  const c = SEC_TICKERS.filter(x => x.title.includes(e) || x.title.startsWith(tok));
+  c.sort((a, b) => a.title.length - b.title.length);
+  return c[0] || null;
+}
+async function secConcept(cik, tags) {
+  // Gather full-year (10-K, FY) values across ALL candidate tags and return the most
+  // recent one, so a stale legacy tag never wins over the tag a company files under now.
+  let best = null;
+  for (const tag of tags) {
+    const r = await getJSON("https://data.sec.gov/api/xbrl/companyconcept/CIK" + cik + "/us-gaap/" + tag + ".json");
+    const units = r && r.units && r.units.USD;
+    if (!units) continue;
+    for (const u of units) {
+      if (u.form !== "10-K" || u.fp !== "FY") continue;
+      if (u.start && u.end) {
+        const days = (new Date(u.end) - new Date(u.start)) / 86400000;
+        if (days < 350 || days > 380) continue;   // full fiscal year only
+      }
+      if (!best || (u.end || "") > best.end) best = { val: u.val, end: u.end || "" };
+    }
+  }
+  return best;
+}
+function insufficient(metric, msg, sources) {
+  return { metric, status: "INSUFFICIENT_EVIDENCE", claim_check: msg, figures: [], records: [],
+    confidence: "low", coverage: [], limitations: ["We report only what the queried public record contains; here it did not contain enough to judge."], sources: sources || [] };
+}
+async function financials(entity, amount, sub) {
+  const co = await secLookup(entity);
+  if (!co) return insufficient("company financials", "No SEC-registered public company matched that name. It may be private, foreign, or filed under a different legal name.",
+    [{ name: "SEC EDGAR company search", url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=" + encodeURIComponent(entity) + "&type=10-K" }]);
+  const rev = await secConcept(co.cik, ["Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax", "RevenueFromContractWithCustomerIncludingAssessedTax", "SalesRevenueNet"]);
+  const ni = await secConcept(co.cik, ["NetIncomeLoss"]);
+  const rnd = await secConcept(co.cik, ["ResearchAndDevelopmentExpense", "ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost"]);
+  const primary = sub === "rnd" ? rnd : sub === "netincome" ? ni : rev;
+  const pl = sub === "rnd" ? "R&D expense" : sub === "netincome" ? "net income" : "annual revenue";
+  const edgar = "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=" + co.cik + "&type=10-K";
+  let status, claim_check;
+  if (!primary) { status = "INSUFFICIENT_EVIDENCE"; claim_check = co.title + " is a public company, but its latest 10-K in EDGAR does not report a comparable " + pl + " figure under the standard tag."; }
+  else if (amount) {
+    const v = primary.val;
+    if (Math.abs(v - amount) / Math.max(amount, 1) < 0.15) { status = "VERIFIED"; claim_check = "The latest 10-K reports " + pl + " of " + fmtUSD(v) + " (fiscal year ending " + primary.end + "), consistent with the claim."; }
+    else if (amount <= v * 1.15) { status = "PARTIALLY_SUPPORTED"; claim_check = "The latest 10-K reports " + pl + " of " + fmtUSD(v) + " (FY ending " + primary.end + "); the claimed " + fmtUSD(amount) + " fits within that."; }
+    else { status = "NEEDS_CONTEXT"; claim_check = "The claimed " + fmtUSD(amount) + " is larger than the " + fmtUSD(v) + " in " + pl + " on the latest 10-K (FY ending " + primary.end + "). It may be a multi-year total, a different line item (for example gross bookings vs. recognized revenue), or a non-GAAP figure."; }
+  } else { status = "ON_RECORD"; claim_check = "On the record: " + co.title + " reported " + pl + " of " + fmtUSD(primary.val) + " (fiscal year ending " + primary.end + ")."; }
+  return {
+    metric: "SEC-reported financials (" + co.ticker + ")", status, claim_check,
+    figures: [rev ? { label: "Reported annual revenue", value: fmtUSD(rev.val), note: "FY " + rev.end } : null,
+      ni ? { label: "Net income", value: fmtUSD(ni.val), note: "FY " + ni.end } : null,
+      rnd ? { label: "R&D expense", value: fmtUSD(rnd.val), note: "FY " + rnd.end } : null].filter(Boolean),
+    records: [], confidence: "medium",
+    coverage: ["SEC EDGAR XBRL company facts from audited 10-K filings (" + co.ticker + ", CIK " + co.cik + ")."],
+    limitations: ["Uses standard US-GAAP tags; some firms report revenue or R&D under different line items.", "Latest fiscal year only; the claim may reference a different year or a non-GAAP figure."],
+    sources: [{ name: "SEC EDGAR filings (10-K)", url: edgar }],
+  };
+}
+
+// --- FDA drug approvals ---------------------------------------------------
+async function fda(entity, amount) {
+  const r = await getJSON("https://api.fda.gov/drug/drugsfda.json?search=sponsor_name:%22" + encodeURIComponent(entity.toUpperCase()) + "%22&limit=1");
+  const total = r && r.meta && r.meta.results ? r.meta.results.total : 0;
+  const searchUrl = "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm";
+  let status, claim_check;
+  if (!total) { status = "INSUFFICIENT_EVIDENCE"; claim_check = "No approved drug applications found under this sponsor name in openFDA (Drugs@FDA). The sponsor may file under a subsidiary name."; }
+  else if (amount) {
+    if (Math.abs(total - amount) / Math.max(amount, 1) < 0.15) { status = "VERIFIED"; claim_check = "Drugs@FDA lists " + total + " approved drug applications under this sponsor, consistent with the claim."; }
+    else { status = "NEEDS_CONTEXT"; claim_check = "Drugs@FDA lists " + total + " approved drug applications under this sponsor name, versus the claimed " + Math.round(amount) + ". Counts vary by whether you count applications, products, or active approvals, and by sponsor-name variants."; }
+  } else { status = "ON_RECORD"; claim_check = "On the record: " + total + " approved drug applications under this sponsor name in Drugs@FDA. Superlatives like 'the most' would require ranking all sponsors, which this single lookup does not do."; }
+  return {
+    metric: "FDA drug approvals", status, claim_check,
+    figures: [{ label: "Approved drug applications (Drugs@FDA)", value: String(total) }],
+    records: [], confidence: total ? "medium" : "low",
+    coverage: ["openFDA Drugs@FDA approved application records."],
+    limitations: ["Counts applications under one sponsor name; subsidiaries and acquisitions may file separately.", "Does not distinguish still-marketed vs. discontinued products."],
+    sources: [{ name: "Drugs@FDA", url: searchUrl }],
+  };
+}
+
+// --- Cyber: CISA Known Exploited Vulnerabilities --------------------------
+let KEV = null;
+async function cyber(entity) {
+  if (!KEV) {
+    const j = await getJSON("https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json");
+    KEV = (j && j.vulnerabilities) || [];
+  }
+  const tok = entity.toLowerCase().split(/\s+/)[0];
+  const match = KEV.filter(v => ((v.vendorProject || "") + " " + (v.product || "")).toLowerCase().includes(tok));
+  const ransom = match.filter(v => String(v.knownRansomwareCampaignUse || "").toLowerCase() === "known").length;
+  const recent = match.slice().sort((a, b) => (b.dateAdded || "").localeCompare(a.dateAdded || "")).slice(0, 6);
+  let status, claim_check;
+  if (!match.length) { status = "INSUFFICIENT_EVIDENCE"; claim_check = "No entries for this name in CISA's Known Exploited Vulnerabilities catalog. That is not proof of security; it means none of its products are on the federal actively-exploited list under this name."; }
+  else { status = "ON_RECORD"; claim_check = match.length + " of this vendor's vulnerabilities are on CISA's Known Exploited Vulnerabilities catalog (the U.S. government's actively-exploited, patch-now list)" + (ransom ? ", and " + ransom + " are tied to ransomware campaigns" : "") + "."; }
+  return {
+    metric: "known-exploited vulnerabilities (CISA KEV)", status, claim_check,
+    figures: [{ label: "On CISA's actively-exploited list", value: String(match.length) }, { label: "Tied to ransomware", value: String(ransom) }],
+    records: recent.map(v => ({ title: v.cveID, sub: (v.vulnerabilityName || v.product || "").slice(0, 80), amount: v.dateAdded || "",
+      url: v.cveID ? "https://nvd.nist.gov/vuln/detail/" + v.cveID : null })),
+    confidence: match.length ? "high" : "low",
+    coverage: ["CISA Known Exploited Vulnerabilities Catalog (all entries to date)."],
+    limitations: ["A high count reflects software ubiquity and attacker focus, not that a vendor is 'least secure'.", "Name matching is broad; verify each CVE at its link."],
+    sources: [{ name: "CISA KEV catalog", url: "https://www.cisa.gov/known-exploited-vulnerabilities-catalog" }],
+  };
+}
+
 const LABEL = { VERIFIED: "VERIFIED", PARTIALLY_SUPPORTED: "PARTIALLY SUPPORTED", NEEDS_CONTEXT: "NEEDS CONTEXT",
   CONTRADICTED: "CONTRADICTED", INSUFFICIENT_EVIDENCE: "INSUFFICIENT EVIDENCE", ON_RECORD: "ON THE RECORD" };
 
@@ -185,12 +307,16 @@ module.exports = async function handler(req, res) {
   const parsed = parseQuery(q);
   const entity = (u.searchParams.get("entity") || parsed.entity).trim();
   const metric = (u.searchParams.get("metric") || parsed.metric);
+  const sub = u.searchParams.get("sub") || parsed.sub;
   const amount = u.searchParams.get("amount") ? Number(u.searchParams.get("amount")) : parsed.amount;
   if (!entity) { res.status(200).json({ q, error: "Could not find a company or organization in that. Try naming one (for example: 'Rocket Lab federal contracts')." }); return; }
   try {
     let r;
     if (metric === "lobbying") r = await lobbying(entity, amount);
     else if (metric === "grants") r = await grants(entity, amount);
+    else if (metric === "financials") r = await financials(entity, amount, sub);
+    else if (metric === "fda") r = await fda(entity, amount);
+    else if (metric === "cyber") r = await cyber(entity);
     else r = await contracts(entity, amount);
     const receipt = {
       query: q, entity, claimed_amount: amount, metric: r.metric,
