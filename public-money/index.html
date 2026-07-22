@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Money Radar &middot; Lobbying vs Federal Contracts &middot; Tensorust</title>
+<meta name="description" content="For every $1 major contractors spent lobbying Congress in 2023, they received about $1,000 in federal contracts. Search every company, every lobbying filing, every contract. Built from public records.">
+<link rel="canonical" href="https://tensorust-site.vercel.app/public-money">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tensorust">
+<meta property="og:title" content="Public Money Radar: $1 lobbied, ~$1,000 back in contracts">
+<meta property="og:description" content="Federal contractors' 2023 lobbying spend vs the federal contracts they received, searchable down to each filing and each award. From public records.">
+<meta property="og:url" content="https://tensorust-site.vercel.app/public-money">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Public Money Radar: $1 lobbied, ~$1,000 back in contracts">
+<meta name="twitter:description" content="Search every company, every lobbying filing, every federal contract. Built from public records.">
+<style>
+:root{
+  --bg:#0b0d12; --panel:#12151d; --panel2:#171b26; --line:#232838; --line2:#333c52;
+  --text:#e8ebf2; --muted:#9aa3b7; --dim:#646d84;
+  --accent:#f0803c; --accent2:#ffb27a; --accent-dim:#7a4a24; --good:#3fb6a2;
+  --sans:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 var(--sans);
+  -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(1000px 400px at 78% -6%,rgba(240,128,60,.10),transparent)}
+a{color:var(--accent2);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+nav{position:sticky;top:0;z-index:20;background:rgba(11,13,18,.9);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-weight:800;letter-spacing:.02em;font-size:19px}.brand b{color:var(--accent)}
+.navlinks a{color:var(--muted);margin-left:20px;font-size:14px}.navlinks a:hover{color:var(--text)}
+
+header{padding:52px 0 20px}
+.kick{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(240,128,60,.5)}70%{box-shadow:0 0 0 8px rgba(240,128,60,0)}100%{box-shadow:0 0 0 0 rgba(240,128,60,0)}}
+h1{font-size:clamp(30px,6vw,52px);line-height:1.03;margin:.28em 0 .2em;font-weight:800;letter-spacing:-.02em;text-wrap:balance}
+h1 span{color:var(--accent)}
+.lead{font-size:clamp(15px,2.3vw,18px);color:var(--muted);max-width:64ch;margin:0}
+.lead b{color:var(--text);font-weight:600}
+
+.disc{margin:22px 0 4px;border:1px solid var(--line);border-left:3px solid var(--accent-dim);
+  background:linear-gradient(180deg,rgba(240,128,60,.05),transparent);border-radius:10px;
+  padding:12px 15px;font-size:13.5px;color:var(--muted)}
+.disc b{color:var(--accent2)}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px}
+.stat .n{font-family:var(--mono);font-size:clamp(20px,3.1vw,27px);font-weight:600;
+  color:var(--accent2);font-variant-numeric:tabular-nums}
+.stat .l{font-size:11.5px;color:var(--muted);margin-top:3px}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:6px 0 14px;
+  position:sticky;top:60px;z-index:10;background:linear-gradient(180deg,var(--bg) 75%,transparent);padding:10px 0}
+.search{flex:1;min-width:220px;display:flex;align-items:center;gap:9px;background:var(--panel);
+  border:1px solid var(--line);border-radius:10px;padding:0 13px}
+.search input{flex:1;background:none;border:none;color:var(--text);font:15px var(--sans);padding:12px 0;outline:none}
+.search input::placeholder{color:var(--dim)}
+.search svg{opacity:.5;flex:0 0 auto}
+.sortsel{background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:10px;
+  padding:11px 12px;font:12px var(--mono);cursor:pointer}
+.count{font:12px var(--mono);color:var(--dim);margin:0 0 10px}
+
+.list{display:flex;flex-direction:column;gap:8px}
+.row{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:border-color .15s}
+.row:hover{border-color:var(--line2)}.row.open{border-color:var(--accent-dim)}
+.rhead{display:grid;grid-template-columns:34px 1fr 130px 130px 96px;gap:12px;align-items:center;
+  padding:13px 16px;cursor:pointer;width:100%;text-align:left;background:none;border:none;color:inherit;font:inherit}
+.rank{font-family:var(--mono);color:var(--dim);font-size:13px;text-align:center}
+.co .nm{font-weight:600;font-size:15.5px}
+.co .sub{display:flex;gap:7px;align-items:center;margin-top:4px;flex-wrap:wrap}
+.tk{font-family:var(--mono);color:var(--accent2);font-size:12px;font-weight:600}
+.chip{font:10.5px var(--mono);letter-spacing:.03em;text-transform:uppercase;padding:2px 7px;
+  border-radius:20px;border:1px solid var(--line2);color:var(--muted)}
+.col{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.col .v{font-size:14px;font-weight:600}.col .k{font-size:10px;color:var(--dim)}
+.roi{text-align:right}
+.roi .v{font-family:var(--mono);font-size:19px;font-weight:700;color:var(--accent)}
+.roi .k{font-size:10px;color:var(--dim);font-family:var(--mono)}
+@media(max-width:720px){.rhead{grid-template-columns:26px 1fr 84px;gap:8px}.rhead .col.contracts,.rhead .col.lobby{display:none}}
+
+.detail{display:none;border-top:1px solid var(--line);padding:14px 16px 18px}
+.row.open .detail{display:block}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:720px){.dgrid{grid-template-columns:1fr}}
+.dh{font:11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;
+  display:flex;justify-content:space-between}
+.dh a{font-size:11px}
+.line{border-top:1px solid var(--line);padding:8px 0;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:baseline}
+.line .t{font-size:12.5px;min-width:0}
+.line .t .m{font-family:var(--mono);font-size:11px;color:var(--muted);word-break:break-word}
+.line .t .d{font-size:11px;color:var(--dim);margin-top:2px}
+.line .a{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600;font-size:12.5px;white-space:nowrap}
+.line a{color:var(--muted)}.line a:hover{color:var(--accent2)}
+mark{background:rgba(240,128,60,.28);color:var(--text);border-radius:3px;padding:0 2px}
+.why{grid-column:1/-1;margin-top:14px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;
+  padding:11px 13px;font-size:12.5px;color:var(--muted)}
+.why b{color:var(--text)}
+.na{color:var(--dim);font-size:12.5px;padding:8px 0}
+
+details.method{margin:26px 0;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+details.method>summary{cursor:pointer;padding:15px 16px;font-weight:600;list-style:none;display:flex;justify-content:space-between}
+details.method>summary::-webkit-details-marker{display:none}
+details.method>summary::after{content:"+";color:var(--accent);font-family:var(--mono);font-size:18px}
+details.method[open]>summary::after{content:"\2013"}
+.mbody{padding:0 16px 16px;font-size:13.5px;color:var(--muted);line-height:1.62}
+.mbody h4{color:var(--text);font:12px var(--mono);text-transform:uppercase;letter-spacing:.06em;margin:15px 0 5px}
+.mbody ul{padding-left:18px;margin:6px 0}.mbody li{margin:4px 0}
+footer{border-top:1px solid var(--line);margin-top:20px;padding:24px 0 46px;color:var(--dim);font-size:12.5px}
+footer a{color:var(--muted)}
+.loading{padding:60px 0;text-align:center;color:var(--muted);font-family:var(--mono)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="/">Tensor<b>ust</b></a>
+  <div class="navlinks"><a href="/">Home</a><a href="/#data">Data</a><a href="/library">Library</a></div>
+</div></nav>
+
+<div class="wrap">
+<header>
+  <div class="kick"><span class="pulse"></span>Public Money Radar</div>
+  <h1>$1 to lobby Congress.<br><span>Up to $11,000 back in contracts.</span></h1>
+  <p class="lead">What 40 major federal contractors spent lobbying Washington in 2023, next to the federal contracts they received the same year. Raytheon&rsquo;s ratio topped <b>11,000x</b>; across all 40 companies the blended return was about <b>670x</b>. <b>Searchable down to each filing and each award</b>, every number linked to its public source.</p>
+</header>
+
+<div class="disc">
+  <b>Read this first.</b> Lobbying is legal and fully disclosed, and this is a <b>ratio, not a claim that lobbying bought the contracts</b>. These firms build the actual aircraft, ships, medicine and software, and would win much of this work regardless. The point is to show the scale of the return, plainly, with every figure linked to its source.
+</div>
+
+<div class="stats" id="stats"></div>
+
+<div class="controls">
+  <label class="search">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="q" type="search" placeholder="Search a company, ticker, agency, lobbying firm or contract&hellip;" aria-label="Search">
+  </label>
+  <select class="sortsel" id="sort" aria-label="Sort by">
+    <option value="roi">Sort: return multiple</option>
+    <option value="contracts">Sort: contracts $</option>
+    <option value="lobbying">Sort: lobbying $</option>
+    <option value="az">Sort: company A&ndash;Z</option>
+  </select>
+</div>
+<div class="count" id="count"></div>
+<div class="list" id="list"><div class="loading">Loading public records&hellip;</div></div>
+
+<details class="method">
+  <summary>Methodology, sources &amp; how this could be wrong</summary>
+  <div class="mbody">
+    <h4>What this shows</h4>
+    <p>For each company: total disclosed lobbying spending in 2023, and total federal prime-contract dollars obligated to it in calendar 2023. The "return multiple" is simply contracts divided by lobbying.</p>
+    <h4>Sources</h4>
+    <ul>
+      <li><b>Lobbying:</b> Senate Lobbying Disclosure Act filings (lda.senate.gov), summed across a client's 2023 filings (fees paid to outside firms plus in-house lobbying expenses).</li>
+      <li><b>Contracts:</b> USAspending.gov prime-award obligations for calendar 2023, aggregated by recipient. Individual awards shown are the largest matched contracts; click any of them to open the full record.</li>
+    </ul>
+    <h4>How this could be wrong, and where it is imperfect</h4>
+    <ul>
+      <li>Correlation is not causation. A big return multiple is <b>not</b> evidence that lobbying caused an award. Defense primes earn most of their revenue from the government by building things only they build.</li>
+      <li>Lobbying disclosures cover many issues &mdash; taxes, regulation, trade &mdash; not only contracts. Attributing all of it to contracts overstates the link.</li>
+      <li>Contract totals count <b>prime</b> obligations only. Money reaching a company as a subcontractor, through a reseller, or through indefinite-delivery vehicles may be missed, which understates some technology and pharmaceutical firms (and can even net negative when prior awards are de-obligated).</li>
+      <li>Recipient matching is by name and can miss subsidiaries or include a namesake. Every line links to its source so you can check it yourself.</li>
+    </ul>
+    <h4>Corrections</h4>
+    <p>Found an error? Email <a href="mailto:mattbusel@gmail.com">mattbusel@gmail.com</a> and it will be reviewed and corrected. Built with the Tensorust data farm, where every record is stored next to its source URL and a content hash.</p>
+  </div>
+</details>
+</div>
+
+<footer><div class="wrap">
+  Sources: U.S. Senate Lobbying Disclosure Act filings and USAspending.gov, both public domain. Figures are 2023. Built with the Tensorust data farm &mdash; public data, cited and hash-verified. <a href="/">tensorust-site.vercel.app</a>
+</div></footer>
+
+<script>
+const fmt=n=>{n=+n||0;const a=Math.abs(n);const s=n<0?'-$':'$';
+  if(a>=1e9)return s+(a/1e9).toFixed(1)+'B';if(a>=1e6)return s+(a/1e6).toFixed(1)+'M';
+  if(a>=1e3)return s+(a/1e3).toFixed(0)+'k';return s+Math.round(a).toLocaleString()};
+const full=n=>(n<0?'-$':'$')+Math.abs(Math.round(+n||0)).toLocaleString();
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function hl(s,q){s=esc(s);if(!q)return s;try{return s.replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>')}catch(e){return s}}
+let DATA=null,mode='roi',query='';
+
+fetch('./data.json').then(r=>r.json()).then(d=>{DATA=d;initStats();render()})
+  .catch(()=>{document.getElementById('list').innerHTML='<div class="loading">Could not load data. Please refresh.</div>'});
+
+function initStats(){
+  const m=DATA.meta;
+  document.getElementById('stats').innerHTML=[
+    [fmt(m.total_contracts),m.companies+' companies’ 2023 federal contracts'],
+    [fmt(m.total_lobbying),'spent lobbying Congress, 2023'],
+    [Math.round(m.blended_roi).toLocaleString()+'x','blended return on lobbying'],
+    [m.total_filings.toLocaleString(),'individual lobbying filings, all searchable'],
+  ].map(s=>`<div class="stat"><div class="n">${s[0]}</div><div class="l">${s[1]}</div></div>`).join('');
+}
+function matches(c,q){
+  if(!q)return true;
+  if((c.company+' '+c.ticker+' '+c.sector).toLowerCase().includes(q))return true;
+  if(c.filings.some(f=>((f.registrant||'')+' '+(f.period||'')).toLowerCase().includes(q)))return true;
+  if(c.awards.some(a=>((a.agency||'')+' '+(a.sub_agency||'')+' '+(a.award_id||'')+' '+(a.description||'')).toLowerCase().includes(q)))return true;
+  return false;
+}
+function detail(c,q){
+  const fil=c.filings.length? c.filings.map(f=>`<div class="line"><div class="t"><div class="m">${hl(f.registrant||'—',q)}</div><div class="d">${esc(f.period||'')} &middot; ${esc(f.type||'')}${f.url?` &middot; <a href="${esc(f.url)}" target="_blank" rel="noopener">source</a>`:''}</div></div><div class="a">${full(f.amount)}</div></div>`).join('')
+    : `<div class="na">No 2023 lobbying filings found for this client name.</div>`;
+  const awd=c.awards.length? c.awards.map(a=>`<div class="line"><div class="t"><div class="m">${a.url?`<a href="${esc(a.url)}" target="_blank" rel="noopener">${hl(a.award_id||'award',q)}</a>`:hl(a.award_id||'award',q)}</div><div class="d">${hl((a.agency||'')+(a.sub_agency?' / '+a.sub_agency:''),q)}${a.start?' &middot; '+esc(a.start):''}${a.description?'<br>'+hl(a.description,q):''}</div></div><div class="a">${full(a.amount)}</div></div>`).join('')
+    : `<div class="na">No matched 2023 prime contracts in this pull (money may flow via subcontracts or resellers).</div>`;
+  return `<div class="detail"><div class="dgrid">
+    <div><div class="dh"><span>Lobbying filings, 2023 (${c.lobby_filings})</span><a href="${esc(c.lda_url)}" target="_blank" rel="noopener">all on LDA &rarr;</a></div>${fil}</div>
+    <div><div class="dh"><span>Largest federal contracts, 2023</span><a href="https://www.usaspending.gov/search" target="_blank" rel="noopener">all on USAspending &rarr;</a></div>${awd}</div>
+    <div class="why"><b>${esc(c.company)}:</b> spent ${full(c.lobbying)} on disclosed lobbying and was obligated ${full(c.contracts)} in 2023 federal prime contracts${c.roi?` &mdash; a ${Math.round(c.roi).toLocaleString()}x ratio`:''}. This is a ratio, not causation. Verify any line at its source above.</div>
+  </div></div>`;
+}
+function render(){
+  const list=document.getElementById('list'),cnt=document.getElementById('count');
+  let rows=DATA.companies.filter(c=>matches(c,query));
+  rows.sort((a,b)=> mode==='lobbying'? b.lobbying-a.lobbying : mode==='contracts'? b.contracts-a.contracts
+    : mode==='az'? a.company.localeCompare(b.company) : (b.roi||0)-(a.roi||0));
+  cnt.textContent=rows.length+' of '+DATA.companies.length+' companies'+(query?' match “'+query+'”':'');
+  list.innerHTML=rows.map((c,i)=>`<div class="row" id="${esc(c.ticker)}">
+    <button class="rhead" aria-expanded="false">
+      <span class="rank">${i+1}</span>
+      <span class="co"><div class="nm">${hl(c.company,query)}</div>
+        <div class="sub"><span class="tk">${esc(c.ticker)}</span><span class="chip">${esc(c.sector)}</span><span class="chip">${c.lobby_filings} filings</span></div></span>
+      <span class="col lobby"><div class="v">${fmt(c.lobbying)}</div><div class="k">lobbying</div></span>
+      <span class="col contracts"><div class="v">${fmt(c.contracts)}</div><div class="k">contracts</div></span>
+      <span class="roi"><div class="v">${c.roi?Math.round(c.roi).toLocaleString()+'x':'n/a'}</div><div class="k">return</div></span>
+    </button>${detail(c,query)}</div>`).join('');
+  list.querySelectorAll('.rhead').forEach(btn=>btn.addEventListener('click',()=>{
+    const row=btn.closest('.row');const open=row.classList.toggle('open');
+    row.querySelector('.detail').style.display=open?'block':'none';
+    btn.setAttribute('aria-expanded',open);
+    if(open&&history.replaceState)history.replaceState(null,'','#'+row.id);
+  }));
+  if(location.hash){const el=document.getElementById(location.hash.slice(1));if(el){el.classList.add('open');el.querySelector('.detail').style.display='block';el.scrollIntoView({block:'center'});}}
+}
+document.getElementById('q').addEventListener('input',e=>{query=e.target.value.trim().toLowerCase();render()});
+document.getElementById('sort').addEventListener('change',e=>{mode=e.target.value;render()});
+</script>
+</body>
+</html>
