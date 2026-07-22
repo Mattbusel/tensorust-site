@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sources &amp; provenance | Tensorust</title>
+<meta name="description" content="Every dataset Tensorust uses, its source, license, how we access it, and how often it refreshes. Public-domain or openly licensed only. No scraping.">
+<link rel="canonical" href="https://tensorust-site.vercel.app/sources">
+<meta property="og:title" content="Tensorust sources & provenance">
+<meta property="og:description" content="Every dataset we use, its license, and how we access it. Public-domain or openly licensed only. No scraping.">
+<style>
+:root{--bg:#0b0d12;--panel:#12151d;--panel2:#171b26;--line:#232838;--line2:#333c52;
+  --text:#e8ebf2;--muted:#9aa3b7;--dim:#646d84;--accent:#f0803c;--accent2:#ffb27a;--good:#3fb6a2;
+  --sans:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--accent2);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:0;z-index:20;background:rgba(11,13,18,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-weight:800;font-size:19px}.brand b{color:var(--accent)}
+.navlinks a{color:var(--muted);margin-left:20px;font-size:14px}.navlinks a:hover{color:var(--text)}
+header{padding:48px 0 8px}
+.kick{font:600 12px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(28px,5vw,42px);margin:.3em 0 .2em;font-weight:800;letter-spacing:-.02em}
+.lead{color:var(--muted);font-size:16px;max-width:70ch}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 6px}
+.badge{font:600 12px/1 var(--mono);color:var(--good);border:1px solid var(--line2);border-radius:20px;padding:7px 12px}
+.tablewrap{overflow-x:auto;margin:22px 0;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:13.5px}
+th{background:#0f1219;text-align:left;padding:12px 14px;color:var(--muted);font:600 11.5px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--line)}
+td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td .src{font-weight:600}
+td .lic{color:var(--good);font-family:var(--mono);font-size:12px}
+.note{color:var(--muted);font-size:13.5px;line-height:1.6;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:20px 0}
+.note b{color:var(--text)}
+footer{border-top:1px solid var(--line);margin-top:26px;padding:24px 0 44px;color:var(--dim);font-size:12.5px}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="/">Tensor<b>ust</b></a>
+  <div class="navlinks"><a href="/under-oath">Under Oath</a><a href="/public-money">Public Money</a><a href="/library">Library</a><a href="/#pricing">Pricing</a></div>
+</div></nav>
+
+<div class="wrap">
+<header>
+  <div class="kick">Sources &amp; provenance</div>
+  <h1>Every source we use, in the open.</h1>
+  <p class="lead">Tensorust is built only on public-domain or openly licensed records, accessed through official APIs and bulk downloads. No scraping, no paywalled data, no private information. Here is every dataset, its license, and how we get it, so you can check the supply chain behind any number on this site.</p>
+  <div class="badges">
+    <span class="badge">&#10003; Public-domain or openly licensed</span>
+    <span class="badge">&#10003; Official APIs, no scraping</span>
+    <span class="badge">&#10003; Source + hash kept on every record</span>
+  </div>
+</header>
+
+<div class="tablewrap"><table>
+  <thead><tr><th>Source</th><th>What it covers</th><th>License</th><th>How we access it</th><th>Refresh</th></tr></thead>
+  <tbody>
+    <tr><td><span class="src">USAspending.gov</span><br><span style="color:var(--dim)">FPDS</span></td><td>Federal contract &amp; grant awards</td><td class="lic">U.S. public domain</td><td>Official API</td><td>Live on query</td></tr>
+    <tr><td><span class="src">SEC EDGAR</span></td><td>Public-company filings &amp; XBRL financials</td><td class="lic">U.S. public domain</td><td>Official API</td><td>Live / daily</td></tr>
+    <tr><td><span class="src">U.S. Senate LDA</span></td><td>Federal lobbying disclosures</td><td class="lic">U.S. public domain</td><td>Official API</td><td>Quarterly</td></tr>
+    <tr><td><span class="src">NIH RePORTER</span></td><td>NIH research grants &amp; projects</td><td class="lic">U.S. public domain</td><td>Official API</td><td>Live on query</td></tr>
+    <tr><td><span class="src">NSF Awards</span></td><td>National Science Foundation grants</td><td class="lic">U.S. public domain</td><td>Official API</td><td>Periodic</td></tr>
+    <tr><td><span class="src">openFDA</span><br><span style="color:var(--dim)">Drugs@FDA</span></td><td>Approved drugs &amp; sponsors</td><td class="lic">U.S. public domain</td><td>Official API</td><td>Weekly</td></tr>
+    <tr><td><span class="src">Federal Register</span></td><td>Rules, notices, executive orders</td><td class="lic">U.S. public domain</td><td>Official API</td><td>Daily</td></tr>
+    <tr><td><span class="src">CISA KEV</span></td><td>Actively-exploited vulnerabilities</td><td class="lic">U.S. public domain</td><td>Official JSON feed</td><td>Live</td></tr>
+    <tr><td><span class="src">NVD (NIST)</span></td><td>Reported vulnerabilities (CVEs)</td><td class="lic">U.S. public domain</td><td>Official API</td><td>Periodic</td></tr>
+    <tr><td><span class="src">GLEIF</span></td><td>Legal-entity identifiers (LEI)</td><td class="lic">CC0</td><td>Official API</td><td>Periodic</td></tr>
+    <tr><td><span class="src">PubMed / NLM</span></td><td>Biomedical literature</td><td class="lic">U.S. public domain</td><td>Official E-utilities API</td><td>Live on query</td></tr>
+    <tr><td><span class="src">OpenAlex</span></td><td>Scholarly works, all fields</td><td class="lic">CC0</td><td>Official API / snapshot</td><td>Periodic</td></tr>
+    <tr><td><span class="src">Crossref</span></td><td>Scholarly metadata &amp; DOIs</td><td class="lic">Open (CC0 facts)</td><td>Official API</td><td>Periodic</td></tr>
+    <tr><td><span class="src">arXiv</span></td><td>Physics / CS / AI preprints</td><td class="lic">Free reuse (metadata)</td><td>Official API</td><td>Periodic</td></tr>
+  </tbody>
+</table></div>
+
+<div class="note"><b>How provenance is kept.</b> Every record we collect is stored with the exact source URL it came from and a sha256 hash of the original payload, in a tamper-evident log. That is why any figure on this site can be traced back to the government or publisher response it was parsed from. If you ever find a number you cannot verify at its source, email <a href="mailto:mattbusel@gmail.com">mattbusel@gmail.com</a> and it will be corrected.</div>
+
+<div class="note"><b>Your data stays yours.</b> These are the only inputs we use. We store no private data, and nothing you type into a tool is sold, shared, or used to train anything.</div>
+</div>
+
+<footer><div class="wrap">
+  Public-domain and openly licensed sources only, accessed through official channels. Built with the Tensorust data farm. <a href="/">tensorust-site.vercel.app</a>
+  <div style="margin-top:12px"><a href="https://www.linkedin.com/company/tensorust" target="_blank" rel="noopener" aria-label="Tensorust on LinkedIn" style="display:inline-flex;align-items:center;gap:6px;color:var(--muted)"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>Tensorust on LinkedIn</a></div>
+</div></footer>
+</body>
+</html>
