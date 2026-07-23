@@ -3,7 +3,7 @@
   "cleanUrls": true,
   "headers": [
     {
-      "source": "/samples/(.*)",
+      "source": "/(samples|briefs)/(.*)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
     }
   ]
