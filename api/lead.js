@@ -1,4 +1,4 @@
-// Free mini-brief request endpoint.
+// Free evidence-sample request endpoint.
 //
 // Configure LEAD_WEBHOOK_URL in the Vercel project to forward a validated request
 // to the owner's chosen inbox or automation. No lead data is written to the
@@ -47,7 +47,7 @@ module.exports = async function handler(req, res) {
     email,
     topic,
     role: role || "Not specified",
-    source: "https://tensorust-site.vercel.app/#mini-brief",
+    source: "https://tensorust-site.vercel.app/#sample",
   };
 
   try {

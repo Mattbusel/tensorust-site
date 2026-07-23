@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tensorust - The evidence layer for AI</title>
-<meta name="description" content="The evidence layer for AI. Ask about a company and get the answer plus the records that prove it, drawn from contracts, SEC filings, grants, research, lobbying, FDA, and cybersecurity records.">
+<title>Tensorust - Compete above your headcount</title>
+<meta name="description" content="Tensorust gives challenger companies the evidence capacity of an enterprise research team. We connect contracts, filings, grants, patents, research, regulation and corporate records into cited intelligence smaller teams can act on immediately.">
 <link rel="canonical" href="https://tensorust-site.vercel.app/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tensorust">
-<meta property="og:title" content="Tensorust | The evidence layer for AI">
-<meta property="og:description" content="AI can answer anything. Tensorust shows what is actually true. Ask about a company, get the cited public record in seconds.">
+<meta property="og:title" content="Tensorust | Compete above your headcount">
+<meta property="og:description" content="Your competitors have more analysts. They should not know more than you. Tensorust gives challenger companies the evidence capacity of an enterprise research team.">
 <meta property="og:url" content="https://tensorust-site.vercel.app/">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tensorust | The evidence layer for AI">
-<meta name="twitter:description" content="AI can answer anything. Tensorust shows what is actually true, with every source attached.">
+<meta name="twitter:title" content="Tensorust | Compete above your headcount">
+<meta name="twitter:description" content="Your competitors have more analysts. They should not know more than you.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -22,7 +22,7 @@
       "@type": "Organization",
       "name": "Tensorust",
       "url": "https://tensorust-site.vercel.app/",
-      "description": "The evidence layer for AI. Tensorust connects AI answers to cited public records, explicit limitations, and inspectable source links.",
+      "description": "Tensorust gives challenger companies the evidence capacity of an enterprise research team, connecting contracts, filings, grants, patents, research, regulation and corporate records into cited intelligence.",
       "email": "mattbusel@gmail.com",
       "founder": {"@type": "Person", "name": "Matthew Busel"},
       "sameAs": [
@@ -31,13 +31,14 @@
       ]
     },
     {
-      "@type": "Product",
-      "name": "Tensorust Instant Brief",
-      "description": "A cited KOL and research-leader brief generated for a buyer's topic from public research data.",
-      "brand": {"@type": "Brand", "name": "Tensorust"},
+      "@type": "Service",
+      "name": "Tensorust Competitive Evidence",
+      "serviceType": "Competitive and regulatory evidence for challenger companies",
+      "provider": {"@type": "Organization", "name": "Tensorust"},
+      "areaServed": "US",
       "offers": {
         "@type": "Offer",
-        "price": "149",
+        "price": "299",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
         "url": "https://tensorust-site.vercel.app/#pricing"
@@ -48,8 +49,9 @@
 </script>
 <style>
   :root{
-    --bg:#0b0d12; --panel:#12151d; --panel2:#161a24; --line:#232838;
-    --text:#e8ebf2; --muted:#9aa3b7; --accent:#f0803c; --accent2:#ffb27a;
+    --bg:#0b0d12; --panel:#12151d; --panel2:#161a24; --line:#232838; --line2:#333c52;
+    --text:#e8ebf2; --muted:#9aa3b7; --dim:#646d84; --accent:#f0803c; --accent2:#ffb27a;
+    --teal:#5eead4;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -70,18 +72,19 @@
   .brand b{color:var(--accent)}
   .navlinks a{color:var(--muted);margin-left:20px;font-size:14px}
   .navlinks a:hover{color:var(--text)}
-  @media(max-width:700px){.navlinks{display:none}}
-  header{padding:78px 0 54px;border-bottom:1px solid var(--line);
+  @media(max-width:820px){.navlinks{display:none}}
+  header{padding:82px 0 56px;border-bottom:1px solid var(--line);
     background:radial-gradient(1200px 400px at 70% -10%,rgba(240,128,60,.13),transparent)}
   .kicker{color:var(--accent);font-weight:700;letter-spacing:.14em;
     text-transform:uppercase;font-size:12px}
-  h1{font-size:clamp(30px,5vw,52px);line-height:1.08;margin:.35em 0 .3em;letter-spacing:-.02em}
+  h1{font-size:clamp(32px,5.4vw,56px);line-height:1.05;margin:.32em 0 .3em;letter-spacing:-.025em}
   .lede{font-size:19px;color:var(--muted);max-width:700px}
   .cta{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+  .notlist{margin-top:20px;font:600 12.5px/1.7 ui-monospace,Menlo,Consolas,monospace;color:var(--muted)}
   section{padding:56px 0;border-bottom:1px solid var(--line)}
   h2{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin:0 0 6px}
   .h2sub{font-size:26px;font-weight:700;margin:0 0 8px;letter-spacing:-.01em}
-  .h2note{color:var(--muted);margin:0 0 26px;max-width:640px}
+  .h2note{color:var(--muted);margin:0 0 26px;max-width:680px}
   .grid{display:grid;gap:18px}
   .g4{grid-template-columns:repeat(4,1fr)}
   .g3{grid-template-columns:repeat(3,1fr)}
@@ -92,22 +95,80 @@
   .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
   .card h3{margin:0 0 8px;font-size:17px}
   .card p{margin:0;color:var(--muted);font-size:14.5px}
-  .value-grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:16px;margin-top:22px}
-  .value-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
-  .value-card h3{margin:0 0 7px;font-size:16px}
-  .value-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.52}
-  .value-card .proof{display:block;margin-top:12px;color:var(--accent2);font-size:12px;font-weight:700;line-height:1.4}
-  .value-card.lead{border-color:#31546b;background:linear-gradient(145deg,#10202a,#101828)}
-  .value-card.lead h3{color:#f8fafc}.value-card.lead p{color:#cbd5e1}.value-card.lead .proof{color:#5eead4}
-  .usecase-card{display:flex;flex-direction:column;min-height:210px}
-  .usecase-card .question{color:var(--text);font-size:14px;line-height:1.45;margin-top:2px}
-  .usecase-card .next{margin-top:auto;padding-top:16px;color:var(--accent2);font-size:13px;font-weight:700}
-  @media(max-width:820px){.value-grid{grid-template-columns:1fr}}
   .card .tag{display:inline-block;font-size:11px;color:var(--accent2);
     border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:12px;
     text-transform:uppercase;letter-spacing:.08em}
+
+  /* asymmetry band */
+  .vs{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;margin-top:24px}
+  @media(max-width:820px){.vs{grid-template-columns:1fr}}
+  .vscol{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .vscol.you{border-color:#7a4a24;background:linear-gradient(150deg,rgba(240,128,60,.10),var(--panel) 62%)}
+  .vscol .who{font:700 10.5px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+  .vscol.you .who{color:var(--accent)}
+  .vscol ul{margin:0;padding-left:18px}
+  .vscol li{color:var(--muted);font-size:14.5px;margin:8px 0}
+  .vscol.you li{color:var(--text)}
+  .vsmid{display:flex;align-items:center;justify-content:center;color:var(--dim);
+    font:800 15px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.1em}
+  @media(max-width:820px){.vsmid{padding:4px 0}}
+  .closer{margin-top:24px;border-left:3px solid var(--accent);padding:6px 0 6px 18px;
+    font-size:18px;font-weight:600;line-height:1.45;max-width:760px}
+  .closer span{color:var(--accent2)}
+
+  /* products */
+  .prodgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:24px}
+  .prod{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;
+    display:flex;flex-direction:column}
+  .prod:hover{border-color:var(--line2)}
+  .prod.hero{grid-column:span 2;border-color:#28405d;
+    background:linear-gradient(135deg,#111827 0%,#172554 58%,#0f766e 165%)}
+  .prod.hero h3{color:#f8fafc}.prod.hero p{color:#dbeafe}
+  .prod.hero .num{color:var(--teal);border-color:rgba(153,246,228,.34)}
+  @media(max-width:820px){.prod.hero{grid-column:span 1}}
+  .prod .num{font:700 10.5px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.12em;
+    color:var(--accent);border:1px solid var(--line);border-radius:999px;padding:5px 10px;
+    align-self:flex-start;margin-bottom:13px}
+  .prod h3{margin:0 0 9px;font-size:18px;letter-spacing:-.01em;line-height:1.25}
+  .prod p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55}
+  .prod .buys{margin-top:14px;padding-top:13px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--dim)}
+  .prod .buys b{color:var(--accent2)}
+  .prod.hero .buys{border-top-color:rgba(153,246,228,.2);color:#cbd5e1}
+
+  /* segments table */
+  .segwrap{margin-top:22px;overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+  .segwrap table{width:100%;border-collapse:collapse;font-size:14px;min-width:720px}
+  .segwrap th,.segwrap td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+  .segwrap th{color:var(--accent);font:700 11px/1.4 ui-monospace,Menlo,Consolas,monospace;
+    letter-spacing:.08em;text-transform:uppercase;background:var(--panel2)}
+  .segwrap tr:last-child td{border-bottom:0}
+  .segwrap td.p{color:var(--dim);font:700 13px/1 ui-monospace,Menlo,Consolas,monospace;width:38px}
+  .segwrap td.who{color:var(--text);font-weight:600;width:27%}
+  .segwrap td.why{color:var(--muted)}
+  .segwrap td.buyer{color:var(--dim);font-size:13px;width:22%}
+  .icp{margin-top:18px;border:1px solid var(--line);border-radius:12px;padding:16px 18px;
+    background:var(--panel2);color:var(--muted);font-size:14.5px;line-height:1.6}
+  .icp b{color:var(--text)}
+
+  /* proof / receipt */
+  .exrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:14px;margin-top:22px}
+  .excard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .excard .eye{font:700 10.5px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--muted)}
+  .excard .big{display:flex;align-items:baseline;gap:11px;margin:13px 0 5px;flex-wrap:wrap}
+  .excard .n1{font:800 30px/1 -apple-system,Segoe UI,sans-serif;color:var(--text);font-variant-numeric:tabular-nums}
+  .excard .arw{color:var(--dim);font-size:19px}
+  .excard .n2{font:800 30px/1 -apple-system,Segoe UI,sans-serif;color:var(--accent);font-variant-numeric:tabular-nums}
+  .excard .cap{font-size:11.5px;color:var(--dim);line-height:1.4}
+  .excard .save{margin:13px 0 7px;font:700 14.5px/1.3 -apple-system,Segoe UI,sans-serif;color:var(--accent2)}
+  .excard .why{font-size:12.5px;color:var(--muted);line-height:1.5}
+  .excard .why a{color:var(--accent2)}
+
+  /* work samples */
   .examples-grid{margin-top:24px}
-  .example{display:flex;flex-direction:column;justify-content:space-between;min-height:260px;position:relative;overflow:hidden}
+  .example{display:flex;flex-direction:column;justify-content:space-between;min-height:250px;position:relative;overflow:hidden}
   .example.featured{grid-column:span 2;background:linear-gradient(135deg,#111827 0%,#172554 56%,#0f766e 150%);border-color:#28405d}
   .example.featured h3,.example.featured p,.example.featured .example-meta{color:#f8fafc}
   .example.featured p{color:#dbeafe}
@@ -116,26 +177,24 @@
   .example h3{font-size:19px;line-height:1.2;margin-bottom:10px}
   .example-copy{font-size:14.5px;line-height:1.5}
   .example-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px;position:relative;z-index:1}
-  .example-meta span{font-size:11px;font-weight:700;letter-spacing:.02em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 8px;background:rgba(15,23,42,.02)}
+  .example-meta span{font-size:11px;font-weight:700;letter-spacing:.02em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 8px}
   .featured .example-meta span{color:#ccfbf1;border-color:rgba(153,246,228,.32);background:rgba(15,118,110,.25)}
   .example .foot{margin-top:18px;position:relative;z-index:1}
   .example a.dl{color:var(--accent);font-weight:700;font-size:14px}
   .example a.dl:hover{color:var(--accent2)}
-  .featured a.dl{color:#5eead4}
+  .featured a.dl{color:var(--teal)}
   .featured a.dl:hover{color:#fdba74}
   @media(max-width:960px){.example.featured{grid-column:span 2}}
   @media(max-width:560px){.example.featured{grid-column:span 1}.example{min-height:0}}
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;text-align:center}
-  @media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
-  .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
-  .stat .n{font-size:30px;font-weight:800;color:var(--accent2);letter-spacing:-.02em}
-  .stat .l{color:var(--muted);font-size:13px;margin-top:4px}
-  .method li{color:var(--muted);margin:10px 0}
+
+  /* pricing */
   .price{display:flex;flex-direction:column}
   .price .amt{font-size:32px;font-weight:800;color:var(--text);letter-spacing:-.02em;margin:4px 0 10px}
   .price.featured{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
   .price .foot{margin-top:auto;padding-top:14px}
   .price .foot a{color:var(--accent);font-weight:700;font-size:14px}
+  .price .incl{margin:10px 0 0;padding-left:17px;color:var(--muted);font-size:13.5px}
+  .price .incl li{margin:5px 0}
   .costcompare{margin-top:18px;overflow-x:auto}
   .costcompare table{width:100%;border-collapse:collapse;font-size:14px;min-width:620px}
   .costcompare th,.costcompare td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
@@ -144,6 +203,8 @@
   .costcompare .ours{color:var(--accent2);font-weight:700}
   .costnote{color:var(--muted);font-size:12.5px;line-height:1.55;margin:12px 2px 0}
   .costnote a{color:var(--accent2);text-decoration:underline;text-underline-offset:2px}
+
+  /* live preview widget */
   .tryrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
   .tryin{flex:1;min-width:260px;background:var(--panel);border:1px solid var(--line);
     color:var(--text);border-radius:10px;padding:13px 16px;font-size:16px}
@@ -157,6 +218,7 @@
   .trygrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   @media(max-width:820px){.trygrid{grid-template-columns:1fr}}
   .trynote{color:var(--muted);font-size:13px;margin-top:14px}
+  .trynote a{color:var(--accent)}
   .tryloading{color:var(--accent2)}
   .sharebar{display:flex;align-items:center;justify-content:space-between;gap:12px;
     margin-top:18px;padding:12px 14px;background:var(--panel2);border:1px solid var(--line);
@@ -165,6 +227,8 @@
     border-radius:8px;padding:7px 10px;cursor:pointer;font-weight:700;white-space:nowrap}
   .sharebar button:hover{border-color:var(--accent)}
   @media(max-width:560px){.sharebar{align-items:flex-start;flex-direction:column}}
+
+  /* lead form */
   .leadform{max-width:760px;margin:22px auto 0;display:grid;grid-template-columns:1fr 1fr;
     gap:12px;text-align:left}
   .leadform .wide{grid-column:1/-1}
@@ -175,14 +239,7 @@
   .leadform .formnote{grid-column:1/-1;color:var(--muted);font-size:12.5px;margin:0}
   .leadstatus{max-width:760px;margin:12px auto 0;color:var(--accent2);font-size:13px;min-height:1.6em}
   @media(max-width:680px){.leadform{grid-template-columns:1fr}.leadform .wide{grid-column:auto}}
-  .cfgrid{display:grid;grid-template-columns:1fr 1.3fr;gap:10px}
-  @media(max-width:820px){.cfgrid{grid-template-columns:1fr}}
-  .cfgrid textarea.tryin{min-height:74px;resize:vertical}
-  .cfout{margin-top:22px}
-  .cfout table{width:100%;border-collapse:collapse;font-size:14px}
-  .cfout th,.cfout td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-  .cfout th{color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
-  .cfout a{color:var(--accent2);text-decoration:underline;text-underline-offset:2px}
+
   .contact{background:linear-gradient(180deg,var(--panel2),var(--panel));text-align:center}
   .contact .lede{margin:0 auto}
   .emaildirect{margin-top:16px;color:var(--muted);font-size:15px}
@@ -190,6 +247,9 @@
   footer{padding:34px 0;color:var(--muted);font-size:13px}
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   .muted{color:var(--muted)}
+  .srcline{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .srcline span{font:600 12px/1 ui-monospace,Menlo,Consolas,monospace;border:1px solid var(--line2);
+    border-radius:20px;padding:9px 13px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -197,218 +257,364 @@
 <nav><div class="wrap">
   <div class="brand">Tensor<b>ust</b></div>
   <div class="navlinks">
+    <a href="#build">What we build</a>
+    <a href="#who">Who it is for</a>
     <a href="/under-oath">Under Oath</a>
-    <a href="/library">Library</a>
     <a href="#pricing">Pricing</a>
     <a href="#contact">Contact</a>
   </div>
 </div></nav>
 
 <header><div class="wrap">
-  <div class="kicker">The evidence layer for AI</div>
-  <h1>AI can answer anything.<br><span style="color:var(--accent)">Tensorust shows what is actually true.</span></h1>
-  <p class="lede">Ask about a company. Get the answer and the records that prove it. Tensorust searches contracts, SEC filings, grants, research, lobbying, FDA, and cybersecurity records to produce cited answers from the public record.</p>
+  <div class="kicker">Evidence capacity for challenger companies</div>
+  <h1>Compete above<br>your <span style="color:var(--accent)">headcount.</span></h1>
+  <p class="lede">Tensorust gives challenger companies the evidence capacity of an enterprise research team. We find what larger competitors missed, connect the evidence, and produce something you can use immediately to win.</p>
   <div class="cta">
-    <a class="btn" href="/under-oath">Check a claim free</a>
-    <a class="btn ghost" href="#receipt">See an evidence receipt</a>
+    <a class="btn" href="#sample">Get a free evidence sample</a>
+    <a class="btn ghost" href="#build">See what we build</a>
   </div>
-  <div style="margin-top:18px;font:600 12.5px/1.7 ui-monospace,Menlo,Consolas,monospace;color:var(--muted)">Public records &nbsp;&middot;&nbsp; Resolved entities &nbsp;&middot;&nbsp; Traceable sources &nbsp;&middot;&nbsp; Explicit limits</div>
-  <div style="margin-top:14px;font-size:15.5px;color:var(--accent2);font-weight:600">Spend 60 seconds checking a company, not two days searching six databases.</div>
+  <div class="notlist">Not another AI assistant. &nbsp;&middot;&nbsp; Not a database subscription. &nbsp;&middot;&nbsp; An outsourced evidence department.</div>
+  <div style="margin-top:16px;font-size:15.5px;color:var(--accent2);font-weight:600">Your competitors have more analysts. They should not know more than you.</div>
 </div></header>
 
-<section id="trust" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel);padding:0"><div class="wrap" style="padding:10px 20px">
+<section id="trust" style="border-top:1px solid var(--line);background:var(--panel);padding:0"><div class="wrap" style="padding:10px 20px">
   <div style="display:flex;flex-wrap:wrap;gap:5px 20px;align-items:center;justify-content:center;font-size:12.5px;color:var(--muted);line-height:1.35">
-    <span style="display:inline-flex;align-items:center;gap:6px"><span style="color:var(--accent);font-weight:800">&#10003;</span> Every figure links to its source</span>
-    <span style="display:inline-flex;align-items:center;gap:6px"><span style="color:var(--accent);font-weight:800">&#10003;</span> 6 live government datasets</span>
-    <span style="display:inline-flex;align-items:center;gap:6px"><span style="color:var(--accent);font-weight:800">&#10003;</span> <a href="/sources" style="color:var(--muted);border-bottom:1px dotted var(--line2,#333c52)">Public-domain data only</a></span>
-    <span style="display:inline-flex;align-items:center;gap:6px"><span style="color:var(--accent);font-weight:800">&#10003;</span> Methodology &amp; limits published</span>
-    <span style="display:inline-flex;align-items:center;gap:6px"><span style="color:var(--accent);font-weight:800">&#10003;</span> Free to try</span>
+    <span style="display:inline-flex;align-items:center;gap:6px"><span style="color:var(--accent);font-weight:800">&#10003;</span> Every finding links to its original record</span>
+    <span style="display:inline-flex;align-items:center;gap:6px"><span style="color:var(--accent);font-weight:800">&#10003;</span> <a href="/sources" style="color:var(--muted);border-bottom:1px dotted var(--line2)">Public and permitted sources only</a></span>
+    <span style="display:inline-flex;align-items:center;gap:6px"><span style="color:var(--accent);font-weight:800">&#10003;</span> Limits stated, never overclaimed</span>
+    <span style="display:inline-flex;align-items:center;gap:6px"><span style="color:var(--accent);font-weight:800">&#10003;</span> Free sample before you commit</span>
   </div>
 </div></section>
 
-<section id="why"><div class="wrap">
-  <h2>AI answers are cheap. Evidence is not.</h2>
-  <div class="h2sub">Most AI tools generate answers from text they have seen. Tensorust checks your question against structured public records, resolves the organizations involved, preserves the source trail, and reports what the evidence supports, contradicts, or cannot establish.</div>
-  <div style="margin-top:26px;border:1px solid var(--line);border-radius:16px;padding:30px 24px;background:var(--panel)">
-    <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
-      <div style="border:1px solid var(--line);border-radius:10px;padding:12px 24px;font-weight:600;background:var(--panel2)">Your question</div>
-      <div style="color:var(--dim,#646d84);font-size:20px">&darr;</div>
-      <div style="border:1px solid var(--accent);border-radius:10px;padding:14px 28px;font-weight:800;font-size:18px;color:var(--accent2);background:linear-gradient(135deg,rgba(240,128,60,.14),var(--panel2))">Tensorust Evidence Graph</div>
-      <div style="color:var(--dim,#646d84);font-size:20px">&darr;</div>
-      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:660px">
-        <span style="font:600 12.5px/1 ui-monospace,Menlo,Consolas,monospace;border:1px solid var(--line2,#333c52);border-radius:20px;padding:9px 13px;color:var(--muted)">Contracts</span>
-        <span style="font:600 12.5px/1 ui-monospace,Menlo,Consolas,monospace;border:1px solid var(--line2,#333c52);border-radius:20px;padding:9px 13px;color:var(--muted)">SEC filings</span>
-        <span style="font:600 12.5px/1 ui-monospace,Menlo,Consolas,monospace;border:1px solid var(--line2,#333c52);border-radius:20px;padding:9px 13px;color:var(--muted)">Grants</span>
-        <span style="font:600 12.5px/1 ui-monospace,Menlo,Consolas,monospace;border:1px solid var(--line2,#333c52);border-radius:20px;padding:9px 13px;color:var(--muted)">Research</span>
-        <span style="font:600 12.5px/1 ui-monospace,Menlo,Consolas,monospace;border:1px solid var(--line2,#333c52);border-radius:20px;padding:9px 13px;color:var(--muted)">FDA</span>
-        <span style="font:600 12.5px/1 ui-monospace,Menlo,Consolas,monospace;border:1px solid var(--line2,#333c52);border-radius:20px;padding:9px 13px;color:var(--muted)">Cyber</span>
-      </div>
-      <div style="color:var(--dim,#646d84);font-size:20px">&darr;</div>
-      <div style="border:1px solid var(--line);border-radius:10px;padding:13px 22px;font-weight:600;background:var(--panel2);text-align:center;font-size:14px">Cited answer &nbsp;+&nbsp; confidence &nbsp;+&nbsp; limitations &nbsp;+&nbsp; source links</div>
+<section id="asymmetry"><div class="wrap">
+  <h2>The fight you are actually in</h2>
+  <div class="h2sub">The company across from you is not smarter. It is staffed.</div>
+  <p class="h2note">A larger competitor runs functions you cannot afford to hire: a market intelligence desk, regulatory affairs, a capture team, a research group. That is the real gap. Not talent, not technology. Capacity to find and reconcile evidence.</p>
+  <div class="vs">
+    <div class="vscol">
+      <div class="who">The incumbent across from you</div>
+      <ul>
+        <li>A market intelligence function tracking your category full time</li>
+        <li>Regulatory affairs staff who read every rulemaking and standard</li>
+        <li>A capture team watching contract vehicles and recompetes</li>
+        <li>Analysts who assemble the diligence packet before the meeting</li>
+      </ul>
+    </div>
+    <div class="vsmid">VS</div>
+    <div class="vscol you">
+      <div class="who">You</div>
+      <ul>
+        <li>Experts who are already fully committed to the product</li>
+        <li>No one whose job is to watch the record</li>
+        <li>Days lost every time a real question comes up</li>
+        <li>The same public evidence available to you &mdash; and no time to reach it</li>
+      </ul>
     </div>
   </div>
-  <p style="text-align:center;color:var(--muted);font-size:14px;margin-top:14px;font-style:italic">Not another chatbot. The verification infrastructure behind one.</p>
+  <p class="closer">Tensorust connects contracts, filings, grants, patents, research, regulation and corporate records into cited intelligence that smaller teams can act on immediately.</p>
+  <p class="closer" style="border-left-color:var(--line2)"><span>Your experts make the judgment.</span> Tensorust eliminates the days spent finding and reconciling the evidence.</p>
 </div></section>
 
-<section id="receipt"><div class="wrap">
-  <h2>A real evidence receipt</h2>
-  <div class="h2sub">The answer is $18.1M. The evidence is 122 filings.</div>
-  <div style="margin-top:20px;max-width:660px;border:1px solid var(--accent-dim,#7a4a24);border-radius:14px;overflow:hidden;background:var(--panel)">
-    <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap">
-      <span style="font:700 12px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.05em;padding:7px 11px;border-radius:8px;background:#102f28;color:#5eead4;border:1px solid #3fb6a2">ON THE RECORD</span>
-      <span style="color:var(--muted);font-size:13px">U.S. Senate Lobbying Disclosure Act database</span>
+<section id="build"><div class="wrap">
+  <h2>What we build</h2>
+  <div class="h2sub">Not research. A competitive outcome you can put in front of a buyer, a board, an agency or an investor.</div>
+  <p class="h2note">Each one is a defined deliverable built from primary records, with every figure linked back to the source and the coverage limits written in.</p>
+  <div class="prodgrid">
+
+    <div class="prod hero">
+      <span class="num">01</span>
+      <h3>Incumbent Weakness Map</h3>
+      <p>Where the larger competitor is actually exposed. Contracts approaching recompete, thin or expiring patent coverage, recalls and safety findings, published security exposure, lapsed registrations, quiet retreats from a segment. Every exposure tied to the record that shows it.</p>
+      <div class="buys"><b>Bought by</b> founders and commercial leads who need to know where to push.</div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line)">
-      <div style="background:var(--panel);padding:18px"><div style="font:700 28px/1 ui-monospace,Menlo,Consolas,monospace;color:var(--text)">$18.1M</div><div style="font-size:12px;color:var(--muted);margin-top:7px">Amazon disclosed federal lobbying, 2023</div></div>
-      <div style="background:var(--panel);padding:18px"><div style="font:700 28px/1 ui-monospace,Menlo,Consolas,monospace;color:var(--accent2)">122</div><div style="font-size:12px;color:var(--muted);margin-top:7px">original filings behind the answer</div></div>
+
+    <div class="prod">
+      <span class="num">02</span>
+      <h3>Market Entry Evidence Pack</h3>
+      <p>What the market actually looks like before you commit to it. Who holds the contracts, which agencies and buyers are active, what the standards require, who the incumbents are, and where public money is already moving.</p>
+      <div class="buys"><b>Bought by</b> strategy and US expansion leads.</div>
     </div>
-    <div style="padding:14px 18px;border-top:1px solid var(--line);font-size:13.5px;color:var(--muted);line-height:1.55">Every amount is itemized and every filing is linked. Coverage is limited to federal lobbying, and client-name matching may split or miss affiliated entities.</div>
+
+    <div class="prod">
+      <span class="num">03</span>
+      <h3>Contract Opportunity Map</h3>
+      <p>Federal and institutional buying activity in your category. Who won, how much was actually obligated against the announced ceiling, when the recompete lands, and which offices buy the thing you make.</p>
+      <div class="buys"><b>Bought by</b> business development and capture leads.</div>
+    </div>
+
+    <div class="prod">
+      <span class="num">04</span>
+      <h3>Regulatory Window Monitor</h3>
+      <p>The standards, rulemaking, agency programs and funding lines that open or close a window for your technology &mdash; tracked continuously, so a change reaches you while you can still act on it.</p>
+      <div class="buys"><b>Bought by</b> policy leads and regulated-market operators.</div>
+    </div>
+
+    <div class="prod">
+      <span class="num">05</span>
+      <h3>Competitor Claim Audit</h3>
+      <p>Test what a competitor says in public against what the record shows. Announced contract value against dollars actually obligated. Claimed approvals against the regulatory record. Claimed scale against filings. Supported, overstated, or missing context &mdash; with the evidence attached.</p>
+      <div class="buys"><b>Bought by</b> product marketing and commercial teams.</div>
+    </div>
+
+    <div class="prod">
+      <span class="num">06</span>
+      <h3>Investor Diligence Packet</h3>
+      <p>Institutional-quality diligence on a company or a sector without an institutional research operation. Assembled from primary records, with the limits stated plainly so a partner can rely on it in an investment committee.</p>
+      <div class="buys"><b>Bought by</b> partners and principals at smaller funds.</div>
+    </div>
+
+    <div class="prod">
+      <span class="num">07</span>
+      <h3>Technical Credibility Pack</h3>
+      <p>The cited evidence a conservative buyer needs before adopting something new: the research base behind the technology, federal validation and funding, standards position, and comparable public deployments. Built to be handed directly to a skeptical customer.</p>
+      <div class="buys"><b>Bought by</b> industrial and advanced-material companies selling into cautious markets.</div>
+    </div>
+
+    <div class="prod">
+      <span class="num">08</span>
+      <h3>Monthly Competitive Evidence Monitor</h3>
+      <p>The department that keeps running. Funding, standards, policy, contract and competitor changes in your category, delivered on a cadence, so nobody on your team loses days searching for something that moved last week.</p>
+      <div class="buys"><b>Bought by</b> teams who need the advantage to compound, not expire.</div>
+    </div>
+
   </div>
-  <p style="color:var(--muted);font-size:14px;margin-top:16px">AI gives you the answer. Tensorust gives you the evidence.</p>
-  <div class="cta" style="justify-content:flex-start"><a class="btn" href="/under-oath?q=How%20much%20did%20Amazon%20spend%20lobbying%20in%202023%3F">Run this yourself, free</a></div>
 </div></section>
 
-<section id="tools"><div class="wrap">
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
-    <a href="/under-oath" style="display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:16px;padding:24px;background:linear-gradient(135deg,rgba(240,128,60,.12),var(--panel) 60%);transition:border-color .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
-      <div style="font:600 12px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)">New &middot; Tensorust Under Oath</div>
-      <div style="font-size:clamp(21px,3vw,27px);font-weight:800;letter-spacing:-.01em;margin:10px 0 8px">Put any corporate claim under oath.</div>
-      <div style="color:var(--muted);font-size:14.5px">Paste a company claim, headline, or contract. We search federal contracts, filings, lobbying and grants, then publish the evidence receipt.</div>
-      <div style="margin-top:11px;font-size:12.5px;color:var(--dim)"><b style="color:var(--accent2)">Saves you</b> the hours of pulling and reconciling a company&rsquo;s contracts, filings, lobbying and cyber records by hand.</div>
-      <div style="margin-top:12px;color:var(--accent2);font-weight:700;font-size:14px">Open the investigator &rarr;</div>
-    </a>
-    <a href="/under-oath?q=How%20much%20did%20Amazon%20spend%20lobbying%20in%202023%3F" style="display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:16px;padding:24px;background:linear-gradient(135deg,rgba(240,128,60,.07),var(--panel) 60%);transition:border-color .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
-      <div style="font:600 12px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)">Evidence receipt</div>
-      <div style="font-size:clamp(21px,3vw,27px);font-weight:800;letter-spacing:-.01em;margin:10px 0 8px">The answer is $18.1M. The evidence is 122 filings.</div>
-      <div style="color:var(--muted);font-size:14.5px">See the original federal lobbying disclosures behind the Amazon result, with every amount itemized and linked.</div>
-      <div style="margin-top:11px;font-size:12.5px;color:var(--dim)"><b style="color:var(--accent2)">The difference</b> between an AI answer and an answer you can inspect.</div>
-      <div style="margin-top:12px;color:var(--accent2);font-weight:700;font-size:14px">Open the receipt &rarr;</div>
-    </a>
+<section id="who"><div class="wrap">
+  <h2>Who it is for</h2>
+  <div class="h2sub">Companies for whom better information is a weapon.</div>
+  <p class="h2note">The pattern is consistent: you sell into a complicated market, and you are facing a company much larger than you are.</p>
+  <div class="segwrap">
+    <table>
+      <thead><tr><th>#</th><th>Customer</th><th>Why they buy</th><th>Who buys</th></tr></thead>
+      <tbody>
+        <tr><td class="p">01</td><td class="who">Industrial and advanced-material startups</td><td class="why">They must convince conservative buyers that new technology is credible.</td><td class="buyer">Founder, CEO, commercial lead</td></tr>
+        <tr><td class="p">02</td><td class="who">Smaller manufacturers and government contractors</td><td class="why">They need to find opportunities before large incumbents dominate them.</td><td class="buyer">CEO, business development, capture lead</td></tr>
+        <tr><td class="p">03</td><td class="who">Boutique consulting, engineering, legal and public-affairs firms</td><td class="why">Tensorust increases output without adding junior analysts.</td><td class="buyer">Managing partner, practice lead</td></tr>
+        <tr><td class="p">04</td><td class="who">Emerging biotech, medtech and pharmaceutical companies</td><td class="why">They need research, FDA, grant, KOL and competitor evidence.</td><td class="buyer">Strategy, business development, medical affairs</td></tr>
+        <tr><td class="p">05</td><td class="who">Cybersecurity challengers</td><td class="why">They need vulnerability, contract and competitor intelligence.</td><td class="buyer">Founder, product marketing, federal sales</td></tr>
+        <tr><td class="p">06</td><td class="who">Venture funds, search funds and smaller private-equity firms</td><td class="why">They need institutional-quality diligence without a massive research operation.</td><td class="buyer">Partner, principal, platform lead</td></tr>
+        <tr><td class="p">07</td><td class="who">Foreign companies entering the United States</td><td class="why">They need contracts, regulation, standards, agencies and competitor maps.</td><td class="buyer">US expansion lead, strategy</td></tr>
+        <tr><td class="p">08</td><td class="who">New industry coalitions and challenger associations</td><td class="why">They need evidence and credibility before they possess institutional authority.</td><td class="buyer">Executive director, policy lead</td></tr>
+      </tbody>
+    </table>
   </div>
+  <p class="icp"><b>The pattern.</b> Usually between 10 and 500 employees. Selling into a complicated market &mdash; regulated, procurement-driven, standards-bound, or technically conservative. Facing a competitor with many times the staff. If that is you, the evidence you need is already public. Reaching it is the problem Tensorust solves.</p>
 </div></section>
 
-<section id="how"><div class="wrap">
-  <h2>How Tensorust saves you time and money</h2>
-  <div class="h2sub">No vague ROI promise. Here is exactly where the hours and the dollars go, and how every tool on this site reinforces it.</div>
-  <div class="value-grid">
-    <div class="value-card lead">
-      <span style="display:inline-block;font:700 10.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;color:var(--accent);border:1px solid var(--line);padding:4px 9px;border-radius:20px;margin-bottom:11px">TIME SAVED</span>
-      <h3>The first-pass research is already done</h3>
-      <p>Instead of opening dozens of tabs across USAspending, SEC EDGAR, the lobbying database and more, exporting records, reconciling company names, and formatting citations, you start with a cited answer built around your question.</p>
-      <span class="proof">How it reinforces this: every result links to the primary source, so your team verifies in minutes instead of assembling for days.</span>
-    </div>
-    <div class="value-card">
-      <span style="display:inline-block;font:700 10.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;color:var(--accent);border:1px solid var(--line);padding:4px 9px;border-radius:20px;margin-bottom:11px">TIME SAVED</span>
-      <h3>Experts review, they do not collect</h3>
-      <p>Your analysts, strategy leads and BD team spend their expensive hours challenging the evidence, not gathering public source material that anyone could pull.</p>
-      <span class="proof">How it reinforces this: source facts are separated from limits, so there is nothing to re-derive before the real judgment starts.</span>
-    </div>
-    <div class="value-card">
-      <span style="display:inline-block;font:700 10.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;color:#3fb6a2;border:1px solid var(--line);padding:4px 9px;border-radius:20px;margin-bottom:11px">MONEY SAVED</span>
-      <h3>No $10k to $50k data seat</h3>
-      <p>Incumbents charge five figures per seat per year for a single vertical. Tensorust is built on free public data, so you pay for a defined answer, not a license just to go look.</p>
-      <span class="proof">How it reinforces this: free public sources and no lock-in mean free live tools, or a cited brief from $149 instead of an annual subscription.</span>
-    </div>
-  </div>
-  <p class="h2note" style="margin-top:18px">Tensorust does not replace subject-matter judgment, systematic review, legal review, or clinical diligence. It removes the hours and the license cost of assembling the public-record starting point, and shows its work at every step.</p>
-</div></section>
-
-<section id="proof-examples"><div class="wrap">
-  <style>
-    .exrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:14px;margin-top:20px}
-    .excard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
-    .excard .eye{font:700 10.5px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
-    .excard .big{display:flex;align-items:baseline;gap:11px;margin:13px 0 5px;flex-wrap:wrap}
-    .excard .n1{font:800 30px/1 -apple-system,Segoe UI,sans-serif;color:var(--text);font-variant-numeric:tabular-nums}
-    .excard .arw{color:var(--dim);font-size:19px}
-    .excard .n2{font:800 30px/1 -apple-system,Segoe UI,sans-serif;color:var(--accent);font-variant-numeric:tabular-nums}
-    .excard .cap{font-size:11.5px;color:var(--dim);line-height:1.4}
-    .excard .save{margin:13px 0 7px;font:700 14.5px/1.3 -apple-system,Segoe UI,sans-serif;color:var(--accent2)}
-    .excard .why{font-size:12.5px;color:var(--muted);line-height:1.5}
-  </style>
-  <h2>What that looks like in one number</h2>
-  <div class="h2sub">Real examples from our collected public records. The data was already public - the time saving comes from joining the right records and knowing what the fields mean.</div>
+<section id="proof"><div class="wrap">
+  <h2>What a finding looks like</h2>
+  <div class="h2sub">One number you can act on, and the records that make it defensible.</div>
+  <p class="h2note">These come from live public records. The data was already public &mdash; the advantage comes from joining the right records and knowing what the fields actually mean.</p>
   <div class="exrow">
     <div class="excard">
-      <div class="eye">First-pass vulnerability review</div>
-      <div class="big"><span class="n1">94,000</span><span class="arw">&rarr;</span><span class="n2">1,647</span></div>
-      <div class="cap">reported vulnerabilities &rarr; the ones CISA lists as actively exploited</div>
-      <div class="save">A 98.2% smaller first-review queue.</div>
-      <div class="why">Severity tells you what could hurt; exploitation tells you what attackers already use. One field removes hours of triage. <a href="/under-oath?q=How%20many%20vulnerabilities%20does%20Microsoft%20have%3F">Try it &rarr;</a></div>
+      <div class="eye">Competitor claim audit</div>
+      <div class="big"><span class="n1">$266M</span><span class="arw">&rarr;</span><span class="n2">$22M</span></div>
+      <div class="cap">announced headline &rarr; dollars actually obligated, on the record</div>
+      <div class="save">A competitor's biggest number, checked in one lookup.</div>
+      <div class="why">The announced ceiling and the money actually obligated are different fields. We pull both and link the award. <a href="/under-oath?q=Did%20Rocket%20Lab%20actually%20receive%20%24266%20million%3F">Run it &rarr;</a></div>
     </div>
     <div class="excard">
-      <div class="eye">Contract claim check</div>
-      <div class="big"><span class="n1">$266M</span><span class="arw">&rarr;</span><span class="n2">$22M</span></div>
-      <div class="cap">announced headline &rarr; dollars actually paid out, on the record</div>
-      <div class="save">One lookup instead of an afternoon in USAspending.</div>
-      <div class="why">The announced ceiling and the money actually obligated are different fields. We pull both and link the award. <a href="/under-oath?q=Did%20Rocket%20Lab%20actually%20receive%20%24266%20million%3F">Try it &rarr;</a></div>
+      <div class="eye">Incumbent exposure</div>
+      <div class="big"><span class="n1">94,000</span><span class="arw">&rarr;</span><span class="n2">1,647</span></div>
+      <div class="cap">reported vulnerabilities &rarr; the ones CISA lists as actively exploited</div>
+      <div class="save">The exposure that is real, separated from the noise.</div>
+      <div class="why">Severity tells you what could hurt. Exploitation tells you what attackers already use. One field turns a wall of findings into a short list. <a href="/under-oath?q=How%20many%20vulnerabilities%20does%20Microsoft%20have%3F">Run it &rarr;</a></div>
     </div>
     <div class="excard">
       <div class="eye">Answer vs evidence</div>
       <div class="big"><span class="n1">$18.1M</span><span class="arw">&rarr;</span><span class="n2">122 filings</span></div>
-      <div class="cap">one AI-sized answer &rarr; the original federal records behind it</div>
+      <div class="cap">one usable answer &rarr; the original federal records behind it</div>
       <div class="save">Every amount itemized. Every filing linked.</div>
-      <div class="why">The total is useful. The source trail is what makes it trustworthy. <a href="/under-oath?q=How%20much%20did%20Amazon%20spend%20lobbying%20in%202023%3F">Open the receipt &rarr;</a></div>
+      <div class="why">The total moves the conversation. The source trail is what survives the pushback. <a href="/under-oath?q=How%20much%20did%20Amazon%20spend%20lobbying%20in%202023%3F">Open the receipt &rarr;</a></div>
     </div>
   </div>
 </div></section>
 
-<section id="use-cases"><div class="wrap">
-  <h2>Start with the decision you already have</h2>
-  <div class="h2sub">Choose a question. Tensorust assembles a cited public-record starting point around it, in place of the hours your team would spend finding and formatting the sources by hand.</div>
-  <div class="grid g3" style="margin-top:22px">
-    <div class="card usecase-card">
-      <span class="tag">Medical affairs</span><h3>Who is shaping this disease area?</h3>
-      <p class="question">Map visible researchers, institutions, and active subtopics before an external-science plan or a focused expert review.</p>
-      <a class="next" href="#try">Try a research-leader preview &rsaquo;</a>
-    </div>
-    <div class="card usecase-card">
-      <span class="tag">R&amp;D and strategy</span><h3>What is changing in this technology?</h3>
-      <p class="question">Use a landscape to locate current research activity, leading organizations, visible themes, and source records to inspect next.</p>
-      <a class="next" href="#examples">See a landscape example &rsaquo;</a>
-    </div>
-    <div class="card usecase-card">
-      <span class="tag">Business development</span><h3>Where should we look before outreach?</h3>
-      <p class="question">Build a cited picture of the science and public activity around a molecule, platform, competitor set, or therapeutic area.</p>
-      <a class="next" href="#mini-brief">Request a free starting brief &rsaquo;</a>
-    </div>
-    <div class="card usecase-card">
-      <span class="tag">Portfolio and diligence</span><h3>Does this topic justify deeper work?</h3>
-      <p class="question">Use a transparent public-source packet to decide whether a field, asset, or technical question is worth spending expert time on next.</p>
-      <a class="next" href="samples/tensorust-portfolio-diligence-geographic-atrophy.pdf" target="_blank">Open a diligence packet &rsaquo;</a>
-    </div>
-    <div class="card usecase-card">
-      <span class="tag">Any corporate claim</span><h3>Is a common claim actually supported?</h3>
-      <p class="question">Test a claim against the public record: contracts, filings, lobbying, grants, FDA and cyber. See what is supported, overstated, or missing context, with every figure linked.</p>
-      <a class="next" href="/under-oath">Put a claim under oath &rsaquo;</a>
-    </div>
-    <div class="card usecase-card">
-      <span class="tag">Competitive monitoring</span><h3>What should we keep watching?</h3>
-      <p class="question">Turn a topic into a repeatable source scope for ongoing landscapes, research-leader maps, or a monitored public-record pulse.</p>
-      <a class="next" href="#contact">Describe the monitoring question &rsaquo;</a>
-    </div>
+<section id="tools"><div class="wrap">
+  <h2>Free tools</h2>
+  <div class="h2sub">Check the work before you spend anything.</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:22px">
+    <a href="/under-oath" style="display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:16px;padding:24px;background:linear-gradient(135deg,rgba(240,128,60,.12),var(--panel) 60%);transition:border-color .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
+      <div style="font:600 12px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)">Tensorust Under Oath</div>
+      <div style="font-size:clamp(21px,3vw,27px);font-weight:800;letter-spacing:-.01em;margin:10px 0 8px">Put a competitor's claim under oath.</div>
+      <div style="color:var(--muted);font-size:14.5px">Paste a claim, a headline, or a contract announcement. We search federal contracts, filings, lobbying and grants, then return the evidence receipt.</div>
+      <div style="margin-top:12px;color:var(--accent2);font-weight:700;font-size:14px">Open the investigator &rarr;</div>
+    </a>
+    <a href="/public-money" style="display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:16px;padding:24px;background:linear-gradient(135deg,rgba(240,128,60,.07),var(--panel) 60%);transition:border-color .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
+      <div style="font:600 12px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)">Public Money Radar</div>
+      <div style="font-size:clamp(21px,3vw,27px);font-weight:800;letter-spacing:-.01em;margin:10px 0 8px">See what the incumbents spend to be heard.</div>
+      <div style="color:var(--muted);font-size:14.5px">Federal lobbying set against federal contract dollars, company by company. Useful for understanding who is shaping the rules in your category.</div>
+      <div style="margin-top:12px;color:var(--accent2);font-weight:700;font-size:14px">Open the radar &rarr;</div>
+    </a>
   </div>
 </div></section>
 
-<section id="decision-pages"><div class="wrap">
-  <h2>Decision pages</h2>
-  <div class="h2sub">Useful public research signals for decisions your team is already making. Each page is a first-pass literature scan already done and cited, saving the hours of assembling it.</div>
-  <p class="h2note">Each page is a source-linked starting point, not a claim of clinical,
-  commercial, or investment truth. Inspect the cited record before acting.</p>
-  <div class="grid g3">
-    <a class="card" href="/insights/glp-1-obesity-landscape"><span class="tag">Research landscape</span><h3>GLP-1 and obesity</h3><p>599 recent public records, active subtopics, linked papers, and a clear starting point for external-science review.</p></a>
-    <a class="card" href="/insights/alzheimers-landscape"><span class="tag">Research landscape</span><h3>Alzheimer's disease</h3><p>600 recent public records across amyloid, tau, biomarkers, and related research signals.</p></a>
-    <a class="card" href="/insights/car-t-cell-therapy-landscape"><span class="tag">Research landscape</span><h3>CAR-T cell therapy</h3><p>600 recent public records covering adoptive immunotherapy, CAR engineering, and tumor microenvironment work.</p></a>
+<section id="work"><div class="wrap">
+  <h2>See the work</h2>
+  <div class="h2sub">Real source-linked packets. Open any one and inspect the citations.</div>
+  <p class="h2note">These were not written as reports. Each is a prototype of an outsourced evidence department: the days of first-pass work a larger competitor's staff would have done internally, already assembled and cited.</p>
+  <div class="grid g4 examples-grid">
+    <div class="card example featured">
+      <div>
+        <span class="tag">Featured &mdash; Competitor Claim Audit</span>
+        <h3>Wind-Blade Recycling Evidence Audit</h3>
+        <p class="example-copy">Twenty common absolute claims in composites recycling, tested against cited Crossref and U.S. DOE records, with a transparent decision and stated limits for each claim. The kind of packet that ends an argument with a conservative buyer.</p>
+        <div class="example-meta"><span>20 claims</span><span>DOE + Crossref</span><span>Claim-by-claim</span></div>
+      </div>
+      <div class="foot"><a class="dl" href="samples/tensorust-engineering-counterfactual-wind.pdf" target="_blank">Open the evidence audit &rsaquo;</a></div>
+    </div>
+    <div class="card example">
+      <div>
+        <span class="tag">Advanced Materials</span>
+        <h3>Graphene / 2D Materials Landscape</h3>
+        <p class="example-copy">A cited snapshot of where the field is actually active, which institutions lead it, and which work merits deeper review before a technical bet.</p>
+        <div class="example-meta"><span>Topic trends</span><span>Leading institutions</span><span>Source linked</span></div>
+      </div>
+      <div class="foot"><a class="dl" href="samples/tensorust-graphene-2d-materials-research-landscape.pdf" target="_blank">Open the landscape &rsaquo;</a></div>
+    </div>
+    <div class="card example">
+      <div>
+        <span class="tag">Battery &amp; Energy</span>
+        <h3>Solid-State Battery Materials</h3>
+        <p class="example-copy">A cited public-record landscape for locating research momentum, visible institutions, technical themes, and the papers worth opening first.</p>
+        <div class="example-meta"><span>Research momentum</span><span>Institution scan</span><span>Cited papers</span></div>
+      </div>
+      <div class="foot"><a class="dl" href="samples/tensorust-battery-materials-research-landscape.pdf" target="_blank">Open the landscape &rsaquo;</a></div>
+    </div>
+    <div class="card example">
+      <div>
+        <span class="tag">Investor Diligence</span>
+        <h3>Geographic Atrophy Diligence Brief</h3>
+        <p class="example-copy">A four-page decision packet that turns a broad question into an auditable starting point: activity, leaders, institutions, topics, and direct source links.</p>
+        <div class="example-meta"><span>4 pages</span><span>Current records</span><span>Direct citations</span></div>
+      </div>
+      <div class="foot"><a class="dl" href="samples/tensorust-portfolio-diligence-geographic-atrophy.pdf" target="_blank">Open the diligence packet &rsaquo;</a></div>
+    </div>
+    <div class="card example">
+      <div>
+        <span class="tag">Investor Diligence</span>
+        <h3>CRISPR-Enabled CAR-T Cell Therapy</h3>
+        <p class="example-copy">A research-leadership and momentum packet for scoping an emerging platform area without treating publication volume as a commercial conclusion.</p>
+        <div class="example-meta"><span>600 records</span><span>4 pages</span><span>Source-limited</span></div>
+      </div>
+      <div class="foot"><a class="dl" href="samples/tensorust-caribou-crispr-cart.pdf" target="_blank">Open the diligence packet &rsaquo;</a></div>
+    </div>
+    <div class="card example">
+      <div>
+        <span class="tag">Life Sciences</span>
+        <h3>Allogeneic iPSC Cell Therapy</h3>
+        <p class="example-copy">A cited sample showing the research and institution signals a small team can use to frame deeper diligence on a platform bet.</p>
+        <div class="example-meta"><span>270 records</span><span>4 pages</span><span>Citations</span></div>
+      </div>
+      <div class="foot"><a class="dl" href="samples/tensorust-century-allogeneic-ipsc.pdf" target="_blank">Open the diligence packet &rsaquo;</a></div>
+    </div>
   </div>
-  <p class="h2note" style="margin-top:20px"><a href="/insights" style="color:var(--accent2);font-weight:700">Browse all decision pages &rsaquo;</a></p>
+  <p class="h2note" style="margin-top:22px">Each packet is a starting point for a defined competitive question, not a claim of exhaustive coverage or a substitute for your own domain judgment. We build these for any market, technology, competitor set, or region.</p>
 </div></section>
 
-<section id="try"><div class="wrap">
-  <h2>Try it live</h2>
-  <div class="h2sub">Enter a topic and get a research-leader preview in seconds, instead of an afternoon of PubMed searches and reconciling author names by hand.</div>
-  <p class="h2note">A live preview from recent PubMed: top research leaders,
-  institutions, and subtopics. The full brief adds citation weighting, name
-  disambiguation, cross-source signals, and a cited PDF.</p>
+<section id="pricing"><div class="wrap">
+  <h2>Pricing</h2>
+  <div class="h2sub">Project-based, priced against the analyst you cannot afford to hire.</div>
+  <p class="h2note">Every engagement starts with a free cited sample so you can check the evidence before you commit. Prices are starting points; the scope &mdash; depth, sources, competitor set, cadence &mdash; sets the quote.</p>
+
+  <div class="grid g3" style="margin-top:20px">
+    <div class="card price">
+      <span class="tag">Start here &mdash; free</span>
+      <h3>Evidence Sample</h3>
+      <div class="amt">$0</div>
+      <p>One decision, one page, fully cited. We do the first-pass public-record work for a live question your team is facing right now.</p>
+      <div class="foot"><a href="#sample">Request a sample &rsaquo;</a></div>
+    </div>
+    <div class="card price">
+      <h3>Competitor Claim Audit</h3>
+      <div class="amt">$299</div>
+      <p>One competitor, one set of public claims, tested against the record. Supported, overstated, or missing context &mdash; with every figure linked.</p>
+      <div class="foot"><a href="#contact">Start here &rsaquo;</a></div>
+    </div>
+    <div class="card price featured">
+      <span class="tag">Most popular</span>
+      <h3>Evidence Pack</h3>
+      <div class="amt">$1,500</div>
+      <p>A full scoped deliverable, about one to two weeks:</p>
+      <ul class="incl">
+        <li>Incumbent Weakness Map</li>
+        <li>Market Entry Evidence Pack</li>
+        <li>Contract Opportunity Map</li>
+        <li>Technical Credibility Pack</li>
+      </ul>
+      <div class="foot"><a href="#contact">Request a quote &rsaquo;</a></div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card price">
+      <h3>Investor Diligence Packet</h3>
+      <div class="amt">from $5,000</div>
+      <p>Multi-source diligence on a company or sector for a major decision. Custom scope, quoted to the work, built to hold up in an investment committee.</p>
+      <div class="foot"><a href="#contact">Talk to us &rsaquo;</a></div>
+    </div>
+    <div class="card price">
+      <span class="tag">Ongoing</span>
+      <h3>Monthly Competitive Evidence Monitor</h3>
+      <div class="amt">$600<span style="font-size:17px;font-weight:600;color:var(--muted)">/month</span></div>
+      <p>Continuous coverage of funding, standards, policy, contracts and competitor movement in your category. Includes the Regulatory Window Monitor. Available after a first engagement.</p>
+      <div class="foot"><a href="#contact">Set up monitoring &rsaquo;</a></div>
+    </div>
+  </div>
+
+  <div class="card costcompare" style="margin-top:18px">
+    <span class="tag">The headcount math</span>
+    <h3>Pay for the evidence, not the headcount.</h3>
+    <table>
+      <thead><tr><th>Option</th><th>Published hourly benchmark</th><th>Illustrative 5-hour allocation</th></tr></thead>
+      <tbody>
+        <tr><td>External research support (contract analyst)</td><td>$100 to $400 per hour</td><td>$500 to $2,000</td></tr>
+        <tr><td class="ours">Tensorust Competitor Claim Audit</td><td class="ours">Flat price</td><td class="ours">$299</td></tr>
+      </tbody>
+    </table>
+    <p class="costnote">The five-hour figure is a simple staffing illustration, not a consultant quote or a claim that every manual assignment takes five hours. NIH's life-sciences guide lists $100 to $200 per hour for foundational data collection and research support, and $200 to $400 for mid-level consultants. A separate medical-communications guide lists medical-strategy contractors at $130 to $160 per hour. These are life-sciences benchmarks; rates in other sectors vary by scope, seniority and geography. <a href="https://seed.nih.gov/sites/default/files/2024-12/Regulatory-and-Manufacturing-Consulting-for-Life-Sciences.pdf" target="_blank" rel="noopener">NIH SEED rate guide</a> &middot; <a href="https://hub.epmscientific.com/hubfs/EPM%20Scientific%202024/EPM-Scientific-Medical-Communications-Compensation-Guide.pdf" target="_blank" rel="noopener">EPM Scientific medical-communications guide</a></p>
+  </div>
+
+  <p class="h2note" style="margin-top:22px">Life-sciences teams can also buy a self-serve cited research-leader brief for <a href="https://mattitude8861.gumroad.com/l/abdmdo?wanted=true" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">$149</a>, delivered automatically. Need something else? Ask for a custom quote.</p>
+  <div class="cta"><a class="btn" href="#sample">Get a free evidence sample</a></div>
+</div></section>
+
+<section id="sample" class="contact"><div class="wrap">
+  <h2>Free evidence sample</h2>
+  <div class="h2sub">Give us one competitive question and we will do the first-pass work for it, free.</div>
+  <p class="lede">Tell us the fight you are in. We will send back a one-page cited packet built from primary records, so you can judge the evidence before you spend anything.</p>
+  <form id="mini-form" class="leadform">
+    <div><label for="mini-email">Work email</label><input id="mini-email" name="email" type="email" autocomplete="email" required placeholder="you@company.com"></div>
+    <div><label for="mini-topic">Your market, competitor, or question</label><input id="mini-topic" name="topic" maxlength="220" required placeholder="e.g. recycled carbon fiber vs virgin fiber in automotive"></div>
+    <div class="wide"><label for="mini-role">What are you trying to decide?</label><select id="mini-role" name="role"><option value="Win against a larger competitor">Win against a larger competitor</option><option value="Enter a new market">Enter a new market</option><option value="Find contract or funding opportunities">Find contract or funding opportunities</option><option value="Prove technical credibility to a buyer">Prove technical credibility to a buyer</option><option value="Diligence a company or sector">Diligence a company or sector</option><option value="Track regulation or standards">Track regulation or standards</option><option value="Other">Other</option></select></div>
+    <input id="mini-company" name="company" type="text" autocomplete="organization" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px" placeholder="Leave blank">
+    <button class="btn wide" type="submit">Send me the free evidence sample</button>
+    <p class="formnote">By requesting, you are asking Tensorust to reply about this topic. If the form relay is unavailable, your email app will open with the request filled in.</p>
+  </form>
+  <p id="mini-status" class="leadstatus" aria-live="polite"></p>
+</div></section>
+
+<section id="method"><div class="wrap">
+  <h2>Method &amp; trust</h2>
+  <div class="h2sub">Why you can put it in front of a buyer, a board, or an agency.</div>
+  <ul style="padding-left:18px">
+    <li style="color:var(--muted);margin:10px 0"><b style="color:var(--text)">Primary records only.</b> Federal contracts and awards, corporate filings, lobbying disclosures, grants, patents, regulatory and safety records, and the scholarly literature &mdash; with rights and provenance retained on every record.</li>
+    <li style="color:var(--muted);margin:10px 0"><b style="color:var(--text)">Traceable claims.</b> Every figure links to the record it came from, so the person you hand it to can verify instead of trust.</li>
+    <li style="color:var(--muted);margin:10px 0"><b style="color:var(--text)">Stated limits.</b> Coverage, sampling and entity-matching caveats are written into every deliverable. A finding we cannot support is reported as unsupported.</li>
+    <li style="color:var(--muted);margin:10px 0"><b style="color:var(--text)">No fabrication.</b> We never invent demand, contacts, competitors, or results.</li>
+    <li style="color:var(--muted);margin:10px 0"><b style="color:var(--text)">Judgment stays with you.</b> Tensorust does not replace domain expertise, legal review, or technical diligence. It removes the days spent assembling the evidence those judgments rest on.</li>
+  </ul>
+  <div class="srcline">
+    <span>Federal contracts</span><span>SEC filings</span><span>Lobbying disclosures</span><span>Federal grants</span><span>Patents</span><span>Standards &amp; rulemaking</span><span>Safety &amp; recalls</span><span>Vulnerability records</span><span>Scholarly literature</span>
+  </div>
+  <p class="h2note" style="margin-top:18px"><a href="/sources" style="color:var(--accent2);font-weight:700">Full sources &amp; provenance &rsaquo;</a></p>
+</div></section>
+
+<section id="lifesciences"><div class="wrap">
+  <h2>Life sciences</h2>
+  <div class="h2sub">Emerging biotech, medtech and pharma teams have a running start here.</div>
+  <p class="h2note">Tensorust already carries cited research-leader maps across 59 therapeutic areas and a live preview you can run right now. Enter a topic and get research leaders, institutions and active subtopics in seconds.</p>
   <div class="tryrow">
     <input id="q" class="tryin" autocomplete="off"
       placeholder="e.g. semaglutide obesity, CAR-T lymphoma, Parkinson disease" />
@@ -420,203 +626,19 @@
     <a data-q="CAR-T cell therapy lymphoma">CAR-T</a> &middot;
     <a data-q="solid state battery electrolyte">solid-state batteries</a></div>
   <div id="out" class="tryout"></div>
-</div></section>
-
-<section id="data"><div class="wrap">
-  <h2>Data we draw on</h2>
-  <div class="h2sub">A growing, governed lake of public data - the breadth you would otherwise license from several separate vendors.</div>
-  <p class="h2note">We continuously collect and normalize open, permitted data across
-  many domains, keeping source, rights, and provenance on every record. A sample of the
-  scale we work with:</p>
-  <div class="stats">
-    <div class="stat"><div class="n">150M+</div><div class="l">scholarly works (OpenAlex, Crossref)</div></div>
-    <div class="stat"><div class="n">37M+</div><div class="l">biomedical records (PubMed)</div></div>
-    <div class="stat"><div class="n">8M+</div><div class="l">patents (USPTO)</div></div>
-    <div class="stat"><div class="n">Millions</div><div class="l">federal awards, vulnerabilities, recalls</div></div>
+  <div class="grid g3" style="margin-top:26px">
+    <a class="card" href="/insights/glp-1-obesity-landscape"><span class="tag">Landscape</span><h3>GLP-1 and obesity</h3><p>599 recent public records, active subtopics, and linked papers.</p></a>
+    <a class="card" href="/insights/alzheimers-landscape"><span class="tag">Landscape</span><h3>Alzheimer's disease</h3><p>600 recent records across amyloid, tau, biomarkers and related work.</p></a>
+    <a class="card" href="/library"><span class="tag">Library</span><h3>59 therapeutic areas</h3><p>Cited research-leader maps, browsable by indication.</p></a>
   </div>
-  <p class="h2note" style="margin-top:20px">Sources include OpenAlex and Crossref
-  (scholarly), PubMed (biomedical), USPTO (patents), USAspending and SEC EDGAR
-  (federal &amp; company), CISA and NVD (vulnerabilities), openFDA and others (safety
-  and recalls), and public economic statistics. If a public-data trail exists, we can
-  build on it.</p>
-</div></section>
-
-<section id="examples"><div class="wrap">
-  <h2>See the work, not just the promise</h2>
-  <div class="h2sub">Real source-linked packets built from public records. Each is the days of first-pass analyst work you do not have to do, already assembled and cited. Open any PDF and inspect the citations.</div>
-  <div class="grid g4 examples-grid">
-    <div class="card example featured">
-      <div>
-        <span class="tag">Featured - Portfolio Diligence</span>
-        <h3>Geographic Atrophy Diligence Brief</h3>
-        <p class="example-copy">A four-page decision packet that turns a broad research question into an auditable starting point: activity, research leaders, institutions, topics, and direct PubMed links.</p>
-        <div class="example-meta"><span>4 pages</span><span>Current PubMed</span><span>Direct PMID links</span></div>
-      </div>
-      <div class="foot"><a class="dl" href="samples/tensorust-portfolio-diligence-geographic-atrophy.pdf" target="_blank">Open the full cited brief &rsaquo;</a></div>
-    </div>
-    <div class="card example">
-      <div>
-        <span class="tag">Pharma / KOL</span>
-        <h3>GLP-1 / Obesity Research-Leader Map</h3>
-        <p class="example-copy">A ready-to-review view of the public researchers, institutions, and recurring topics behind a major therapeutic area.</p>
-        <div class="example-meta"><span>Recent records</span><span>Leader shortlist</span><span>Limits stated</span></div>
-      </div>
-      <div class="foot"><a class="dl" href="samples/sample-kol-glp-1-obesity.pdf" target="_blank">Open the cited map &rsaquo;</a></div>
-    </div>
-    <div class="card example">
-      <div>
-        <span class="tag">Pharma / KOL</span>
-        <h3>Alzheimer's Disease Research-Leader Map</h3>
-        <p class="example-copy">A source-linked discovery layer for medical affairs, strategy, and BD teams scoping a large and fast-moving disease area.</p>
-        <div class="example-meta"><span>Recent records</span><span>Institution view</span><span>PMID audit trail</span></div>
-      </div>
-      <div class="foot"><a class="dl" href="samples/sample-kol-alzheimers-disease.pdf" target="_blank">Open the cited map &rsaquo;</a></div>
-    </div>
-    <div class="card example">
-      <div>
-        <span class="tag">Battery &amp; Energy</span>
-        <h3>Solid-State Battery Materials</h3>
-        <p class="example-copy">A cited public-record landscape for quickly locating research momentum, visible institutions, technical themes, and papers worth opening first.</p>
-        <div class="example-meta"><span>Research momentum</span><span>Institution scan</span><span>Cited papers</span></div>
-      </div>
-      <div class="foot"><a class="dl" href="samples/tensorust-battery-materials-research-landscape.pdf" target="_blank">Open the landscape &rsaquo;</a></div>
-    </div>
-    <div class="card example">
-      <div>
-        <span class="tag">Advanced Materials</span>
-        <h3>Graphene / 2D Materials</h3>
-        <p class="example-copy">A cited snapshot of the research landscape for teams judging where the field is active and which work merits deeper review.</p>
-        <div class="example-meta"><span>Topic trends</span><span>Leading institutions</span><span>Source linked</span></div>
-      </div>
-      <div class="foot"><a class="dl" href="samples/tensorust-graphene-2d-materials-research-landscape.pdf" target="_blank">Open the landscape &rsaquo;</a></div>
-    </div>
-    <div class="card example">
-      <div>
-        <span class="tag">Portfolio Diligence</span>
-        <h3>CRISPR-Enabled CAR-T Cell Therapy</h3>
-        <p class="example-copy">A polished research-leadership and momentum packet for scoping an emerging platform area without treating publication volume as a commercial conclusion.</p>
-        <div class="example-meta"><span>600 records</span><span>4 pages</span><span>Source-limited</span></div>
-      </div>
-      <div class="foot"><a class="dl" href="samples/tensorust-caribou-crispr-cart.pdf" target="_blank">Open the diligence packet &rsaquo;</a></div>
-    </div>
-    <div class="card example">
-      <div>
-        <span class="tag">Cell Therapy</span>
-        <h3>Allogeneic iPSC Cell Therapy</h3>
-        <p class="example-copy">A cited, visually checked sample that shows the research and institution signals a team can use to frame deeper diligence.</p>
-        <div class="example-meta"><span>270 records</span><span>4 pages</span><span>PMID citations</span></div>
-      </div>
-      <div class="foot"><a class="dl" href="samples/tensorust-century-allogeneic-ipsc.pdf" target="_blank">Open the diligence packet &rsaquo;</a></div>
-    </div>
-    <div class="card example">
-      <div>
-        <span class="tag">Counterfactual Evidence</span>
-        <h3>Wind-Blade Recycling Evidence Audit</h3>
-        <p class="example-copy">Twenty common absolute claims tested against cited Crossref and U.S. DOE records, with a transparent decision and limits for each claim.</p>
-        <div class="example-meta"><span>20 claims</span><span>DOE + Crossref</span><span>Claim-by-claim</span></div>
-      </div>
-      <div class="foot"><a class="dl" href="samples/tensorust-engineering-counterfactual-wind.pdf" target="_blank">Open the evidence audit &rsaquo;</a></div>
-    </div>
-  </div>
-  <p class="h2note" style="margin-top:22px">Each packet is a starting point for a defined decision question, not a claim of exhaustive coverage or a substitute for domain review. We build briefs and
-  maps for any indication, molecule, technology, competitor set, or region. Browse cited research-leader maps across 59 therapeutic areas in the
-  <a href="/library" style="color:var(--accent);font-weight:700">research-leader library</a>.</p>
-</div></section>
-
-<section id="pricing"><div class="wrap">
-  <h2>Pricing</h2>
-  <div class="h2sub">Clear and project-based, priced against the analyst hours and the five-figure data seat it replaces. Start with a free sample.</div>
-  <p class="h2note">Every engagement starts with a free cited sample so you can check
-  the data before you commit. Prices below are starting points; final scope (depth,
-  sources, competitor set, cadence) sets the quote.</p>
-  <div class="card price featured" style="margin-top:20px">
-    <span class="tag">Self-serve, delivered automatically</span>
-    <h3>Instant Brief</h3>
-    <div class="amt">$149</div>
-    <p>Save the manual work of collecting, ranking, and checking the public research
-    record. Enter your topic at checkout and get a full cited KOL / research-leader
-    brief (PDF) emailed to you automatically. No call required.</p>
-    <div class="foot"><a id="buy" href="https://mattitude8861.gumroad.com/l/abdmdo?wanted=true" target="_blank" rel="noopener">Get an instant brief &rsaquo;</a></div>
-  </div>
-  <div class="card costcompare">
-    <span class="tag">Cost comparison</span>
-    <h3>Pay for the brief, not the manual research time.</h3>
-    <table>
-      <thead><tr><th>Option</th><th>Published hourly benchmark</th><th>Illustrative 5-hour allocation</th></tr></thead>
-      <tbody>
-        <tr><td>External life-sciences research support</td><td>$100 to $400 per hour</td><td>$500 to $2,000</td></tr>
-        <tr><td class="ours">Tensorust Instant Brief</td><td class="ours">Flat price</td><td class="ours">$149</td></tr>
-      </tbody>
-    </table>
-    <p class="costnote">The five-hour figure is a simple staffing illustration, not a consultant quote or a claim that every manual assignment takes five hours. NIH's life-sciences guide lists $100 to $200 per hour for foundational data collection and research support, and $200 to $400 for mid-level consultants. A separate medical-communications guide lists medical-strategy contractors at $130 to $160 per hour. Actual scope, seniority, and geography vary. <a href="https://seed.nih.gov/sites/default/files/2024-12/Regulatory-and-Manufacturing-Consulting-for-Life-Sciences.pdf" target="_blank" rel="noopener">NIH SEED rate guide</a> · <a href="https://hub.epmscientific.com/hubfs/EPM%20Scientific%202024/EPM-Scientific-Medical-Communications-Compensation-Guide.pdf" target="_blank" rel="noopener">EPM Scientific medical-communications guide</a></p>
-  </div>
-  <div class="grid g3" style="margin-top:18px">
-    <div class="card price">
-      <h3>Focused Brief</h3>
-      <div class="amt">$299</div>
-      <p>One topic, indication, or competitor. A cited landscape or KOL snapshot,
-      delivered in a few days.</p>
-      <div class="foot"><a href="#contact">Start here &rsaquo;</a></div>
-    </div>
-    <div class="card price featured">
-      <span class="tag">Most popular</span>
-      <h3>Custom Brief</h3>
-      <div class="amt">$1,500</div>
-      <p>Scoped to your exact area and competitor set. Deeper analysis, citation
-      weighting, and your-vs-peer positioning. About one to two weeks.</p>
-      <div class="foot"><a href="#contact">Request a quote &rsaquo;</a></div>
-    </div>
-    <div class="card price">
-      <h3>Deep Engagement</h3>
-      <div class="amt">from $5,000</div>
-      <p>Multi-source competitive or KOL intelligence, custom scope, for a major
-      decision. Quoted to the work.</p>
-      <div class="foot"><a href="#contact">Talk to us &rsaquo;</a></div>
-    </div>
-  </div>
-  <p class="h2note" style="margin-top:22px">Ongoing monitoring is available from
-  $600/month after a first engagement. Need something else? Ask for a custom quote.</p>
-  <div class="cta"><a class="btn" href="#contact">Get a free sample and a quote</a></div>
-</div></section>
-
-<section id="mini-brief" class="contact"><div class="wrap">
-  <h2>Free cited mini-brief</h2>
-  <div class="h2sub">Give us one decision and we will do the first-pass public-record work for it, free. It costs you an email and saves your team the hours of assembling the starting point.</div>
-  <p class="lede">Request a one-page public-data snapshot for the topic your team is
-  evaluating. No automatic billing, no promise of a commercial conclusion, and every
-  included source is inspectable.</p>
-  <form id="mini-form" class="leadform">
-    <div><label for="mini-email">Work email</label><input id="mini-email" name="email" type="email" autocomplete="email" required placeholder="you@company.com"></div>
-    <div><label for="mini-topic">Topic or decision</label><input id="mini-topic" name="topic" maxlength="220" required placeholder="e.g. antibody-drug conjugates in NSCLC"></div>
-    <div class="wide"><label for="mini-role">What are you trying to decide?</label><select id="mini-role" name="role"><option value="Research or R&D">Research or R&D</option><option value="Business development or partnering">Business development or partnering</option><option value="Strategy or competitive intelligence">Strategy or competitive intelligence</option><option value="Medical affairs">Medical affairs</option><option value="Other">Other</option></select></div>
-    <input id="mini-company" name="company" type="text" autocomplete="organization" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px" placeholder="Leave blank">
-    <button class="btn wide" type="submit">Request the free 1-page brief</button>
-    <p class="formnote">By requesting, you are asking Tensorust to reply about this topic. If the form relay is unavailable, your email app will open with the request filled in.</p>
-  </form>
-  <p id="mini-status" class="leadstatus" aria-live="polite"></p>
-</div></section>
-
-<section id="method"><div class="wrap">
-  <h2>Method &amp; trust</h2>
-  <div class="h2sub">Why you can act on it, and verify it in minutes instead of re-checking the work from scratch.</div>
-  <ul class="method">
-    <li><b>Public, permitted data.</b> OpenAlex (CC0), PubMed, USPTO, USAspending, and
-      other open sources, with rights and provenance retained on every record.</li>
-    <li><b>Traceable claims.</b> Every figure links to its source, so your team verifies
-      instead of trusting.</li>
-    <li><b>Stated limits.</b> Sampling, disambiguation, and coverage caveats are written
-      into each brief. No overclaiming.</li>
-    <li><b>No fabrication.</b> We never invent demand, contacts, competitors, or
-      results.</li>
-  </ul>
 </div></section>
 
 <section id="founder"><div class="wrap">
   <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);border-radius:16px;padding:22px 24px;background:var(--panel)">
-    <img src="/founder.jpg" alt="Matthew Busel, founder of Tensorust" width="66" height="66" style="width:66px;height:66px;border-radius:50%;object-fit:cover;flex:0 0 auto;border:1px solid var(--line2,#333c52)">
+    <img src="/founder.jpg" alt="Matthew Busel, founder of Tensorust" width="66" height="66" style="width:66px;height:66px;border-radius:50%;object-fit:cover;flex:0 0 auto;border:1px solid var(--line2)">
     <div style="flex:1;min-width:240px">
       <div style="font-weight:700;font-size:17px">Built by Matthew Busel</div>
-      <div style="color:var(--muted);font-size:14px;margin-top:5px;max-width:60ch">Founder and engineer. I built the data engine and every tool on this site, in public. A real person stands behind it, reachable by email, and every number here traces to a government source you can open yourself.</div>
+      <div style="color:var(--muted);font-size:14px;margin-top:5px;max-width:60ch">Founder and engineer. I built the evidence engine and every tool on this site, in public. When you hire Tensorust you are not buying a seat in a platform &mdash; you are getting a real person who will go find the record, and every number traces to a source you can open yourself.</div>
     </div>
     <a href="https://www.linkedin.com/company/tensorust" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:11px 18px;font-weight:600;font-size:14px;white-space:nowrap"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>Connect on LinkedIn</a>
   </div>
@@ -624,28 +646,27 @@
 
 <section id="contact" class="contact"><div class="wrap">
   <h2>Contact</h2>
-  <div class="h2sub">Tell us the decision you are trying to make. We will send back a cited sample and scope what assembling it by hand would cost your team in hours.</div>
-  <p class="lede">Send the topic, indication, or competitor set you care about and we
-  will send back a short cited sample so you can check the data before anything else.</p>
+  <div class="h2sub">Tell us who you are competing against.</div>
+  <p class="lede">Send the market, the competitor, or the decision in front of you. We will send back a short cited sample and scope what your team would spend in hours to assemble it by hand.</p>
   <div class="cta" style="justify-content:center">
-    <a class="btn" href="mailto:mattbusel@gmail.com?subject=Tensorust%20intelligence%20inquiry&body=Hi%20Tensorust%2C%0A%0AThe%20area%20I%20care%20about%3A%20%0AThe%20decision%20I%20am%20trying%20to%20make%3A%20%0A%0A">Email us</a>
+    <a class="btn" href="mailto:mattbusel@gmail.com?subject=Tensorust%20-%20competitive%20evidence%20inquiry&body=Hi%20Tensorust%2C%0A%0AWhat%20we%20make%3A%20%0AWho%20we%20are%20competing%20against%3A%20%0AThe%20decision%20in%20front%20of%20us%3A%20%0A%0A">Email us</a>
   </div>
   <p class="emaildirect">Or write directly:
     <a href="mailto:mattbusel@gmail.com">mattbusel@gmail.com</a></p>
 </div></section>
 
 <section id="data-ethics" style="padding:0;border-top:1px solid var(--line)"><div class="wrap" style="padding:16px 20px;text-align:center">
-  <p style="color:var(--muted);font-size:13px;margin:0 auto;max-width:72ch"><span style="color:var(--accent);font-weight:700">Your data stays yours.</span> Tensorust reads only public government and scholarly records. We store no private data, and nothing you type into a tool is sold, shared, or used to train anything.</p>
+  <p style="color:var(--muted);font-size:13px;margin:0 auto;max-width:72ch"><span style="color:var(--accent);font-weight:700">Your data stays yours.</span> Tensorust reads only public government, corporate and scholarly records. We store no private data, and nothing you tell us about your market is sold, shared, or used to train anything.</p>
 </div></section>
 
 <footer><div class="wrap">
-  <div>&copy; 2026 Tensorust. Intelligence from public data.</div>
-  <div class="muted">Cited &middot; Verifiable &middot; Honest. All figures traceable to public sources.</div>
+  <div>&copy; 2026 Tensorust. Compete above your headcount.</div>
+  <div class="muted">Cited &middot; Verifiable &middot; Honest. Every finding traceable to its original record.</div>
   <div style="margin-top:10px;font-size:13px"><a href="/sources" style="color:var(--accent2)">Sources &amp; provenance</a></div>
   <div style="margin-top:12px"><a href="https://www.linkedin.com/company/tensorust" target="_blank" rel="noopener" aria-label="Tensorust on LinkedIn" style="display:inline-flex;align-items:center;gap:7px;color:var(--accent2);font-weight:600;font-size:14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>Follow Tensorust on LinkedIn</a></div>
 </div></footer>
 
-<!-- Try-it-live widget -->
+<!-- Live life-sciences preview widget -->
 <script>
 (function(){
   var out=document.getElementById("out"),qi=document.getElementById("q"),go=document.getElementById("go");
@@ -669,11 +690,11 @@
       if(d.subtopics&&d.subtopics.length)h+='<div><h3 style="margin:0 0 8px">Active subtopics</h3><p class="trynote" style="margin:0">'+d.subtopics.map(function(x){return esc(x.name)+" ("+x.n+")";}).join(", ")+'</p></div>';
       h+='</div>';
       h+='<div class="sharebar"><span>Keep this exact public-data preview handy or share it with a teammate.</span><button type="button" data-share-preview>Copy preview link</button></div>';
-      h+='<p class="trynote" style="margin-top:16px">Live preview only (top authors by recent volume; names not yet disambiguated). The full brief adds citation weighting, disambiguation, cross-source signals, and a cited PDF. <a href="#mini-brief" style="color:var(--accent);font-weight:700">Request a free 1-page brief for this topic &rsaquo;</a></p>';
+      h+='<p class="trynote" style="margin-top:16px">Live preview only (top authors by recent volume; names not yet disambiguated). A full packet adds citation weighting, disambiguation, cross-source signals, and a cited PDF. <a href="#sample" style="color:var(--accent);font-weight:700">Request a free evidence sample for this topic &rsaquo;</a></p>';
       out.innerHTML=h;
       var share=out.querySelector('[data-share-preview]');
       if(share)share.addEventListener('click',function(){
-        var url=window.location.origin+'/?topic='+encodeURIComponent(d.q)+'#try';
+        var url=window.location.origin+'/?topic='+encodeURIComponent(d.q)+'#lifesciences';
         var done=function(){share.textContent='Preview link copied';window.setTimeout(function(){share.textContent='Copy preview link';},2200);};
         if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(done).catch(function(){window.prompt('Copy this preview link:',url);});}
         else{window.prompt('Copy this preview link:',url);}
@@ -689,14 +710,14 @@
 })();
 </script>
 
-<!-- Free mini-brief request: posts to a configured relay, with a direct-email fallback. -->
+<!-- Free evidence sample request: posts to a configured relay, with a direct-email fallback. -->
 <script>
 (function(){
   var form=document.getElementById('mini-form'),status=document.getElementById('mini-status');
   if(!form||!status)return;
   function mailto(values){
-    var subject='Tensorust free 1-page brief request';
-    var body='Hi Tensorust,\n\nPlease send a free cited one-page brief.\n\nWork email: '+values.email+'\nTopic or decision: '+values.topic+'\nTeam role: '+values.role+'\n\n';
+    var subject='Tensorust free evidence sample request';
+    var body='Hi Tensorust,\n\nPlease send a free cited evidence sample.\n\nWork email: '+values.email+'\nMarket, competitor or question: '+values.topic+'\nWhat we are trying to decide: '+values.role+'\n\n';
     window.location.href='mailto:mattbusel@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
   }
   form.addEventListener('submit',function(event){
@@ -704,7 +725,7 @@
     var values={email:form.email.value.trim(),topic:form.topic.value.trim(),role:form.role.value,company:form.company.value.trim()};
     if(!values.email||!values.topic)return;
     status.textContent='Sending your request...';
-    if(window.va)window.va('event',{name:'mini_brief_request',data:{role:values.role}});
+    if(window.va)window.va('event',{name:'evidence_sample_request',data:{role:values.role}});
     fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(values)})
       .then(function(response){return response.json().then(function(data){return {ok:response.ok,data:data};});})
       .then(function(result){
@@ -714,7 +735,6 @@
   });
 })();
 </script>
-
 
 <!-- Vercel Web Analytics (pageviews are free on Hobby; custom events need Pro) -->
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
