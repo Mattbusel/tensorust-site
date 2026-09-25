@@ -1,9 +1,12 @@
 # Tensorust site
 
-Static site (no build step) for Tensorust: **Compete above your headcount.** Tensorust
-gives challenger companies the evidence capacity of an enterprise research team.
+Static site (no build step) plus four Vercel serverless functions for Tensorust:
+**Compete above your headcount.** Tensorust gives challenger companies the evidence
+capacity of an enterprise research team.
 
-Positioning, target segments and outreach material live in [`GTM.md`](GTM.md) — that file
+**Live:** https://tensorust-site.vercel.app
+
+Positioning, target segments and outreach material live in [`GTM.md`](GTM.md). That file
 is internal and must not be published to the site.
 
 ## Structure
@@ -11,14 +14,14 @@ is internal and must not be published to the site.
 | Path | What it is |
 |---|---|
 | `index.html` | Landing page. Self-contained: inline CSS, three vanilla JS blocks, no dependencies |
-| `under-oath/` | Under Oath — live public-record claim investigator (calls `/api/oath`) |
-| `public-money/` | Public Money Radar — lobbying vs federal contracts (reads `public-money/data.json`) |
+| `under-oath/` | Under Oath: live public-record claim investigator (calls `/api/oath`) |
+| `public-money/` | Public Money Radar: lobbying vs federal contracts (reads `public-money/data.json`) |
 | `sources/` | Sources & provenance: every dataset, its license, and how it is accessed |
 | `library.html`, `kol/` | Research-leader maps across 59 therapeutic areas (life sciences / SEO surface) |
 | `insights.html`, `insights/` | Research landscape decision pages |
 | `samples/` | Downloadable cited example packets (PDF) |
 | `api/` | Vercel serverless functions, CommonJS |
-| `lib.css` | Shared stylesheet — used only by `library.html`, `insights*`, `kol/*` |
+| `lib.css` | Shared stylesheet: used only by `library.html`, `insights*`, `kol/*` |
 | `vercel.json` | Clean URLs + caching for sample PDFs |
 
 `index.html`, `under-oath/`, `public-money/` and `sources/` each carry their own inline
@@ -45,7 +48,7 @@ Other pages deep-link to `/#build`, `/#pricing`, `/#contact`, `/#sample` and
 
 ### Environment variables
 
-- `LEAD_WEBHOOK_URL` — optional. Where `/api/lead` forwards a validated request. If unset,
+- `LEAD_WEBHOOK_URL`: optional. Where `/api/lead` forwards a validated request. If unset,
   the form degrades to `mailto:` rather than pretending the lead was captured.
 
 ## Preview locally
@@ -59,13 +62,14 @@ serverless functions.
 
 ## Deploy
 
+The repo is connected to a Vercel project: every push to `master` deploys to production
+at https://tensorust-site.vercel.app. To deploy by hand instead:
+
 ```
 npm i -g vercel
 vercel            # first run links/creates the project
 vercel --prod     # deploy to production
 ```
-
-Nothing here deploys automatically. Deploy is a manual call from the owner's Vercel account.
 
 ## Adding content
 
@@ -73,5 +77,5 @@ Nothing here deploys automatically. Deploy is a manual call from the owner's Ver
   `index.html`.
 - **New KOL page:** add the HTML to `kol/`, link it from `library.html`, add a `<loc>` to
   `sitemap.xml`.
-- **Copy changes:** edit `index.html` directly. Check `GTM.md` first — the phrases listed
+- **Copy changes:** edit `index.html` directly. Check `GTM.md` first: the phrases listed
   under "Do not lead with" are deliberately kept off the site.
